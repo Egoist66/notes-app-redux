@@ -138,6 +138,10 @@ export const GlobalStyle = createGlobalStyle`
    #frames {
     display: block !important; 
    }
+   
+   .frames-view {
+     margin-top: 70px !important;
+   }
  }
 `
 

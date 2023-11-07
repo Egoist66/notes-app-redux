@@ -18,7 +18,7 @@ const FramesItems = styled.iframe`
   border: none;
   border-radius: 10px;
   display: block;
-  
+
 
 `
 
@@ -51,21 +51,19 @@ export const FramesView: FC<FramesViewProps> = memo(({url, id}) => {
     const watchFullScreen = () => {
 
 
-        if(document.fullscreenElement === selector){
+        if (document.fullscreenElement === selector) {
             console.log('full')
             setFullScreen(true)
-        }
-        else {
+        } else {
             console.log('not full')
             setFullScreen(false)
         }
     }
 
 
-
     useEffect(() => {
 
-       selector?.addEventListener('fullscreenchange', watchFullScreen)
+        selector?.addEventListener('fullscreenchange', watchFullScreen)
 
 
         return () => {
@@ -75,14 +73,20 @@ export const FramesView: FC<FramesViewProps> = memo(({url, id}) => {
     }, [selector])
 
     return (
-        <StyledFramesView data-fullscreen={isFullScreened}  className={'frames-view'}>
+        <>
+            <StyledFramesView data-fullscreen={isFullScreened} className={'frames-view'}>
 
-            <FramesItems data-fullscreen={isFullScreened} id={`frame-${id}`} allowFullScreen src={url} />
-            <div style={{marginTop: 20, display: 'flex', gap: 10}}>
-                <Button style={{width: '100%'}} danger onClick={OnRemoveFrame}>Удалить фрейм</Button>
-                <Button style={{width: '100%'}}  onClick={requestFrameFullScreen}>Во весь экран</Button>
-            </div>
+                <FramesItems data-fullscreen={isFullScreened} id={`frame-${id}`} allowFullScreen src={url}/>
 
-        </StyledFramesView>
+
+                <div style={{marginTop: 20, display: 'flex', gap: 10}}>
+                    <Button style={{width: '100%'}} danger onClick={OnRemoveFrame}>Удалить фрейм</Button>
+                    <Button style={{width: '100%'}} onClick={requestFrameFullScreen}>Во весь экран</Button>
+                </div>
+            </StyledFramesView>
+
+
+
+        </>
     )
 })

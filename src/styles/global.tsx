@@ -95,9 +95,15 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-  :where(.css-dev-only-do-not-override-2i2tap).ant-layout.ant-layout-has-sider {
+  //:where(.css-dev-only-do-not-override-2i2tap).ant-layout.ant-layout-has-sider {
+  //  min-height: 100vh !important;
+  //}
+  
+  .css-2i2tap {
     min-height: 100vh !important;
+    background: white !important;
   }
+  
   
   .swal2-input:focus {
     border: 1px solid #1677FF !important;

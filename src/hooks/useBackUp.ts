@@ -24,20 +24,15 @@ export const useBackUp = () => {
 
             })
 
-           const timer = setTimeout(() => {
-                link.click();
-                clearTimeout(timer)
-            }, 1000)
-        }
-        catch (e) {
+
+            link.click();
+        } catch (e) {
             _message.open({
                 type: 'error',
                 content: 'Ошибка создания копии!',
 
             })
         }
-
-
 
 
         URL.revokeObjectURL(link.href);
@@ -125,9 +120,9 @@ export const useBackUp = () => {
     const eraseAll = (callbacks: Array<() => any>) => {
         localStorage.clear()
 
-            callbacks.forEach(c => {
-                c()
-            })
+        callbacks.forEach(c => {
+            c()
+        })
 
     }
     const {loading, error, message} = state

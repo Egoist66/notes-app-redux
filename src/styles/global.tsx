@@ -134,7 +134,7 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
   
- @media (max-width: 650px) {
+ @media (max-width: 1220px) {
    #frames {
     display: block !important; 
    }

@@ -99,7 +99,7 @@ export const GlobalStyle = createGlobalStyle`
   //  min-height: 100vh !important;
   //}
   
-  .css-2i2tap {
+  .ant-layout-sider + div {
     min-height: 100vh !important;
     background: white !important;
   }

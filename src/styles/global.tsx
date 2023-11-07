@@ -133,5 +133,11 @@ export const GlobalStyle = createGlobalStyle`
   .delete {
     cursor: pointer;
   }
+  
+ @media (max-width: 650px) {
+   #frames {
+    display: block !important; 
+   }
+ }
 `
 

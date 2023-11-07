@@ -113,7 +113,7 @@ export const AppLayout: React.FC = () => {
                             minHeight: 300,
                             background: "white",
                             backgroundImage: `url(${appBackgroundImage})`,
-                            backgroundSize: 690,
+                            backgroundSize: 'auto',
                             backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat'
 

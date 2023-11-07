@@ -59,7 +59,7 @@ export const Search: FC = () => {
             gap: 20
         }}>
 
-            <span id={'searh-label'}><b>CTRL + K</b></span>
+            <span id={'search-label'}><b>CTRL + K</b></span>
             <StyledSearchIcon id={'search-img'} draggable={false} onClick={initSearch} src={searchIcon}/>
 
             <Modal

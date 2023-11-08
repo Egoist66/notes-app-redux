@@ -413,6 +413,15 @@ export const useAppGuide = () => {
                     }
                 },
                 {
+                    element: '#print',
+                    popover: {
+                        title: 'Элемент печати  <br> текста заметок',
+                        description: 'Данная функция позволит вам при неебходимости иметь печатный вариант ваших заметок',
+                        side: "left",
+                        align: 'start'
+                    }
+                },
+                {
                     element: '#task-watcher',
                     popover: {
                         title: 'Элемент ограничения кол-ва выполняемых задач ',

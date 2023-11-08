@@ -114,8 +114,9 @@ export const AppLayout: React.FC = () => {
                             backgroundColor: "#f8f8ffb3",
                             borderRadius: 5,
                             backgroundImage: `url(${appBackgroundImage})`,
-                            backgroundSize: 'auto',
+                            backgroundSize: 'cover',
                             backgroundPosition: 'center',
+                            backgroundAttachment: 'fixed',
                             backgroundRepeat: 'no-repeat'
 
                         }}

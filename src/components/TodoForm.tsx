@@ -80,6 +80,14 @@ export const TodoForm: React.FC = memo(() => {
                     onClick={initVoiceInput}
                 >{recognitionMode ? 'Идет запись...' : 'Голосовой ввод'}</Button> : null}
 
+                <Button
+                    id={'print'}
+                    type="primary"
+                    size={'large'}
+                    onClick={() => window.print()}
+                >Распечатать
+
+                </Button>
 
             </Flex>
 

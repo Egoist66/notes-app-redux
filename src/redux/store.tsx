@@ -12,18 +12,21 @@ const store = configureStore({
         todos: TodosReducer,
         todoPalleteOptions: TodosPalleteReducer,
         todoFrames: TodosFrameReducer
+    },
 
-
-    }
 })
+
+
 export const StateProvider = ({children}: ChildrenProps) => {
     return (
         <Provider store={store}>
             {children}
         </Provider>
+
     )
 }
 
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+

@@ -162,6 +162,10 @@ export const GlobalStyle = createGlobalStyle`
       padding-top: 40px;
     }
     
+    #color-scheme {
+      font-size: 9px !important;
+    }
+    
   }
   
   @media(prefers-color-scheme: dark){

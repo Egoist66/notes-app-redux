@@ -36,7 +36,7 @@ export const NavBar: FC<NavBarProps> = ({changeTheme, collapsed, setCollapsed, t
 
 
                 <div style={{paddingRight: 20}}>
-                    <p style={{color: 'white'}}>Системная тема: <span style={{
+                    <p id={'color-scheme'} style={{color: 'white'}}>Системная тема: <span style={{
                         textTransform: 'capitalize',
                         color: '#1677FF',
                         fontWeight: 'bold'

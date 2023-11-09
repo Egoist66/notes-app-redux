@@ -187,6 +187,17 @@ const items: CollapseProps['items'] = [
 
             </ol>
     },
+    {
+        key: '15',
+        label: 'V-2.0.1 11.09.2023:',
+        children:
+            <ol>
+                <li>Добавлена системная тема приложения</li>
+
+
+
+            </ol>
+    },
 ];
 
 

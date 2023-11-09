@@ -163,5 +163,84 @@ export const GlobalStyle = createGlobalStyle`
     }
     
   }
+  
+  @media(prefers-color-scheme: dark){
+    .main-content {
+      background-color: #001529 !important;
+    }
+    
+    .main-content li, p, ul{
+      color: white !important;
+    }
+    .ant-typography {
+      color: white;
+    }
+    
+    .ant-typography {
+      color: white !important;
+    }
+    .ant-typography .ant-typography-danger {
+      color: #ff4d4f !important;
+    }
+    #descr {
+      color: #001529 !important;
+    }
+    
+    #descr ~ p {
+      color: red !important;
+    }
+    .ant-modal-content .ant-modal-close {
+      background-color: #F0F0F0 !important;
+    }
+    
+    .ant-modal-content button:disabled span {
+      color: #001529 !important;
+    }
+    .ant-modal-footer button:nth-child(1) span {
+      color: #001529;
+    }
+    
+    .ant-btn span {
+      color: white;
+    }
+    
+    .storage {
+      color: white;
+    }
+    .anticon {
+      color: white;
+    }
+    
+    .ant-checkbox-wrapper {
+      color: white;
+    }
+    .ant-btn-default {
+      background: transparent !important;
+    }
+    
+    .ant-message {
+      color: #001529 !important;
+    }
+    
+    #info h2 {
+      color: white;
+    }
+    
+    .main-content #info .ant-collapse-content-box :where(li, span, ol) {
+      color: #001529 !important;
+    }
+    
+    #info .ant-collapse-header-text {
+      color: white;
+    }
+    
+    #info .ant-collapse-arrow {
+      color: white;
+    }
+    
+    .ant-layout-has-sider .ant-layout {
+      background-color: #001529 !important;
+    }
+  }
 `
 

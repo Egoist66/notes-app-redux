@@ -79,7 +79,7 @@ export const FramesView: FC<FramesViewProps> = memo(({url, id}) => {
                 <FramesItems data-fullscreen={isFullScreened} id={`frame-${id}`} allowFullScreen src={url}/>
 
 
-                <div style={{marginTop: 20, display: 'flex', gap: 10}}>
+                <div className={'frame-controls'} style={{marginTop: 20, display: 'flex', gap: 10}}>
                     <Button style={{width: '100%'}} danger onClick={OnRemoveFrame}>Удалить фрейм</Button>
                     <Button style={{width: '100%'}} onClick={requestFrameFullScreen}>Во весь экран</Button>
                 </div>

@@ -147,5 +147,17 @@ export const GlobalStyle = createGlobalStyle`
      margin-top: 70px !important;
    }
  }
+  
+  
+  @media (max-width: 600px) {
+    .frame-controls {
+      flex-direction: column;
+    }
+
+    .frames-view {
+      margin-top: 110px !important;
+    }
+    
+  }
 `
 

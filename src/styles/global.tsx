@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   }
+  
+  .skiptranslate iframe {
+    z-index: -11111 !important;
+  }
 
 
   aside ul {
@@ -136,10 +140,7 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  //:where(.css-dev-only-do-not-override-2i2tap).ant-layout.ant-layout-has-sider {
-  //  min-height: 100vh !important;
-  //}
-  
+ 
   .ant-layout-sider + div {
     min-height: 100vh !important;
     background: white !important;

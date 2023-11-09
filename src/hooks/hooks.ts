@@ -306,7 +306,7 @@ export const useSpeechRecognition = () => {
 
     // @ts-ignore
 
-    const recognition = "webkitSpeechRecognition" in window ?  new window.webkitSpeechRecognition(): null
+    const recognition = "webkitSpeechRecognition" in window ? new window.webkitSpeechRecognition() : null
 
     const initVoiceInput = () => {
         setVoiceState({
@@ -412,11 +412,22 @@ export const useAppGuide = () => {
                         align: 'start'
                     }
                 },
+
                 {
                     element: '#print',
                     popover: {
                         title: 'Элемент печати  <br> текста заметок',
                         description: 'Данная функция позволит вам при необходимости иметь печатный вариант ваших заметок',
+                        side: "left",
+                        align: 'start'
+                    }
+                },
+
+                {
+                    element: '.goog-te-gadget > div',
+                    popover: {
+                        title: 'Элемент выбора языка приложения',
+                        description: 'Функция синхронного перевода элементов интерфейса приложения',
                         side: "left",
                         align: 'start'
                     }

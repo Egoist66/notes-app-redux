@@ -193,6 +193,7 @@ const items: CollapseProps['items'] = [
         children:
             <ol>
                 <li>Добавлена системная тема приложения</li>
+                <li>Добавлена мультиязычность приложения</li>
 
 
 

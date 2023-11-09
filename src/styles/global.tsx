@@ -94,6 +94,47 @@ export const GlobalStyle = createGlobalStyle`
   #calendar {
     cursor: pointer;
   }
+  header {
+    position: relative;
+  }
+  .goog-te-gadget {
+    color: transparent;
+  }
+  
+
+  .goog-te-combo {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+  }
+  .goog-te-combo option {
+    color: black;
+    cursor: pointer;
+  }
+  .goog-te-gadget a {
+    display: none;
+  }
+  #google_translate_element {
+    position: absolute;
+    top: 19px;
+    right: 15%;
+    z-index: 2;
+  }
+  
+  @media(max-width: 680px){
+    #google_translate_element {
+      position: static !important; 
+    }
+
+    .goog-te-combo {
+     
+      background: white;
+      color: black;
+    }
+  }
 
   //:where(.css-dev-only-do-not-override-2i2tap).ant-layout.ant-layout-has-sider {
   //  min-height: 100vh !important;

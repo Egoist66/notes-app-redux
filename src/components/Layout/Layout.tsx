@@ -11,7 +11,6 @@ import {Search} from "../Search";
 import {useToggle} from "@react-hooks-library/core";
 import {Pallete} from "../Pallete";
 import {setAppUrlImageFromLS} from "../../redux/todo-pallete-options-slice";
-import Settings from "../Pages/Settings";
 
 
 const LazyTodolist = lazy(() => import('../Pages/TodoList'))
@@ -20,7 +19,6 @@ const LazyFrames = lazy(() => import('../Pages/Frames'))
 const LazySettings = lazy(() => import('../Pages/Settings'))
 
 export const AppLayout: React.FC = () => {
-
 
     const {initAppGuide} = useAppGuide()
     const dispatch = useAppDispatch()

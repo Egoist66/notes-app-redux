@@ -158,6 +158,10 @@ export const GlobalStyle = createGlobalStyle`
       margin-top: 110px !important;
     }
     
+    #storage {
+      padding-top: 30px;
+    }
+    
   }
 `
 

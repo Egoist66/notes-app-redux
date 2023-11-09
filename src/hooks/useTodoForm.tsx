@@ -105,7 +105,6 @@ export const useTodoForm = () => {
 
             message.open({
                 type: 'error',
-                duration: 10,
                 content: 'Пустое значение!',
             });
 

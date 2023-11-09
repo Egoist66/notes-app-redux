@@ -159,7 +159,7 @@ export const GlobalStyle = createGlobalStyle`
     }
     
     #storage {
-      padding-top: 30px;
+      padding-top: 40px;
     }
     
   }

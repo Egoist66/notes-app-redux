@@ -134,6 +134,10 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
   
+  li a {
+    word-break: break-all !important;
+  }
+  
  @media (max-width: 1220px) {
    #frames {
     display: block !important; 

@@ -41,7 +41,7 @@ export const useTodoForm = () => {
         apiCount[type]({
             message: 'Предупреждение',
             description: `Допустимое количество заметок ${state.maxTaskCount}! Чтобы создать новую
-                завершите текущие`,
+                удалите текущие`,
         });
     };
     const setRestrictedTasks = () => {

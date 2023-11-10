@@ -1,16 +1,30 @@
-import {LS, useAppDispatch, useAppSelector, useSpeechRecognition} from "./hooks";
+import {LS, useAppDispatch, useAppSelector} from "./hooks";
 import {ChangeEvent, FormEvent, useDeferredValue, useEffect, useState} from "react";
 import {message, notification} from "antd";
 import {formatDate, MatchLinkinText} from "../utils/utils";
 import Swal from "sweetalert2";
 import {addTodo} from "../redux/todo-slice";
 import {TodoFormStateType} from "../components/TodoForm";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
 
 export type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
+
 
 export const useTodoForm = () => {
     const {save, get, exist, remove} = LS()
     const defaultValue = 30
+
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition,
+        finalTranscript,
+        isMicrophoneAvailable
+    } = useSpeechRecognition()
+
 
     const taskCountValue = exist('task-quantity-allowed') ? get('task-quantity-allowed') : defaultValue
     const isRestrictedTasksValue = exist('isRestrictedTasks') ? get('isRestrictedTasks') : false
@@ -19,23 +33,51 @@ export const useTodoForm = () => {
     const [state, setState] = useState<TodoFormStateType>({
         text: '',
         warning: '',
+        speechTranscript: '',
         maxTaskCount: taskCountValue,
         isInputBlocked: isInputBlocked,
         isRestrictedTasks: isRestrictedTasksValue
     })
 
+
     const defferedValue = useDeferredValue(state.text)
     const [isInputDataInStorage, setCheckInputDataInStorage] = useState<boolean>(false)
-
     const [api, contextHolder] = notification.useNotification();
     const [apiCount, contextCountHolder] = notification.useNotification();
-
-    const {transcript, initVoiceInput, recognitionMode, setVoiceState, voicestate} = useSpeechRecognition()
     const dispatch = useAppDispatch()
     const {matchedTodos} = useAppSelector(state => state.todos)
 
 
     const {matchedValue} = MatchLinkinText(/(https?:\/\/[^\s]+)/g, defferedValue)
+
+
+    const initSpeechListening = () => {
+        try {
+            if(isMicrophoneAvailable){
+                SpeechRecognition.startListening()
+            }
+
+        }
+        catch (e){
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+
+           setState({
+               ...state,
+               text: finalTranscript,
+               speechTranscript: finalTranscript,
+           })
+
+
+        return () => {
+
+        }
+    }, [listening])
+
+
 
     const openNotificationTaskQuantityWarn = (type: NotificationType) => {
         apiCount[type]({
@@ -133,13 +175,10 @@ export const useTodoForm = () => {
             setState({
                 ...state,
                 text: '',
+                speechTranscript: '',
                 warning: ''
             })
 
-            setVoiceState({
-                ...voicestate,
-                transcript: ''
-            })
 
             remove('input-data')
 
@@ -156,13 +195,10 @@ export const useTodoForm = () => {
             setState({
                 ...state,
                 text: '',
-                warning: ''
+                warning: '',
+                speechTranscript: ''
             })
 
-            setVoiceState({
-                ...voicestate,
-                transcript: ''
-            })
 
             message.open({
                 type: 'success',
@@ -175,6 +211,8 @@ export const useTodoForm = () => {
 
 
     }
+
+
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
 
@@ -243,7 +281,7 @@ export const useTodoForm = () => {
 
     useEffect(() => {
 
-        if(matchedTodos.length >= state.maxTaskCount){
+        if (matchedTodos.length >= state.maxTaskCount) {
             openNotificationTaskQuantityWarn('warning')
 
         }
@@ -257,12 +295,6 @@ export const useTodoForm = () => {
 
     }, [matchedTodos.length, state.maxTaskCount])
 
-    useEffect(() => {
-        setState({
-            ...state,
-            text: transcript
-        })
-    }, [transcript])
 
     useEffect(() => {
         if (state.isRestrictedTasks) {
@@ -287,21 +319,21 @@ export const useTodoForm = () => {
     return {
         setQuantityOfRestrictedTasks,
         setRestrictedTasks,
-        setVoiceState,
         addTaskInTodo,
         importUnCommitedText,
         injectUnCommitedText,
-        initVoiceInput,
         handleInput,
         state,
+        initSpeechListening,
+        listening,
         defferedValue,
         defaultValue,
-        recognitionMode,
         matchedTodos,
-        transcript,
         contextHolder,
         contextCountHolder,
         isInputDataInStorage,
+        resetTranscript,
+        browserSupportsSpeechRecognition
 
     }
 

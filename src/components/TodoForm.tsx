@@ -8,28 +8,31 @@ export type TodoFormStateType = {
     warning: string
     maxTaskCount: number
     isRestrictedTasks: boolean
+    speechTranscript: string
     isInputBlocked: boolean
 }
-export const TodoForm: React.FC = memo(() => {
+export const TodoForm: React.FC = () => {
 
     const {Text} = Typography
+
 
 
     const {
         addTaskInTodo,
         setRestrictedTasks,
-        initVoiceInput,
         importUnCommitedText,
         injectUnCommitedText,
         handleInput,
         state,
         contextHolder,
-        recognitionMode,
         defaultValue,
         contextCountHolder,
-        transcript,
         defferedValue,
-        isInputDataInStorage
+        isInputDataInStorage,
+        resetTranscript,
+        listening,
+        initSpeechListening,
+        browserSupportsSpeechRecognition
     } = useTodoForm()
 
 
@@ -47,8 +50,8 @@ export const TodoForm: React.FC = memo(() => {
                         onBlur={injectUnCommitedText}
                         disabled={state.isInputBlocked}
                         placeholder={'Введите название'}
-                        value={recognitionMode ? transcript : defferedValue}
-                        onChange={recognitionMode ? () => {
+                        value={defferedValue}
+                        onChange={listening ? () => {
                         } : handleInput}
                         type="text"
                     />
@@ -72,13 +75,14 @@ export const TodoForm: React.FC = memo(() => {
                 </Button>
 
 
-                {"webkitSpeechRecognition" in window ? <Button
+
+
+                {browserSupportsSpeechRecognition ? <Button
                     id={'voice'}
                     size={'large'}
-                    title={'Ввод доступен только на английском языке'}
-                    disabled={recognitionMode}
-                    onClick={initVoiceInput}
-                >{recognitionMode ? 'Идет запись...' : 'Голосовой ввод'}</Button> : null}
+                    disabled={listening}
+                    onClick={initSpeechListening}
+                >{listening ? 'Идет запись...' : 'Голосовой ввод'}</Button> : <p>Браузер не поддерживает голосовой ввод!</p>}
 
                 <Button
                     id={'print'}
@@ -109,4 +113,4 @@ export const TodoForm: React.FC = memo(() => {
 
         </>
     )
-})
+}

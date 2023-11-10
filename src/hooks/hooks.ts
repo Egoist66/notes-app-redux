@@ -295,67 +295,6 @@ export const useMeasureApp = () => {
 }
 
 
-export const useSpeechRecognition = () => {
-
-    const [voicestate, setVoiceState] = useState<SpeechRecognitionStateType>({
-        recognitionMode: false,
-        transcript: ''
-    });
-
-    const {recognitionMode, transcript} = voicestate
-
-    // @ts-ignore
-
-    const recognition = "webkitSpeechRecognition" in window ? new window.webkitSpeechRecognition() : null
-
-    const initVoiceInput = () => {
-        setVoiceState({
-            ...voicestate,
-            recognitionMode: !recognitionMode
-        })
-    }
-
-    const toggleListening = () => {
-        if (recognitionMode) {
-            recognition?.start();
-        } else {
-            recognition?.stop();
-        }
-    }
-
-    useEffect(() => {
-        toggleListening()
-    }, [voicestate?.recognitionMode])
-
-    if (recognitionMode) {
-
-        recognition.lang = 'en-En'; // Установите нужный язык распознавания
-        recognition.onresult = (event: any) => {
-            const {transcript} = event.results[0][0];
-            console.log(transcript)
-
-
-            recognition.onend = () => {
-                setVoiceState({
-                    recognitionMode: false,
-                    transcript: transcript
-                })
-            }
-        };
-
-        recognition.onerror = () => {
-            console.error('Something went wrong')
-            setVoiceState({
-                recognitionMode: false,
-                transcript: transcript
-            })
-        }
-    }
-
-
-    return {transcript, recognitionMode, initVoiceInput, setVoiceState, voicestate};
-};
-
 export const useAppGuide = () => {
     const {save, get, exist} = LS()
     const guideState = exist('guideCompleted') ? get('guideCompleted') : false
@@ -398,7 +337,7 @@ export const useAppGuide = () => {
                     element: '#voice',
                     popover: {
                         title: 'Элемент голосового  <br> ввода задачи',
-                        description: 'Нажмите и говорите. Однако данная опция пока доступна только на английском языке',
+                        description: 'Нажмите и говорите. Опция эксперементальная',
                         side: "left",
                         align: 'start'
                     }

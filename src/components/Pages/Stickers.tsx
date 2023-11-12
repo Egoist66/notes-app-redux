@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, memo, useDeferredValue, useEffect, useState} from "react";
 import {Button, Flex, Input, message, Modal} from "antd";
 import {useToggle} from "@react-hooks-library/core";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {LS, useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {createSticker, loadStikersFromLS} from "../../redux/todo-stickers-slice";
 import {StickerItem} from "../StickerItem";
 import {formatDate} from "../../utils/utils";
@@ -15,6 +15,7 @@ type StickersStateType = {
 
 const Stickers: FC = memo(() => {
     const {toggle, setFalse, bool} = useToggle(false)
+    const {get} = LS()
     const [state, setState] = useState<StickersStateType>({
         fieldStatus: '',
         title: ''
@@ -71,7 +72,7 @@ const Stickers: FC = memo(() => {
 
     useEffect(() => {
         dispatch(loadStikersFromLS())
-    }, [])
+    }, [get('stickers').length])
 
     return (
         <>
@@ -114,7 +115,7 @@ const Stickers: FC = memo(() => {
             <div id="stickers">
 
                 <ul ref={listRef}>
-                    {stickers.length ? stickers.map(s => (
+                    {stickers.length ? stickers.map((s, i: number) => (
 
                         <StickerItem content={s.content} title={s.title} id={s.id} key={s.id}/>
 

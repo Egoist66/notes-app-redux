@@ -45,6 +45,12 @@ type addStickerContent = {
     }
 }
 
+type uploadStickerAction = {
+    payload: {
+        data: any,
+        id: string
+    }
+}
 
 
 const initialState: initialStateType = {
@@ -98,12 +104,19 @@ const todoStickersSlice = createSlice({
             save('stickers', state.stickers)
         },
 
+        loadStickersFromFile(state: initialStateType, action: uploadStickerAction){
+            state.stickers = state.stickers.map((s: any) => s.id === action.payload.id ? {...s, content: action.payload.data} : s)
+            save('stickers', state.stickers)
+
+
+        }
+
 
     }
 
 
 })
 
-export const {createSticker, createStickerContent, editStickerTitle, deleteSticker, loadStikersFromLS} = todoStickersSlice.actions
+export const {createSticker, loadStickersFromFile, createStickerContent, editStickerTitle, deleteSticker, loadStikersFromLS} = todoStickersSlice.actions
 
 export default todoStickersSlice.reducer

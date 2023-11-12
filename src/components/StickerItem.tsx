@@ -1,10 +1,11 @@
-import React, {FC, memo, useEffect, useState} from "react";
+import React, {FC, memo, useEffect, useRef, useState} from "react";
 import {Button, Flex, Input, message} from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import {LS, useAppDispatch, useAppSelector} from "../hooks/hooks";
+import {LS, useAppDispatch} from "../hooks/hooks";
 import {createStickerContent, deleteSticker, editStickerTitle} from "../redux/todo-stickers-slice";
 import {EditOutlined} from "@ant-design/icons";
 import {useToggle} from "@react-hooks-library/core";
+import {useStickerUpload} from "../hooks/useStickerUpload";
 
 type StickersStateType = {
     fieldStatus: 'error' | 'warning' | ''
@@ -20,17 +21,24 @@ type StickerItemProps = {
 }
 
 export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => {
-    const {exist, get} = LS()
+    const {handleUploadSticker, handleDownloadSticker, loading} = useStickerUpload(id)
     const dispatch = useAppDispatch()
-    const {stickers} = useAppSelector(state => state.todoStickers)
+
+    console.log('render')
 
     const {setTrue, setFalse, bool} = useToggle(false)
-
+    const uploadRef = useRef<HTMLInputElement>(null)
     const [state, setState] = useState<StickersStateType>({
         fieldStatus: '',
         newTitle: title,
-        content: content
+        content: ''
     })
+
+    const uploadSticker = () => {
+        if (uploadRef.current) {
+            uploadRef.current.click()
+        }
+    }
 
     const onDeleteSticker = (stickerId: string) => {
         return () => {
@@ -49,12 +57,13 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
                 content: 'Пустое значение!'
             })
             return
-        }
-        else if (title === state.newTitle){
+        } else if (title === state.newTitle) {
             message.open({
                 type: 'warning',
                 content: 'Одниковые значения - сохранено по дефолту!'
             })
+            setFalse()
+
             return;
         }
 
@@ -97,6 +106,13 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
 
     }, [state.content?.length])
 
+    useEffect(() => {
+        setState({
+            ...state,
+            content: content
+        })
+    }, [content])
+
     return (
         <>
             <Flex wrap={'wrap'}>
@@ -132,6 +148,16 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
                     <Flex gap={20} wrap={'wrap'}>
                         <Button onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
                         <Button type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
+                        <Button title={'формат - .doc, .docx, .txt'}
+                                onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
+                        <Button onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
+                        <input
+                            ref={uploadRef}
+                            onChange={handleUploadSticker}
+                            accept={'.doc,.docx,.txt'}
+                            type="file"
+                            hidden
+                        />
                     </Flex>
                 </Flex>
             </li>

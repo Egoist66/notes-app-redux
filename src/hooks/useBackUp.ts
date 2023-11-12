@@ -45,6 +45,7 @@ export const useBackUp = () => {
 
         if (e.currentTarget.files) {
             const file = e.currentTarget?.files[0]
+            console.log(file)
 
             const reader = new FileReader()
             reader.readAsText(file)

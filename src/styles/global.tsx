@@ -112,8 +112,9 @@ export const GlobalStyle = createGlobalStyle`
     
   }
   
-  textarea {
+  textarea.ant-input {
     font-size: 17px !important;
+    color:rgba(0, 0, 0, 0.88) !important;
   }
   
   ul {

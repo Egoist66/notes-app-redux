@@ -7,6 +7,7 @@ import sizeof from "object-sizeof";
 import {driver} from "driver.js";
 import {cancelTour} from "../utils/utils";
 import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
+import {message} from "antd";
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -15,7 +16,16 @@ export const LS = () => {
     const ls = localStorage;
 
     const save = (key: string, value: any) => {
-        ls.setItem(key, JSON.stringify(value));
+        try {
+            ls.setItem(key, JSON.stringify(value));
+        }
+        catch (e){
+            console.log(e)
+            message.open({
+                type: 'error',
+                content: `Невозможно записать данные! Возможно не поддерживаемый формат --${key}: ${value}--`
+            })
+        }
     };
 
     const remove = (key: string) => {
@@ -445,6 +455,15 @@ export const useAppGuide = () => {
                     popover: {
                         title: 'Фреймы',
                         description: 'Позволяют в быстром доступе обращаться к сохраненному видео-коненту не отвлекаясь от поиска по различным веб ресурсам. Для добавления фрейма необходима валидная url строка которую можно извлечь например в ютубе в опции поделиться => встроить и скопировать ссылку',
+                        side: "left",
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '#stickers',
+                    popover: {
+                        title: 'Стикеры',
+                        description: 'Позволит в удобном формате сохранять более большие объемы информации и иметь к ней постоянный доступ',
                         side: "left",
                         align: 'start'
                     }

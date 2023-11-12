@@ -27,7 +27,7 @@ export const RoutesData = [
     {
         key: '3',
         icon: <SnippetsOutlined />,
-        label: <NavLink id={'frame'} className={'nav-link'} to={'/stickers'}>Стикеры</NavLink>
+        label: <NavLink id={'stickers'} className={'nav-link'} to={'/stickers'}>Стикеры</NavLink>
         ,
     },
     {

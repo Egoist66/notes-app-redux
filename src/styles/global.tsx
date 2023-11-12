@@ -229,6 +229,12 @@ export const GlobalStyle = createGlobalStyle`
     .main-content {
       background-color: #001529 !important;
     }
+
+    .ant-input-textarea-show-count .ant-input-data-count {
+      color: white;
+    }
+
+ 
     
     .main-content li, p, ul{
       color: white !important;

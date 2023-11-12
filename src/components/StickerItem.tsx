@@ -50,6 +50,13 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
             })
             return
         }
+        else if (title === state.newTitle){
+            message.open({
+                type: 'warning',
+                content: 'Одниковые значения - сохранено по дефолту!'
+            })
+            return;
+        }
 
         dispatch(editStickerTitle({id, newtitle: state.newTitle}))
         message.open({

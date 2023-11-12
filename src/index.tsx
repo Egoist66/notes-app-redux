@@ -12,7 +12,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <>
-        <div id="google_translate_element"></div>
 
         <BrowserRouter>
 

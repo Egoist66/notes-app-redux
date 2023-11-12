@@ -6,6 +6,7 @@ import {SpeechRecognitionStateType} from "../types/types";
 import sizeof from "object-sizeof";
 import {driver} from "driver.js";
 import {cancelTour} from "../utils/utils";
+import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -206,18 +207,28 @@ export const useToggle = (initialValue?: boolean) => {
 
 export const useSearch = (initialState: string) => {
     const [searchItem, setSearchItem] = useState(initialState);
+    const {isMicrophoneAvailable} = useSpeechRecognition()
+
 
     const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchItem(e.currentTarget.value);
     };
 
+    const setSearchByVoice = () => {
+        if(isMicrophoneAvailable){
+            SpeechRecognition.startListening()
+        }
+    }
+
 
     return {
         searchItem,
         setSearchItem,
+        setSearchByVoice,
         handleChangeValue,
     }
 };
+
 
 export const stateSetter = (payload: any, ...setState: Array<(payload: any) => void>) => {
     return setState.map((fn, i: number) => fn(payload[i]))
@@ -295,6 +306,7 @@ export const useMeasureApp = () => {
 }
 
 
+
 export const useAppGuide = () => {
     const {save, get, exist} = LS()
     const guideState = exist('guideCompleted') ? get('guideCompleted') : false
@@ -337,7 +349,7 @@ export const useAppGuide = () => {
                     element: '#voice',
                     popover: {
                         title: 'Элемент голосового  <br> ввода задачи',
-                        description: 'Нажмите и говорите. Опция эксперементальная, в некоторых браузерах русский язык может не восприниматься',
+                        description: 'Нажмите и говорите. Однако данная опция эксперементальна, в разных браузерах поведение отличается',
                         side: "left",
                         align: 'start'
                     }

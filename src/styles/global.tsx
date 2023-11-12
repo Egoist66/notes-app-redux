@@ -105,6 +105,20 @@ export const GlobalStyle = createGlobalStyle`
     color: transparent;
   }
   
+  .editable {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 50%;
+    
+  }
+  
+  textarea {
+    font-size: 17px !important;
+  }
+  
+  ul {
+    list-style: none;
+  }
 
   .goog-te-combo {
     padding: 5px;

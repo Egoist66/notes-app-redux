@@ -6,7 +6,9 @@ import searchIcon from '../assets/search.png'
 import {useDispatch} from "react-redux";
 import {findTasksBySearch} from "../redux/todo-slice";
 import {useEventListener} from "@react-hooks-library/core";
-import {Input, Modal} from "antd";
+import {Button, Input, Modal} from "antd";
+import {useSpeechRecognition} from "react-speech-recognition";
+
 
 
 const StyledSearchIcon = styled.img`
@@ -25,8 +27,9 @@ export const Search: FC = () => {
 
     const dispatch = useDispatch()
     const {toggle, setToggle} = useToggle()
+    const {listening, finalTranscript} = useSpeechRecognition()
 
-    const {handleChangeValue, searchItem, setSearchItem} = useSearch('')
+    const {handleChangeValue, setSearchByVoice, searchItem, setSearchItem} = useSearch('')
 
     const initSearch = () => {
         setToggle(true)
@@ -49,9 +52,13 @@ export const Search: FC = () => {
         dispatch(findTasksBySearch(searchItem))
     }
 
+
+
     useEffect(() => {
         findValues()
     }, [searchItem])
+
+
 
     return (
         <div id={'search'} style={{
@@ -72,12 +79,14 @@ export const Search: FC = () => {
 
 
                 <Input autoFocus={true}
+                       allowClear
                        onChange={handleChangeValue}
                        value={searchItem}
                        onBlur={offSearch}
                        placeholder={'Введите название задачи'}
                        type={'search'}
                 />
+
 
             </Modal>
 

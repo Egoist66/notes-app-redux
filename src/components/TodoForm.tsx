@@ -16,7 +16,6 @@ export const TodoForm: React.FC = () => {
     const {Text} = Typography
 
 
-
     const {
         addTaskInTodo,
         setRestrictedTasks,
@@ -46,6 +45,7 @@ export const TodoForm: React.FC = () => {
 
                 <Flex style={{paddingBottom: 30}} className='input-field'>
                     <Input
+                        allowClear
                         status={state.warning ? 'error' : ''}
                         onBlur={injectUnCommitedText}
                         disabled={state.isInputBlocked}
@@ -75,14 +75,13 @@ export const TodoForm: React.FC = () => {
                 </Button>
 
 
-
-
                 {browserSupportsSpeechRecognition ? <Button
-                    id={'voice'}
-                    size={'large'}
-                    disabled={listening}
-                    onClick={initSpeechListening}
-                >{listening ? 'Идет запись...' : 'Голосовой ввод'}</Button> : <p>Браузер не поддерживает голосовой ввод!</p>}
+                        id={'voice'}
+                        size={'large'}
+                        disabled={listening}
+                        onClick={initSpeechListening}
+                    >{listening ? 'Идет запись...' : 'Голосовой ввод'}</Button> :
+                    <p>Браузер не поддерживает голосовой ввод!</p>}
 
                 <Button
                     id={'print'}

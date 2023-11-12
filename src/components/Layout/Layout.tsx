@@ -1,22 +1,38 @@
 import React, {lazy, Suspense, useEffect} from "react";
-import {NavLink, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {preventDocumentContextMenu, useAppDispatch, useAppGuide, useAppSelector} from "../../hooks/hooks";
 import {Storage} from "../Storage";
-import {ControlOutlined, ExpandOutlined, FormOutlined, InfoCircleOutlined, SearchOutlined,} from '@ant-design/icons';
 import {Layout, Menu, Skeleton} from 'antd';
 import {Content} from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import {NavBar} from "./NavBar";
-import {Search} from "../Search";
 import {useToggle} from "@react-hooks-library/core";
 import {Pallete} from "../Pallete";
 import {setAppUrlImageFromLS} from "../../redux/todo-pallete-options-slice";
+import {RoutesData} from "../../routes/Routes";
 
 
 const LazyTodolist = lazy(() => import('../Pages/TodoList'))
 const LazyInformation = lazy(() => import('../Pages/Info'))
 const LazyFrames = lazy(() => import('../Pages/Frames'))
 const LazySettings = lazy(() => import('../Pages/Settings'))
+const LazyStickers = lazy(() => import('../Pages/Stickers'))
+
+const contentStyles = (appBackgroundImage: string) => {
+    return {
+        margin: '24px 16px',
+        padding: 24,
+        minHeight: 300,
+        backgroundColor: "#f8f8ffb3",
+        borderRadius: 5,
+        backgroundImage: `url(${appBackgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat'
+
+    }
+}
 
 export const AppLayout: React.FC = () => {
 
@@ -55,46 +71,7 @@ export const AppLayout: React.FC = () => {
                         theme="dark"
                         mode="inline"
                         defaultSelectedKeys={['1']}
-                        items={[
-
-                            {
-                                key: '1',
-                                icon: <FormOutlined/>,
-                                label: <NavLink className={'nav-link'} to={'/'}>Список дел</NavLink>
-
-                            },
-                            {
-                                key: '2',
-                                icon: <ExpandOutlined/>,
-                                label: <NavLink id={'frame'} className={'nav-link'} to={'/frames'}>Фреймы</NavLink>
-                                ,
-                            },
-                            {
-                                key: '3',
-                                icon: <InfoCircleOutlined/>,
-                                label: <NavLink id={'info-page'} className={'nav-link'}
-                                                to={'/information'}>Информация</NavLink>
-
-                            },
-
-                            {
-                                key: '4a',
-                                icon: <ControlOutlined/>,
-                                label: <NavLink id={'settings'} className={'nav-link'} to={'/settings'}>Настройки</NavLink>
-
-
-
-                            },
-
-                            {
-                                key: '5',
-                                icon: <SearchOutlined/>,
-                                label: <Search/>
-
-
-
-                            },
-                        ]}
+                        items={RoutesData}
                     />
                 </Sider>
 
@@ -105,24 +82,13 @@ export const AppLayout: React.FC = () => {
                     <Content
 
                         className={'main-content'}
-                        style={{
-                            margin: '24px 16px',
-                            padding: 24,
-                            minHeight: 300,
-                            backgroundColor: "#f8f8ffb3",
-                            borderRadius: 5,
-                            backgroundImage: `url(${appBackgroundImage})`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            backgroundAttachment: 'fixed',
-                            backgroundRepeat: 'no-repeat'
-
-                        }}
+                        style={contentStyles(appBackgroundImage)}
                     >
                         <Suspense fallback={<Skeleton avatar paragraph={{rows: 4}}/>}>
                             <Routes>
                                 <Route index path={'/'} element={<LazyTodolist/>}/>
                                 <Route path={'/frames'} element={<LazyFrames/>}/>
+                                <Route path={'/stickers'} element={<LazyStickers/>}/>
                                 <Route path={'/information'} element={<LazyInformation/>}/>
                                 <Route path={'/settings'} element={<LazySettings/>}/>
                             </Routes>
@@ -136,8 +102,6 @@ export const AppLayout: React.FC = () => {
 
             </Layout>
 
-
-            {/*<Pallete />*/}
             <Pallete/>
         </div>
     )

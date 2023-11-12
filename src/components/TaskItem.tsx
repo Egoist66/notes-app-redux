@@ -1,13 +1,9 @@
-import {FC, memo, useEffect, useState} from "react";
-import {useAppDispatch} from "../hooks/hooks";
-import {deleteItems, editTask, toggleComplete} from "../redux/todo-slice";
+import {FC, memo, useEffect} from "react";
 import {Portal} from "./Portal";
 import {CronPopup} from "./CronPopup";
 import {ContextMenu} from "./ContextMenu";
-import {MouseEvent} from "react";
-import Swal from "sweetalert2";
-import {CheckboxChangeEvent} from "antd/es/checkbox";
-import {Checkbox, message} from "antd";
+import {Checkbox} from "antd";
+import {useTaskItems} from "../hooks/useTaskItems";
 
 type TaskItemProps = {
     data: {
@@ -26,101 +22,27 @@ export type TaskItemState = {
 }
 
 export const TaskItem: FC<TaskItemProps> = memo(({data}) => {
-    const {completed, id, time, timeStamp, title} = data;
 
-    const [state, setState] = useState<TaskItemState>({
-        editMode: false,
-        isPopupEnabled: false,
-        isContextMenuEnabled: false,
-    })
+    const {
+        isPopupEnabled,
+        isContextMenuEnabled,
+        editMode,
+        state,
+        toggleTask,
+        setState,
+        enableEditMode,
+        initEditMode,
+        deleteTask,
+        toggleContextMenu,
+        togglePopup
+    } = useTaskItems()
 
-    const {isPopupEnabled, isContextMenuEnabled, editMode} = state
-
-
-    const dispatch = useAppDispatch();
-
-    const deleteTask = (id: number) => {
-        console.log(id);
-        dispatch(deleteItems(id));
-
-        if(id){
-            message.open({
-                type: 'warning',
-                content: 'Заметка удалена',
-
-            })
-        }
-    };
-
-    const enableEditMode = () => {
-        setState({
-            ...state,
-            editMode: !editMode
-        })
-    };
+    const {completed, id, time, title} = data;
 
 
-    const togglePopup = () => {
-
-        setState({
-            ...state,
-            isPopupEnabled: true
-        })
-    };
-
-    const toggleContextMenu = (e: MouseEvent<HTMLSpanElement>) => {
-        e.preventDefault();
-
-        setState({
-            ...state,
-            isContextMenuEnabled: true
-        })
-
-    };
-
-
-    const toggleTask = (id: number) => {
-        dispatch(toggleComplete(id));
-    };
-
-
-    const initEditMode = () => {
-        if (editMode) {
-            Swal.fire({
-                title: "Введите новое значение",
-                input: 'text',
-                inputValue: title,
-                showCancelButton: true,
-                confirmButtonText: 'Сохранить',
-                cancelButtonText: 'Отменить',
-                cancelButtonColor: '#1677FF',
-                confirmButtonColor: '#1677FF',
-                didClose() {
-                    setState({
-                        ...state,
-                        editMode: false
-                    })
-                },
-                inputValidator: (value) => {
-                    if (!value.trim().length) {
-
-                        return 'Пустое значение запрещено!'
-
-                    } else {
-                        dispatch(editTask({id, newText: value}));
-                        setState({
-                            ...state,
-                            editMode: false
-                        })
-                    }
-                }
-            })
-
-        }
-    };
 
     useEffect(() => {
-        initEditMode();
+        initEditMode(title, id);
 
         return () => {
         };

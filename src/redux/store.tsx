@@ -5,13 +5,15 @@ import {configureStore} from "@reduxjs/toolkit";
 import TodosReducer from './todo-slice'
 import TodosPalleteReducer from './todo-pallete-options-slice'
 import TodosFrameReducer from './todo-frames-slice'
+import TodosStickerReducer from './todo-stickers-slice'
 
 
 const store = configureStore({
     reducer: {
         todos: TodosReducer,
         todoPalleteOptions: TodosPalleteReducer,
-        todoFrames: TodosFrameReducer
+        todoFrames: TodosFrameReducer,
+        todoStickers: TodosStickerReducer,
     },
 
 })

@@ -57,7 +57,7 @@ const Frames: FC = () => {
 
             </StyledFrames>
 
-            {frames.length <=0 ? <h2>Фреймы отсутствуют</h2>: null}
+            {frames.length <=0 ? <h3>Фреймы отсутствуют</h3>: null}
 
         </>
     )

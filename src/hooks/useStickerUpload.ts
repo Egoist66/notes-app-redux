@@ -28,6 +28,19 @@ export const useStickerUpload = (stickerID: string) => {
                     loading: true
                 })
 
+                if(file.size > 1000000){
+                    _message.open({
+                        type: 'error',
+                        content: `Превышен лимит размера файла ${file.size}byte`
+                    })
+                    setState({
+                        ...state,
+                        error: true,
+                        loading: false
+                    })
+                    return
+                }
+
                 const data = reader?.result
                 if (data) {
                     try {
@@ -40,7 +53,7 @@ export const useStickerUpload = (stickerID: string) => {
                             clearTimeout(timer)
                             _message.open({
                                 type: 'success',
-                                content: 'Загрузка успешна!'
+                                content: `Загрузка успешна! ${file.name}`
                             })
                         }, 1000)
                     } catch (e) {

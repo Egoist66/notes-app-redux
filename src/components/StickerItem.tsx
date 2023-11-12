@@ -148,13 +148,13 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
                     <Flex gap={20} wrap={'wrap'}>
                         <Button onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
                         <Button type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
-                        <Button title={'формат - .doc, .docx, .txt - макс размер 1мб'}
+                        <Button title={'формат - .txt - макс размер 1мб'}
                                 onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
                         <Button onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
                         <input
                             ref={uploadRef}
                             onChange={handleUploadSticker}
-                            accept={'.doc,.txt'}
+                            accept={'text/plain,.txt'}
                             type="file"
                             hidden
                         />

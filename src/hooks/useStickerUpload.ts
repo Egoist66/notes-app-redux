@@ -41,7 +41,8 @@ export const useStickerUpload = (stickerID: string) => {
                     return
                 }
 
-                if(file.type !== 'text/plain' || 'application/msword'){
+                if(file.type !== 'text/plain'){
+                    console.log(file.type)
                     _message.open({
                         type: 'error',
                         content: `Некорректный формат файла ${file.type}!`
@@ -53,6 +54,7 @@ export const useStickerUpload = (stickerID: string) => {
                     })
                     return
                 }
+
 
                 const data = reader?.result
                 if (data) {

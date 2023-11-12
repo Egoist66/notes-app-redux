@@ -154,7 +154,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
                         <input
                             ref={uploadRef}
                             onChange={handleUploadSticker}
-                            accept={'.doc,.docx,.txt'}
+                            accept={'.doc,.txt'}
                             type="file"
                             hidden
                         />

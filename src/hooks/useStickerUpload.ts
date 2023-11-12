@@ -41,6 +41,19 @@ export const useStickerUpload = (stickerID: string) => {
                     return
                 }
 
+                if(file.type !== 'text/plain' || 'application/msword'){
+                    _message.open({
+                        type: 'error',
+                        content: `Некорректный формат файла ${file.type}!`
+                    })
+                    setState({
+                        ...state,
+                        error: true,
+                        loading: false
+                    })
+                    return
+                }
+
                 const data = reader?.result
                 if (data) {
                     try {

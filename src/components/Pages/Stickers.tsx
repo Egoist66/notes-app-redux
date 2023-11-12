@@ -15,7 +15,7 @@ type StickersStateType = {
 
 const Stickers: FC = memo(() => {
     const {toggle, setFalse, bool} = useToggle(false)
-    const {get} = LS()
+    const {get, exist} = LS()
     const [state, setState] = useState<StickersStateType>({
         fieldStatus: '',
         title: ''
@@ -72,7 +72,7 @@ const Stickers: FC = memo(() => {
 
     useEffect(() => {
         dispatch(loadStikersFromLS())
-    }, [get('stickers').length])
+    }, [exist('stickers') ? get('stickers').length : []])
 
     return (
         <>

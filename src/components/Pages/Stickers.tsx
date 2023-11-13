@@ -96,7 +96,7 @@ const Stickers: FC = memo(() => {
                         status={state.fieldStatus}
                         autoFocus={true}
                         onKeyDown={(e) => {
-                            if(e.key === 'Enter'){
+                            if (e.key === 'Enter') {
                                 createTodoSticker()
                             }
                         }}
@@ -117,7 +117,13 @@ const Stickers: FC = memo(() => {
                 <ul ref={listRef}>
                     {stickers.length ? stickers.map((s, i: number) => (
 
-                        <StickerItem content={s.content} title={s.title} id={s.id} key={s.id}/>
+                        <StickerItem
+                            date={s.date}
+                            content={s.content}
+                            title={s.title}
+                            id={s.id}
+                            key={s.id}
+                        />
 
                     )) : <h3>Нет активных стикеров</h3>}
                 </ul>

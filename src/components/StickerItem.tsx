@@ -18,9 +18,10 @@ type StickerItemProps = {
     id: string
     title: string
     content: string
+    date: string
 }
 
-export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => {
+export const StickerItem: FC<StickerItemProps> = memo(({id, date, content, title}) => {
     const {handleUploadSticker, handleDownloadSticker, loading} = useStickerUpload(id)
     const dispatch = useAppDispatch()
 
@@ -129,6 +130,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
                     value={state.newTitle}
                     onChange={(e) => setState({...state, newTitle: e.currentTarget.value})}/> : <h3>{title}
                     <EditOutlined onClick={setTrue} style={{paddingLeft: 5, cursor: "pointer"}}/>
+                    <span style={{display: 'inline-block', paddingLeft: 10, textDecoration: 'underline'}}>{date}</span>
                 </h3>}
             </Flex>
 

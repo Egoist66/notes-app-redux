@@ -5,12 +5,11 @@ import {StateProvider} from "./redux/store";
 import {BrowserRouter} from "react-router-dom";
 
 import "driver.js/dist/driver.css";
+import {hydrate, render} from "react-dom";
 
 
-const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-);
-root.render(
+const rootElement = document.getElementById("root") as HTMLElement;
+const _App = (
     <>
         <div id="google_translate_element"></div>
 
@@ -27,6 +26,13 @@ root.render(
 
 
     </>
-);
+)
+
+if (rootElement.hasChildNodes()) {
+    hydrate(_App, rootElement);
+} else {
+    render(_App, rootElement);
+}
+
 
 

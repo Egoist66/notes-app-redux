@@ -17,6 +17,7 @@ const LazyInformation = lazy(() => import('../Pages/Info'))
 const LazyFrames = lazy(() => import('../Pages/Frames'))
 const LazySettings = lazy(() => import('../Pages/Settings'))
 const LazyStickers = lazy(() => import('../Pages/Stickers'))
+const Lazy404 = lazy(() => import('../Pages/404'))
 
 const contentStyles = (appBackgroundImage: string) => {
     return {
@@ -91,6 +92,7 @@ export const AppLayout: React.FC = () => {
                                 <Route path={'/stickers'} element={<LazyStickers/>}/>
                                 <Route path={'/information'} element={<LazyInformation/>}/>
                                 <Route path={'/settings'} element={<LazySettings/>}/>
+                                <Route path={'*'} element={<Lazy404/>}/>
                             </Routes>
                         </Suspense>
 

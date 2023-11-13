@@ -95,7 +95,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
 
     useEffect(() => {
         if (state.content) {
-            if (state.content.length >= 1200) {
+            if (state.content.length >= 10000) {
                 message.open({
                     type: 'warning',
                     content: 'Превышен лимит количества символов! Чрезмерное кол-во данных влияет на производительность '
@@ -139,7 +139,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, content, title}) => 
                         allowClear
                         autoFocus
                         value={state.content}
-                        maxLength={1200}
+                        maxLength={10000}
                         onChange={(e) => setState({...state, content: e.currentTarget.value})}
                         style={{height: 200, resize: 'vertical'}}
                     />

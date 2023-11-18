@@ -8,6 +8,7 @@ type StickersElems = {
     date: string,
     title: string,
     content: string
+    isOpened: boolean
 
 }
 
@@ -19,6 +20,7 @@ type addStickerAction = {
     payload: {
         title: string,
         date: string,
+        isOpened: boolean
 
     }
 }
@@ -52,12 +54,16 @@ type uploadStickerAction = {
     }
 }
 
+type toggleStickerAction = {
+    payload: {
+        id: string
+    }
+}
+
 
 const initialState: initialStateType = {
     stickers: []
 }
-
-
 
 
 const todoStickersSlice = createSlice({
@@ -67,6 +73,7 @@ const todoStickersSlice = createSlice({
 
         createSticker(state: initialStateType, action: addStickerAction) {
             state.stickers.push({
+                isOpened: action.payload.isOpened || false,
                 date: action.payload.date,
                 id: crypto.randomUUID(),
                 title: action.payload.title,
@@ -96,7 +103,7 @@ const todoStickersSlice = createSlice({
             }
         },
 
-        createStickerContent(state: initialStateType, action: addStickerContent){
+        createStickerContent(state: initialStateType, action: addStickerContent) {
             state.stickers = state.stickers.map(s => s.id === action.payload.id ? {
                 ...s,
                 content: action.payload.content
@@ -104,11 +111,22 @@ const todoStickersSlice = createSlice({
             save('stickers', state.stickers)
         },
 
-        loadStickersFromFile(state: initialStateType, action: uploadStickerAction){
-            state.stickers = state.stickers.map((s: any) => s.id === action.payload.id ? {...s, content: action.payload.data} : s)
+        loadStickersFromFile(state: initialStateType, action: uploadStickerAction) {
+            state.stickers = state.stickers.map((s: any) => s.id === action.payload.id ? {
+                ...s,
+                content: action.payload.data
+            } : s)
             save('stickers', state.stickers)
 
 
+        },
+
+        toggleSticker(state: initialStateType, action: toggleStickerAction) {
+            state.stickers = state.stickers.map((s: any) => s.id === action.payload.id ? {
+                ...s,
+                isOpened: !s.isOpened
+            } : s)
+            save('stickers', state.stickers)
         }
 
 
@@ -117,6 +135,14 @@ const todoStickersSlice = createSlice({
 
 })
 
-export const {createSticker, loadStickersFromFile, createStickerContent, editStickerTitle, deleteSticker, loadStikersFromLS} = todoStickersSlice.actions
+export const {
+    createSticker,
+    loadStickersFromFile,
+    createStickerContent,
+    editStickerTitle,
+    deleteSticker,
+    toggleSticker,
+    loadStikersFromLS
+} = todoStickersSlice.actions
 
 export default todoStickersSlice.reducer

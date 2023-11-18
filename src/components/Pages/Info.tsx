@@ -1,8 +1,5 @@
 import React, {FC, memo} from "react";
-import {Accordion} from "../../service-components/Accordion";
-import type {CollapseProps} from 'antd';
-import {Collapse, Flex, QRCode} from 'antd';
-import {Typography} from "antd";
+import {Collapse, QRCode, Typography} from 'antd';
 import {infoItems} from "../../info-page-data/info-data";
 
 

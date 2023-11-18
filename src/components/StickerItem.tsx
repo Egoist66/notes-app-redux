@@ -1,9 +1,9 @@
 import React, {FC, memo, useEffect, useRef, useState} from "react";
 import {Button, Flex, Input, message} from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import {LS, useAppDispatch} from "../hooks/hooks";
-import {createStickerContent, deleteSticker, editStickerTitle} from "../redux/todo-stickers-slice";
-import {EditOutlined} from "@ant-design/icons";
+import {LS, useAppDispatch, useAppSelector} from "../hooks/hooks";
+import {createStickerContent, deleteSticker, editStickerTitle, toggleSticker} from "../redux/todo-stickers-slice";
+import {EditOutlined, MenuOutlined} from "@ant-design/icons";
 import {useToggle} from "@react-hooks-library/core";
 import {useStickerUpload} from "../hooks/useStickerUpload";
 
@@ -19,13 +19,18 @@ type StickerItemProps = {
     title: string
     content: string
     date: string
+    isOpened: boolean
 }
 
-export const StickerItem: FC<StickerItemProps> = memo(({id, date, content, title}) => {
+export const StickerItem: FC<StickerItemProps> = memo(({
+                                                           id,
+                                                           isOpened,
+                                                           date,
+                                                           content,
+                                                           title
+                                                       }) => {
     const {handleUploadSticker, handleDownloadSticker, loading} = useStickerUpload(id)
     const dispatch = useAppDispatch()
-
-    console.log('render')
 
     const {setTrue, setFalse, bool} = useToggle(false)
     const uploadRef = useRef<HTMLInputElement>(null)
@@ -48,6 +53,12 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, date, content, title
                 type: 'warning',
                 content: 'Стикер удален!'
             })
+        }
+    }
+
+    const toggleStickerItem = (stickerId: string) => {
+        return () => {
+            dispatch(toggleSticker({id: stickerId}))
         }
     }
 
@@ -114,27 +125,45 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, date, content, title
         })
     }, [content])
 
+
     return (
         <>
-            <Flex wrap={'wrap'}>
+            <Flex align={'center'} gap={15} wrap={'wrap'}>
+
+                <MenuOutlined
+                    className={isOpened ? 'active sticker-burger': 'sticker-burger'}
+                    onClick={toggleStickerItem(id)}
+                    style={{cursor: 'pointer'}}
+                />
+
                 {bool ? <Input
-                    className={'editable'}
-                    autoFocus
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            saveNewTitle()
+                        className={'editable'}
+                        autoFocus
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                saveNewTitle()
+                            }
                         }
-                    }
-                    }
-                    onBlur={saveNewTitle}
-                    value={state.newTitle}
-                    onChange={(e) => setState({...state, newTitle: e.currentTarget.value})}/> : <h3>{title}
-                    <EditOutlined onClick={setTrue} style={{paddingLeft: 5, cursor: "pointer"}}/>
-                    <span style={{display: 'inline-block', paddingLeft: 10, textDecoration: 'underline'}}>{date}</span>
-                </h3>}
+                        }
+                        onBlur={saveNewTitle}
+                        value={state.newTitle}
+                        onChange={(e) => setState({...state, newTitle: e.currentTarget.value})}/>
+                    : <h3>{title}
+                        <EditOutlined onClick={setTrue} style={{paddingLeft: 5, cursor: "pointer"}}/>
+                        <span style={{
+                            display: 'inline-block',
+                            paddingLeft: 10,
+                            textDecoration: 'underline'
+                        }}>{date}</span>
+                    </h3>}
+                <span
+                    onClick={onDeleteSticker(id)}
+                    style={{fontSize: 22, color: '#FF7E7B', cursor: "pointer"}}
+                >&times;
+                    </span>
             </Flex>
 
-            <li>
+            {isOpened ? <li>
                 <Flex gap={25} wrap={'wrap'}>
                     <TextArea
                         showCount
@@ -162,7 +191,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, date, content, title
                         />
                     </Flex>
                 </Flex>
-            </li>
+            </li> : null}
 
         </>
     )

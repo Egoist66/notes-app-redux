@@ -111,6 +111,8 @@ export const GlobalStyle = createGlobalStyle`
     width: 50%;
     
   }
+
+  
   
   textarea.ant-input {
     font-size: 17px !important;
@@ -194,6 +196,58 @@ export const GlobalStyle = createGlobalStyle`
   li a {
     word-break: break-all !important;
   }
+
+  .sticker-burger {
+    transition: 0.3s all ease;
+  }
+  .sticker-burger:hover {
+    color: #4096FF;
+    transition: 0.3s all ease;
+  }
+  
+  .active.sticker-burger {
+    color: #4096FF;
+  }
+
+  
+
+
+
+
+  
+  /* .ant-menu li:nth-child(1){
+    background: transparent;
+    color:  rgba(255, 255, 255, 0.65);
+  }
+  
+  .ant-menu li:nth-child(6){
+    background: transparent;
+    color:  rgba(255, 255, 255, 0.65);
+  } */
+
+  /* .nav-link.active .ant-menu-item {
+    background-color: #1677ff !important;
+
+  } */
+
+/* 
+  .ant-layout-sider-collapsed .nav-link.active::before {
+    content: none;
+  }
+
+  .nav-link.active::before {
+    content: '';
+    position: relative;
+    z-index: -3;
+    display: block;
+    background-color: #1677ff !important;
+    color: white;
+  }
+
+  .nav-link.active {
+    color: white !important;
+  } */
+
   
  @media (max-width: 1220px) {
    #frames {

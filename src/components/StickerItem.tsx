@@ -148,7 +148,9 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                         onBlur={saveNewTitle}
                         value={state.newTitle}
                         onChange={(e) => setState({...state, newTitle: e.currentTarget.value})}/>
-                    : <h3>{title}
+                    : <h3>
+                        <span style={{color: '#4096FF'}}>{title}</span>
+
                         <EditOutlined onClick={setTrue} style={{paddingLeft: 5, cursor: "pointer"}}/>
                         <span style={{
                             display: 'inline-block',

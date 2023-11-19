@@ -159,6 +159,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                         }}>{date}</span>
                     </h3>}
                 <span
+                    id={'delete-icon'}
                     onClick={onDeleteSticker(id)}
                     style={{fontSize: 22, color: '#FF7E7B', cursor: "pointer"}}
                 >&times;

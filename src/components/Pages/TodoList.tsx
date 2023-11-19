@@ -103,7 +103,7 @@ const TodoList: FC = memo(() => {
 
             <ul id={'task-list'} ref={listRef}>
                 {todoListElems}
-                {!todoListElems.length ? <Empty description={<b>Данных нет...</b>} style={{textAlign: 'left'}} /> : null}
+                {!todoListElems.length ? <Empty description={<span id={'no-tasks'}><b>Данных нет...</b></span>} style={{textAlign: 'left'}} /> : null}
             </ul>
 
             <FilterControls filter={filter} filterTask={setFilter}/>

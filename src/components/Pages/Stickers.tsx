@@ -129,7 +129,7 @@ const Stickers: FC = memo(() => {
 
                         />
 
-                        <Text style={{paddingLeft: 10, display: 'inline-block'}}>Сделать стикер активным по умолчанию?</Text>
+                        <Text id={'sticker-state'} style={{paddingLeft: 10, display: 'inline-block'}}>Сделать стикер активным по умолчанию?</Text>
 
 
                     </div>

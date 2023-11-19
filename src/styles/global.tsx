@@ -208,7 +208,14 @@ export const GlobalStyle = createGlobalStyle`
   .active.sticker-burger {
     color: #4096FF;
   }
+  #delete-icon {
+    transition: 0.3s all ease;
 
+  }
+  #delete-icon:hover {
+    transition: 0.3s all ease;
+    color: red !important;
+  }
   
 
 
@@ -264,7 +271,12 @@ export const GlobalStyle = createGlobalStyle`
     .frame-controls {
       flex-direction: column;
     }
-
+    
+    #delete-icon {
+      display: none !important; 
+    }
+    
+    
     .frames-view {
       margin-top: 110px !important;
     }
@@ -280,6 +292,19 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   @media(prefers-color-scheme: dark){
+
+    span#no-tasks {
+      color: white !important;
+    }
+    
+    #sticker-state {
+      color: black !important;
+    }
+
+
+    #frame-message-no-data {
+      color: white !important;
+    }
     .main-content {
       background-color: #001529 !important;
     }

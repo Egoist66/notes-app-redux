@@ -57,7 +57,7 @@ const Frames: FC = () => {
 
             </StyledFrames>
 
-            {frames.length <=0 ? <h3>Фреймы отсутствуют</h3>: null}
+            {frames.length <=0 ? <h3 id={'frame-message-no-data'}>Фреймы отсутствуют</h3>: null}
 
         </>
     )

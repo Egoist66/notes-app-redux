@@ -15,7 +15,7 @@ export const RoutesData = [
     {
         key: '1',
         icon: <FormOutlined/>,
-        label: <NavLink className={'nav-link'} to={'/'}>Список дел</NavLink>
+        label: <NavLink className={'nav-link'} to={'/'}>Заметки</NavLink>
 
     },
     {

@@ -42,7 +42,7 @@ const Settings: FC = memo(() => {
                 <Flex wrap={'wrap'} gap={20}>
                     <Button
                         onClick={backup}
-                    >Создать резервную копию копию</Button>
+                    >Создать резервную копию</Button>
                     <Button
                         onClick={uploadFile}
                     >{loading ? 'Восстановление...' : 'Восстановить из копии'}</Button>

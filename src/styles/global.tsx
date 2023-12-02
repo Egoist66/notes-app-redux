@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #task-list {
-    height: 250px;
+    height: 280px;
     overflow-y: auto;
   }
 

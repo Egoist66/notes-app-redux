@@ -1,6 +1,6 @@
-import {LS, useAppDispatch, useAppSelector, useDomSelector, useToggle} from "./hooks";
-import {ChangeEvent, FocusEvent, useEffect, useState} from "react";
-import {removeAppBackground, saveImgUrl, setAppUrlImageFromLS} from "../redux/todo-pallete-options-slice";
+import { LS, useAppDispatch, useAppSelector, useToggle } from "./hooks";
+import { ChangeEvent, FocusEvent, useState } from "react";
+import { removeAppBackground, saveImgUrl } from "../redux/todo-pallete-options-slice";
 import {validateImageUrl} from "../utils/utils";
 import {PalleteMenuState} from "../components/PalleteMenu";
 

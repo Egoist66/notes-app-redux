@@ -78,6 +78,15 @@ const Stickers: FC = memo(() => {
 
     }
 
+    const removeAllStickers = () => {
+        dispatch(deleteAllStickers())
+        message.open({
+            type: 'warning',
+            content: 'Стикеры удалены!'
+        })
+        
+    }
+
     const setStickerOpened = () => {
         setState({
             ...state,
@@ -115,7 +124,7 @@ const Stickers: FC = memo(() => {
                     gap: 20
                 }}>
                     <Button onClick={toggle}>Создать стикер</Button>
-                    <Button disabled={stickers.length <= 0} danger onClick={() => dispatch(deleteAllStickers())}>Удалить все стикеры</Button>
+                    <Button disabled={stickers.length <= 0} danger onClick={removeAllStickers}>Удалить все стикеры</Button>
 
                 </Col>
 

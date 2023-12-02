@@ -91,6 +91,13 @@ const todoStickersSlice = createSlice({
 
         },
 
+        deleteAllStickers(state: initialStateType){
+            state.stickers = []
+            save('stickers', state.stickers)
+
+
+        },
+
         editStickerTitle(state: initialStateType, action: editStickerTitleAction) {
             state.stickers = state.stickers.map(s => s.id === action.payload.id ? {
                 ...s,
@@ -162,6 +169,7 @@ export const {
     editStickerTitle,
     deleteSticker,
     toggleSticker,
+    deleteAllStickers,
     loadStikersFromLS
 } = todoStickersSlice.actions
 

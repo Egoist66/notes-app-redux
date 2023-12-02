@@ -224,6 +224,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                         padding: 5,
                         background: 'white',
                         outlineColor: "#4489ea",
+                        lineHeight:1.5,
                         minHeight: 180,
                         position: 'relative',
                         borderRadius: 5,

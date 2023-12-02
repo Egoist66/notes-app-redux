@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, memo, useDeferredValue, useEffect, useState } from "react";
-import { Button, Flex, Input, message, Modal, Select, Switch, Typography } from "antd";
+import { Button, Col, Flex, Input, message, Modal, Select, Switch, Typography } from "antd";
 import { useToggle } from "@react-hooks-library/core";
 import { LS, useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { createSticker, loadStikersFromLS, sortStickers } from "../../redux/todo-stickers-slice";
+import { createSticker, deleteAllStickers, loadStikersFromLS, sortStickers } from "../../redux/todo-stickers-slice";
 import { StickerItem } from "../StickerItem";
 import { formatDate } from "../../utils/utils";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -91,35 +91,46 @@ const Stickers: FC = memo(() => {
 
 
     useEffect(() => {
-        if(sortMode === 'По дате'){
+        if (sortMode === 'По дате') {
             console.log(2);
-            
-            dispatch(sortStickers({mode: 'По дате'}))
+
+            dispatch(sortStickers({ mode: 'По дате' }))
         }
-        else if(sortMode === 'По названию'){
-            dispatch(sortStickers({mode: 'По названию'}))
+        else if (sortMode === 'По названию') {
+            dispatch(sortStickers({ mode: 'По названию' }))
 
         }
     }, [sortMode])
-    
+
 
     return (
         <>
 
-            <Flex justify="space-between" wrap={'wrap'}>
+            <Flex justify="space-between" gap={20} wrap={'wrap'}>
 
 
-                <Button onClick={toggle}>Создать стикер</Button>
+                <Col style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 20
+                }}>
+                    <Button onClick={toggle}>Создать стикер</Button>
+                    <Button disabled={stickers.length <= 0} danger onClick={() => dispatch(deleteAllStickers())}>Удалить все стикеры</Button>
 
-                <Select
-                    data-value={sortMode}
-                    value={sortMode}
-                    onBlur={() => handleModeChange('Сортировать по')}
-                    onChange={handleModeChange}
-                    style={{ width: 240 }}
-                    options={sortParams.map((data) => ({ label: data, value: data }))}
-                />
+                </Col>
 
+                <Col>
+                    <Select
+                        data-value={sortMode}
+                        value={sortMode}
+                        onBlur={() => handleModeChange('Сортировать по')}
+                        onChange={handleModeChange}
+                        style={{ width: 240 }}
+                        options={sortParams.map((data) => ({ label: data, value: data }))}
+                    />
+
+                
+                </Col>
 
 
 

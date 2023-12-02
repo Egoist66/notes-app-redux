@@ -1,4 +1,4 @@
-import {TodosOptions, TodosOptionsForSlice, TodosSortAction} from '../types/types';
+import { TodosOptions, TodosOptionsForSlice } from '../types/types';
 import {LS} from "../hooks/hooks";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 

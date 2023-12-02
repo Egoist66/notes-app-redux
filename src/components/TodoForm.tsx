@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Col, Flex, Input, Select, Switch, Typography } from "antd";
 import { useTodoForm } from "../hooks/useTodoForm";
-import { useSort } from "../hooks/useSort";
 
 
 export type TodoFormStateType = {

@@ -1,7 +1,7 @@
-import {message as _message, message, UploadProps} from "antd";
+import { message as _message } from "antd";
 import {LS, useAppDispatch} from "./hooks";
 import {ChangeEvent, useState} from "react";
-import {createStickerContent, loadStickersFromFile} from "../redux/todo-stickers-slice";
+import { loadStickersFromFile } from "../redux/todo-stickers-slice";
 
 
 export const useStickerUpload = (stickerID: string) => {

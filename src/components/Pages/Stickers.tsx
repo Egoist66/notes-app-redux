@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FC, memo, useCallback, useDeferredValue, useEffect, useState } from "react";
-import { Button, Checkbox, Col, Flex, Input, message, Modal, Select, Switch, Typography } from "antd";
+import { ChangeEvent, FC, memo, useDeferredValue, useEffect, useState } from "react";
+import { Button, Flex, Input, message, Modal, Select, Switch, Typography } from "antd";
 import { useToggle } from "@react-hooks-library/core";
 import { LS, useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { createSticker, loadStikersFromLS, sortStickers, toggleSticker } from "../../redux/todo-stickers-slice";
+import { createSticker, loadStikersFromLS, sortStickers } from "../../redux/todo-stickers-slice";
 import { StickerItem } from "../StickerItem";
 import { formatDate } from "../../utils/utils";
 import { useAutoAnimate } from "@formkit/auto-animate/react";

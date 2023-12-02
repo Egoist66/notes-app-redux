@@ -1,7 +1,6 @@
-import React, { FC, memo, useEffect, useRef, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import { Button, Col, Flex, Input, message } from "antd";
-import TextArea from "antd/lib/input/TextArea";
-import { LS, useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { useAppDispatch } from "../hooks/hooks";
 import { createStickerContent, deleteSticker, editStickerTitle, toggleSticker } from "../redux/todo-stickers-slice";
 import { EditOutlined, MenuOutlined } from "@ant-design/icons";
 import { useToggle } from "@react-hooks-library/core";

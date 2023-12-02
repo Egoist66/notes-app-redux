@@ -4,11 +4,11 @@ import { TodoForm } from "../TodoForm";
 import { FilterControls, FilterTypes } from "../FilterControls";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { LS, useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import React, { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { clearTasks, setTodoFromLS } from "../../redux/todo-slice";
 import { FilterMemoryControls } from "../FilterMemory";
 import Swal from "sweetalert2";
-import { Button, Carousel, Empty } from "antd";
+import { Button, Empty } from "antd";
 
 
 const TodoList: FC = memo(() => {

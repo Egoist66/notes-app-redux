@@ -1,4 +1,3 @@
-import {driver} from "driver.js";
 import Swal from "sweetalert2";
 
 export function getRussianDate(): string {

@@ -1,4 +1,4 @@
-import {MouseEvent, useEffect, useState} from "react";
+import { MouseEvent, useState } from "react";
 import {useAppDispatch} from "./hooks";
 import {deleteItems, editTask, toggleComplete} from "../redux/todo-slice";
 import {message} from "antd";

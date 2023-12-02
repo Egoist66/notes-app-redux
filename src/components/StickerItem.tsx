@@ -246,7 +246,6 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                                 emptyCount: prevState.emptyCount + 1
                             }))
                         }}
-                        data-value={state.content}
                         onInput={(e) => setState({ ...state, content: e.currentTarget.textContent })}
 
                     />

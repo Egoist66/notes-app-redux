@@ -162,13 +162,13 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
         if (state.emptyCount === 1 && state.content === '') {
             saveStickerContent(id)
-
-
+            return
 
         }
 
         if (state.content !== '') {
             saveStickerContent(id)
+            return
 
         }
 

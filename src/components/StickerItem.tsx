@@ -12,7 +12,7 @@ type StickersStateType = {
     content: string | null
     maxContentValue: number
     emptyCount: number,
-    showHTML: boolean
+    showRawHTML: boolean
 
 
 }
@@ -44,7 +44,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
         content: '',
         emptyCount: 0,
         maxContentValue: 10000,
-        showHTML: false
+        showRawHTML: false
     })
 
     const uploadSticker = () => {
@@ -120,15 +120,17 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
 
     useEffect(() => {
-        if (state.showHTML) {
-            console.log(state.showHTML);
-            
+        if (state.showRawHTML) {
+            console.log(state.showRawHTML);
+
             showRawHTML('textContent')
         }
         else {
+            console.log(state.showRawHTML);
+
             showRawHTML('innerHTML')
         }
-    }, [state.showHTML])
+    }, [state.showRawHTML])
 
     useEffect(() => {
         if (state.content) {
@@ -150,15 +152,11 @@ export const StickerItem: FC<StickerItemProps> = memo(({
         })
     }, [content])
 
-    useEffect(() => {
-        if (areaRef.current) {
-            areaRef.current.innerHTML = content
-        }
-    }, [content])
+
 
     useEffect(() => {
 
-        if(state.content === content){
+        if (state.content === content) {
             return
         }
 
@@ -232,16 +230,18 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                         border: '1px solid #D9D9D9'
                     }}
                         contentEditable
+                        dangerouslySetInnerHTML={{ __html: content }}
                         onDoubleClick={() => {
                             setState((prevState) => ({
                                 ...prevState,
-                                showHTML: !prevState.showHTML
+                                showRawHTML: !prevState.showRawHTML
                             }))
                         }}
                         onBlur={() => {
 
                             setState((prevState) => ({
                                 ...prevState,
+                                showRawHTML: false,
                                 emptyCount: prevState.emptyCount + 1
                             }))
                         }}
@@ -254,14 +254,14 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
                     <Flex gap={20} wrap={'wrap'}>
                         <Button onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
-                        <Button  type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
+                        <Button type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
 
                         <Button id="html-btn" title="При наличии html сущностей в стикере можно отредактировать исходный код и сохранить измненения" type={'dashed'} onClick={() => {
                             setState((prevState) => ({
                                 ...prevState,
-                                showHTML: !prevState.showHTML
+                                showRawHTML: !prevState.showRawHTML
                             }))
-                        }}>Показать HTML</Button>
+                        }}>{state.showRawHTML ? 'Спрятать' : 'Показать'} HTML</Button>
 
 
                         <Button title={'формат - .txt - макс размер 1мб'}

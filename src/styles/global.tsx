@@ -382,6 +382,14 @@ export const GlobalStyle = createGlobalStyle`
     #info .ant-collapse-arrow {
       color: white;
     }
+
+    .ant-popover-inner-content span {
+      color: #ff4d4f !important;
+    }
+
+    .ant-popover-inner-content #no-btn span {
+      color: white !important;
+    }
     
     .ant-layout-has-sider .ant-layout {
       background-color: #001529 !important;

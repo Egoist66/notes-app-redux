@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, memo, useDeferredValue, useEffect, useState } from "react";
-import { Button, Col, Flex, Input, message, Modal, Select, Switch, Typography } from "antd";
+import { Button, Col, Flex, Input, message, Modal, Popover, Select, Switch, Typography } from "antd";
 import { useToggle } from "@react-hooks-library/core";
 import { LS, useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { createSticker, deleteAllStickers, loadStikersFromLS, sortStickers } from "../../redux/todo-stickers-slice";
@@ -26,6 +26,17 @@ const Stickers: FC = memo(() => {
         title: '',
         isOpened: false
     })
+
+
+    const [open, setOpen] = useState(false);
+
+    const hidePopover = () => {
+        setOpen(false);
+    };
+
+    const handleOpenPopover = (newOpen: boolean) => {
+        setOpen(newOpen);
+    };
 
     const defferedValue = useDeferredValue(state.title)
     const [listRef] = useAutoAnimate<HTMLUListElement>()
@@ -84,7 +95,7 @@ const Stickers: FC = memo(() => {
             type: 'warning',
             content: 'Стикеры удалены!'
         })
-        
+
     }
 
     const setStickerOpened = () => {
@@ -124,7 +135,34 @@ const Stickers: FC = memo(() => {
                     gap: 20
                 }}>
                     <Button onClick={toggle}>Создать стикер</Button>
-                    <Button disabled={stickers.length <= 0} danger onClick={removeAllStickers}>Удалить все стикеры</Button>
+                    <Popover
+                        content={(
+
+                            <Col style={{
+                                display: 'flex',
+                                gap: 10,
+                                flexWrap: 'wrap'
+                            }}>
+                                <Button danger onClick={() => {
+                                    removeAllStickers()
+                                    hidePopover()
+
+                                }}>Да</Button>
+                                <Button type="primary" id="no-btn" onClick={hidePopover}>Нет</Button>
+
+                            </Col>
+
+
+                        )}
+                        title="Уверены очистить все?"
+                        placement="rightBottom"
+                        trigger="click"
+                        
+                        open={open}
+                        onOpenChange={handleOpenPopover}
+                    >
+                        <Button disabled={stickers.length <= 0} danger>Удалить все стикеры</Button>
+                    </Popover>
 
                 </Col>
 
@@ -138,7 +176,7 @@ const Stickers: FC = memo(() => {
                         options={sortParams.map((data) => ({ label: data, value: data }))}
                     />
 
-                
+
                 </Col>
 
 

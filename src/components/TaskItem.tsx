@@ -1,9 +1,9 @@
-import {FC, memo, useEffect} from "react";
-import {Portal} from "./Portal";
-import {CronPopup} from "./CronPopup";
-import {ContextMenu} from "./ContextMenu";
-import {Checkbox} from "antd";
-import {useTaskItems} from "../hooks/useTaskItems";
+import { FC, memo, useEffect } from "react";
+import { Portal } from "./Portal";
+import { CronPopup } from "./CronPopup";
+import { ContextMenu } from "./ContextMenu";
+import { Checkbox } from "antd";
+import { useTaskItems } from "../hooks/useTaskItems";
 
 type TaskItemProps = {
     data: {
@@ -21,7 +21,7 @@ export type TaskItemState = {
     isContextMenuEnabled: boolean
 }
 
-export const TaskItem: FC<TaskItemProps> = memo(({data}) => {
+export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
 
     const {
         isPopupEnabled,
@@ -37,7 +37,7 @@ export const TaskItem: FC<TaskItemProps> = memo(({data}) => {
         togglePopup
     } = useTaskItems()
 
-    const {completed, id, time, title} = data;
+    const { completed, id, time, title } = data;
 
 
 
@@ -50,30 +50,26 @@ export const TaskItem: FC<TaskItemProps> = memo(({data}) => {
 
     return (
         <>
-            <li draggable="true">
-                <label>
+            <li>
 
 
-                    <Checkbox style={{
-                        paddingRight: 15
-                    }} checked={completed} onChange={() => toggleTask(id)}/>
+                <Checkbox checked={completed} onChange={() => toggleTask(id)} />
 
 
-                    {!completed ? (
-                        <span
-                            onContextMenu={toggleContextMenu}
-                            className={completed ? "done-task" : ""}
-                            dangerouslySetInnerHTML={{__html: title}}
-                        ></span>
-                    ) : (
-                        <span className={completed ? "done-task" : ""}>
-              <s dangerouslySetInnerHTML={{__html: title}}></s>
-            </span>
-                    )}
-                </label>
+                {!completed ? (
+                    <span
+                        onContextMenu={toggleContextMenu}
+                        className={completed ? "done-task" : ""}
+                        dangerouslySetInnerHTML={{ __html: title }}
+                    ></span>
+                ) : (
+                    <span className={completed ? "done-task" : ""}>
+                        <s dangerouslySetInnerHTML={{ __html: title }}></s>
+                    </span>
+                )}
                 <span onClick={() => deleteTask(id)} className={"delete"}>
-          &times;
-        </span>
+                    &times;
+                </span>
                 <span
                     id={"edit"}
                     style={{
@@ -83,12 +79,12 @@ export const TaskItem: FC<TaskItemProps> = memo(({data}) => {
                     }}
                     onClick={enableEditMode}
                 >
-          &#9998;
-        </span>
+                    &#9998;
+                </span>
                 <span onClick={togglePopup} id={"calendar"}>
-          &#128197;
-        </span>
-                <span style={{textDecoration: 'underline'}}>{time}</span>
+                    &#128197;
+                </span>
+                <span style={{ textDecoration: 'underline' }}>{time}</span>
             </li>
 
             {isPopupEnabled ? (

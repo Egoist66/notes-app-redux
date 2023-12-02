@@ -1,6 +1,7 @@
-import React, {memo} from "react";
-import {Button, Flex, Input, Switch, Typography} from "antd";
-import {useTodoForm} from "../hooks/useTodoForm";
+import React, { useEffect } from "react";
+import { Button, Col, Flex, Input, Select, Switch, Typography } from "antd";
+import { useTodoForm } from "../hooks/useTodoForm";
+import { useSort } from "../hooks/useSort";
 
 
 export type TodoFormStateType = {
@@ -13,8 +14,7 @@ export type TodoFormStateType = {
 }
 export const TodoForm: React.FC = () => {
 
-    const {Text} = Typography
-
+    const { Text } = Typography
 
     const {
         addTaskInTodo,
@@ -31,10 +31,14 @@ export const TodoForm: React.FC = () => {
         resetTranscript,
         listening,
         initSpeechListening,
-        browserSupportsSpeechRecognition
+        browserSupportsSpeechRecognition,
+        handleModeChange,
+        sortMode,
+        sortParams
     } = useTodoForm()
 
 
+  
     return (
 
         <>
@@ -43,7 +47,7 @@ export const TodoForm: React.FC = () => {
             <form onSubmit={addTaskInTodo}>
                 {contextCountHolder}
 
-                <Flex style={{paddingBottom: 30}} className='input-field'>
+                <Flex style={{ paddingBottom: 30 }} className='input-field'>
                     <Input
                         allowClear
                         status={state.warning ? 'error' : ''}
@@ -62,42 +66,60 @@ export const TodoForm: React.FC = () => {
             </form>
 
 
-            <Flex gap={30} wrap={"wrap"}>
+            <Flex justify="space-between">
 
-                <Button
-                    id={'restore'}
-                    type="primary"
-                    size={'large'}
-                    onClick={importUnCommitedText}
-                    disabled={!isInputDataInStorage}
-                >Восстановить
+                <Col style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
+                    <Button
+                        id={'restore'}
+                        type="primary"
+                        size={'large'}
+                        onClick={importUnCommitedText}
+                        disabled={!isInputDataInStorage}
+                    >Восстановить
 
-                </Button>
+                    </Button>
 
 
-                {browserSupportsSpeechRecognition ? <Button
+                    {browserSupportsSpeechRecognition ? <Button
                         id={'voice'}
                         size={'large'}
                         disabled={listening}
                         onClick={initSpeechListening}
                     >{listening ? 'Идет запись...' : 'Голосовой ввод'}</Button> :
-                    <p>Браузер не поддерживает голосовой ввод!</p>}
+                        <p>Браузер не поддерживает голосовой ввод!</p>}
 
-                <Button
-                    id={'print'}
-                    type="primary"
-                    size={'large'}
-                    onClick={() => window.print()}
-                >Распечатать
+                    <Button
+                        id={'print'}
+                        type="primary"
+                        size={'large'}
+                        onClick={() => window.print()}
+                    >Распечатать
 
-                </Button>
+                    </Button>
+
+                </Col>
+
+                <Col>
+
+                    <Select
+                        id="sort"
+                        data-value={sortMode}
+                        value={sortMode}
+                        onBlur={() => handleModeChange('Сортировать по')}
+                        onChange={handleModeChange}
+                        size="large"
+                        style={{ width: 240 }}
+                        options={sortParams.map((data) => ({ label: data, value: data }))}
+                    />
+
+                </Col>
 
             </Flex>
 
-            <div id={'task-watcher'} style={{marginBottom: '1rem'}}>
+            <div id={'task-watcher'} style={{ marginBottom: '1rem' }}>
 
 
-                <Flex style={{paddingTop: 30}} gap={10}>
+                <Flex style={{ paddingTop: 30 }} gap={10}>
                     <Switch
                         title={`Кол-во по умолчанию ${defaultValue}`}
                         checked={state.isRestrictedTasks}

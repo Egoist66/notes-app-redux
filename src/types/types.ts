@@ -15,7 +15,8 @@ export type TodosOptions = {
     title: string,
     completed: boolean,
     time: string
-    timeStamp: number
+    timeStamp: number,
+    sortMode: 'По названию' | 'По дате' | null
 }
 export type TodosOptionsForSlice = {
     payload: {
@@ -23,7 +24,14 @@ export type TodosOptionsForSlice = {
         title: string,
         completed: boolean,
         time: string,
+        sortMode: 'По названию' | 'По дате' | null
         timeStamp: number
+    }
+}
+
+export type TodosSortAction = {
+    payload: {
+        mode: 'По названию' | 'По дате'
     }
 }
 

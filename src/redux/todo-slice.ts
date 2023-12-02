@@ -1,6 +1,6 @@
-import {TodosOptions, TodosOptionsForSlice} from '../types/types';
+import {TodosOptions, TodosOptionsForSlice, TodosSortAction} from '../types/types';
 import {LS} from "../hooks/hooks";
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const {save, ls, get, remove} = LS()
 
@@ -26,6 +26,25 @@ const todoSlice = createSlice({
             state.matchedTodos.unshift(action.payload)
             save('todos', state.todos)
 
+        },
+
+        sortTodos(state, action: PayloadAction<{mode: 'По названию' | 'По дате'}>){
+            switch(action.payload.mode){
+                case 'По дате': {
+                    state.matchedTodos.sort((a, b) => a.timeStamp - b.timeStamp)
+                    state.todos.sort((a, b) => a.timeStamp - b.timeStamp)
+                    return state
+                }
+                case 'По названию': {
+                    state.matchedTodos.sort((a, b) => a.title.localeCompare(b.title, undefined, {
+                        sensitivity: 'base'
+                    }))
+                    state.todos.sort((a, b) => a.title.localeCompare(b.title, undefined, {
+                        sensitivity: 'base'
+                    }))
+                    return state
+                }
+            }
         },
 
         deleteItems(state, action) {
@@ -131,7 +150,8 @@ export const {
     watchEditTaskTime,
     editTask,
     findTasksBySearch,
-    watchTaskUnixTime
+    watchTaskUnixTime,
+    sortTodos
 } = todoSlice.actions
 
 export default todoSlice.reducer

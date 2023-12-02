@@ -1,11 +1,12 @@
-import React, {ChangeEvent, FC, memo, useCallback, useDeferredValue, useEffect, useState} from "react";
-import {Button, Checkbox, Flex, Input, message, Modal, Switch, Typography} from "antd";
-import {useToggle} from "@react-hooks-library/core";
-import {LS, useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {createSticker, loadStikersFromLS, toggleSticker} from "../../redux/todo-stickers-slice";
-import {StickerItem} from "../StickerItem";
-import {formatDate} from "../../utils/utils";
-import {useAutoAnimate} from "@formkit/auto-animate/react";
+import React, { ChangeEvent, FC, memo, useCallback, useDeferredValue, useEffect, useState } from "react";
+import { Button, Checkbox, Col, Flex, Input, message, Modal, Select, Switch, Typography } from "antd";
+import { useToggle } from "@react-hooks-library/core";
+import { LS, useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { createSticker, loadStikersFromLS, sortStickers, toggleSticker } from "../../redux/todo-stickers-slice";
+import { StickerItem } from "../StickerItem";
+import { formatDate } from "../../utils/utils";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useSort } from "../../hooks/useSort";
 
 type StickersStateType = {
     fieldStatus: 'error' | 'warning' | ''
@@ -15,10 +16,11 @@ type StickersStateType = {
 }
 
 const Stickers: FC = memo(() => {
-    const {Text} = Typography
+    const { Text } = Typography
 
-    const {toggle, setFalse, bool} = useToggle(false)
-    const {get, exist} = LS()
+    const { handleModeChange, sortMode, sortParams } = useSort()
+    const { toggle, setFalse, bool } = useToggle(false)
+    const { get, exist } = LS()
     const [state, setState] = useState<StickersStateType>({
         fieldStatus: '',
         title: '',
@@ -29,7 +31,7 @@ const Stickers: FC = memo(() => {
     const [listRef] = useAutoAnimate<HTMLUListElement>()
 
     const dispatch = useAppDispatch()
-    const {stickers} = useAppSelector(state => state.todoStickers)
+    const { stickers } = useAppSelector(state => state.todoStickers)
 
 
     const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +58,7 @@ const Stickers: FC = memo(() => {
             dispatch(createSticker({
                 isOpened: state.isOpened,
                 title: state.title.trim(),
+                timestamp: Date.now(),
                 date: formatDate(Date.now())
             }))
 
@@ -75,7 +78,7 @@ const Stickers: FC = memo(() => {
 
     }
 
-    const setStickerOpened =() => {
+    const setStickerOpened = () => {
         setState({
             ...state,
             isOpened: !state.isOpened
@@ -87,13 +90,37 @@ const Stickers: FC = memo(() => {
     }, [exist('stickers') ? get('stickers').length : []])
 
 
+    useEffect(() => {
+        if(sortMode === 'По дате'){
+            console.log(2);
+            
+            dispatch(sortStickers({mode: 'По дате'}))
+        }
+        else if(sortMode === 'По названию'){
+            dispatch(sortStickers({mode: 'По названию'}))
+
+        }
+    }, [sortMode])
+    
 
     return (
         <>
 
-            <Flex wrap={'wrap'}>
+            <Flex justify="space-between" wrap={'wrap'}>
+
 
                 <Button onClick={toggle}>Создать стикер</Button>
+
+                <Select
+                    data-value={sortMode}
+                    value={sortMode}
+                    onBlur={() => handleModeChange('Сортировать по')}
+                    onChange={handleModeChange}
+                    style={{ width: 240 }}
+                    options={sortParams.map((data) => ({ label: data, value: data }))}
+                />
+
+
 
 
                 <Modal
@@ -120,7 +147,7 @@ const Stickers: FC = memo(() => {
 
                     />
 
-                    <div style={{paddingTop: 30}}>
+                    <div style={{ paddingTop: 30 }}>
                         <Switch
                             data-isopened={state.isOpened}
                             onChange={setStickerOpened}
@@ -129,7 +156,7 @@ const Stickers: FC = memo(() => {
 
                         />
 
-                        <Text id={'sticker-state'} style={{paddingLeft: 10, display: 'inline-block'}}>Сделать стикер активным по умолчанию?</Text>
+                        <Text id={'sticker-state'} style={{ paddingLeft: 10, display: 'inline-block' }}>Сделать стикер активным по умолчанию?</Text>
 
 
                     </div>

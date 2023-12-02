@@ -1,19 +1,19 @@
-import {TodosOptions} from "../../types/types";
-import {TaskItem} from "../TaskItem";
-import {TodoForm} from "../TodoForm";
-import {FilterControls, FilterTypes} from "../FilterControls";
-import {useAutoAnimate} from "@formkit/auto-animate/react";
-import {LS, useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import React, {FC, memo, useEffect, useState} from "react";
-import {clearTasks, setTodoFromLS} from "../../redux/todo-slice";
-import {FilterMemoryControls} from "../FilterMemory";
+import { TodosOptions } from "../../types/types";
+import { TaskItem } from "../TaskItem";
+import { TodoForm } from "../TodoForm";
+import { FilterControls, FilterTypes } from "../FilterControls";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { LS, useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import React, { FC, memo, useEffect, useState } from "react";
+import { clearTasks, setTodoFromLS } from "../../redux/todo-slice";
+import { FilterMemoryControls } from "../FilterMemory";
 import Swal from "sweetalert2";
-import {Button, Empty} from "antd";
+import { Button, Carousel, Empty } from "antd";
 
 
 const TodoList: FC = memo(() => {
 
-    const {get, exist} = LS()
+    const { get, exist } = LS()
     const defaultFiler = exist('filter') ? get('filter') : 'All'
 
     const [listRef] = useAutoAnimate<HTMLUListElement>()
@@ -21,7 +21,7 @@ const TodoList: FC = memo(() => {
 
 
     const dispatch = useAppDispatch()
-    const {todos, matchedTodos} = useAppSelector(state => state.todos)
+    const { todos, matchedTodos } = useAppSelector(state => state.todos)
 
 
     const FilteredTodosSettedFromLS = () => {
@@ -75,7 +75,7 @@ const TodoList: FC = memo(() => {
     }, [])
 
 
-    const todoListElems = FilteredTodosSettedFromLS()?.map(({completed, id, title, time, timeStamp}: TodosOptions) => (
+    const todoListElems = FilteredTodosSettedFromLS()?.map(({ completed, id, title, time, timeStamp }: TodosOptions) => (
 
         <TaskItem
             key={id}
@@ -90,6 +90,7 @@ const TodoList: FC = memo(() => {
 
         />
 
+
     ))
 
 
@@ -97,18 +98,23 @@ const TodoList: FC = memo(() => {
 
         <>
 
-            <TodoForm/>
+            <TodoForm />
 
             <FilterMemoryControls filter={filter} />
 
             <ul id={'task-list'} ref={listRef}>
+
+
                 {todoListElems}
-                {!todoListElems.length ? <Empty description={<span id={'no-tasks'}><b>Данных нет...</b></span>} style={{textAlign: 'left'}} /> : null}
+
+
+
+                {!todoListElems.length ? <Empty description={<span id={'no-tasks'}><b>Данных нет...</b></span>} style={{ textAlign: 'left' }} /> : null}
             </ul>
 
-            <FilterControls filter={filter} filterTask={setFilter}/>
+            <FilterControls filter={filter} filterTask={setFilter} />
 
-            <div style={{marginTop: 50}}>
+            <div style={{ marginTop: 50 }}>
 
                 <Button
 

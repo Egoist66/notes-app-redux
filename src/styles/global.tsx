@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   body, html {
@@ -14,6 +14,17 @@ export const GlobalStyle = createGlobalStyle`
   .skiptranslate iframe {
     z-index: -11111 !important;
   }
+
+  #task-list {
+    height: 250px;
+    overflow-y: auto;
+  }
+
+/*   
+  #stickers > ul {
+    max-height: 610px;
+    overflow-x: auto;
+  } */
 
 
   aside ul {
@@ -59,6 +70,10 @@ export const GlobalStyle = createGlobalStyle`
     color: #9e9e9e70
   }
 
+
+  .text-area {
+      font-size: 17px !important;
+    }
 
   #storage {
     max-width: 1290px;
@@ -222,40 +237,6 @@ export const GlobalStyle = createGlobalStyle`
 
 
   
-  /* .ant-menu li:nth-child(1){
-    background: transparent;
-    color:  rgba(255, 255, 255, 0.65);
-  }
-  
-  .ant-menu li:nth-child(6){
-    background: transparent;
-    color:  rgba(255, 255, 255, 0.65);
-  } */
-
-  /* .nav-link.active .ant-menu-item {
-    background-color: #1677ff !important;
-
-  } */
-
-/* 
-  .ant-layout-sider-collapsed .nav-link.active::before {
-    content: none;
-  }
-
-  .nav-link.active::before {
-    content: '';
-    position: relative;
-    z-index: -3;
-    display: block;
-    background-color: #1677ff !important;
-    color: white;
-  }
-
-  .nav-link.active {
-    color: white !important;
-  } */
-
-  
  @media (max-width: 1220px) {
    #frames {
     display: block !important; 
@@ -288,10 +269,24 @@ export const GlobalStyle = createGlobalStyle`
     #color-scheme {
       font-size: 9px !important;
     }
+
+  
     
   }
   
   @media(prefers-color-scheme: dark){
+
+    .qr {
+      background-color: white !important;
+    }
+
+    .text-area {
+      color: black !important;
+
+      & * {
+        color: black !important
+      }
+    }
 
     span#no-tasks {
       color: white !important;
@@ -370,6 +365,10 @@ export const GlobalStyle = createGlobalStyle`
     
     #info h2 {
       color: white;
+    }
+
+    #html-btn {
+      background-color: #1677FF;
     }
     
     .main-content #info .ant-collapse-content-box :where(li, span, ol) {

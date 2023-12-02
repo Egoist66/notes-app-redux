@@ -1,13 +1,14 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {LS} from "../hooks/hooks";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { LS } from "../hooks/hooks";
 
-const {save, ls, get, remove, exist} = LS()
+const { save, ls, get, remove, exist } = LS()
 
 type StickersElems = {
     id: string,
     date: string,
     title: string,
     content: string
+    timeStamp: number
     isOpened: boolean
 
 }
@@ -20,6 +21,7 @@ type addStickerAction = {
     payload: {
         title: string,
         date: string,
+        timestamp: number
         isOpened: boolean
 
     }
@@ -75,6 +77,7 @@ const todoStickersSlice = createSlice({
             state.stickers.push({
                 isOpened: action.payload.isOpened || false,
                 date: action.payload.date,
+                timeStamp: action.payload.timestamp,
                 id: crypto.randomUUID(),
                 title: action.payload.title,
                 content: ''
@@ -127,7 +130,23 @@ const todoStickersSlice = createSlice({
                 isOpened: !s.isOpened
             } : s)
             save('stickers', state.stickers)
-        }
+        },
+
+        sortStickers(state, action: PayloadAction<{ mode: 'По названию' | 'По дате' }>) {
+            switch (action.payload.mode) {
+                case 'По дате': {
+                    state.stickers = state.stickers.sort((a, b) => a.timeStamp - b.timeStamp)
+                    return state
+                }
+                case 'По названию': {
+
+                    state.stickers = state.stickers.sort((a, b) => a.title.localeCompare(b.title, undefined, {
+                        sensitivity: 'base'
+                    }))
+                    return state
+                }
+            }
+        },
 
 
     }
@@ -137,6 +156,7 @@ const todoStickersSlice = createSlice({
 
 export const {
     createSticker,
+    sortStickers,
     loadStickersFromFile,
     createStickerContent,
     editStickerTitle,

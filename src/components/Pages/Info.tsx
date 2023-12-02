@@ -52,7 +52,7 @@ const Info: FC = () => {
 
             <div>
 
-                <QRCode value={document.location.href}/>
+                <QRCode className="qr" value={document.location.href}/>
 
             </div>
 

@@ -3,9 +3,10 @@ import {ChangeEvent, FormEvent, useDeferredValue, useEffect, useState} from "rea
 import {message, notification} from "antd";
 import {formatDate, MatchLinkinText} from "../utils/utils";
 import Swal from "sweetalert2";
-import {addTodo} from "../redux/todo-slice";
+import {addTodo, sortTodos} from "../redux/todo-slice";
 import {TodoFormStateType} from "../components/TodoForm";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import { useSort } from "./useSort";
 
 
 export type NotificationType = 'success' | 'info' | 'warning' | 'error';
@@ -15,6 +16,9 @@ export type NotificationType = 'success' | 'info' | 'warning' | 'error';
 export const useTodoForm = () => {
     const {save, get, exist, remove} = LS()
     const defaultValue = 30
+
+    const { handleModeChange, sortMode, sortParams } = useSort()
+
 
     const {
         transcript,
@@ -163,6 +167,7 @@ export const useTodoForm = () => {
                 title: newText,
                 completed: false,
                 timeStamp: Date.now(),
+                sortMode: null,
                 time: formatDate(new Date().getTime())
             }))
 
@@ -188,6 +193,7 @@ export const useTodoForm = () => {
                 id: new Date().getTime(),
                 title: defferedValue,
                 completed: false,
+                sortMode: null,
                 time: formatDate(new Date().getTime()),
                 timeStamp: Date.now()
             }))
@@ -315,6 +321,16 @@ export const useTodoForm = () => {
 
     }, [state.isRestrictedTasks])
 
+    useEffect(() => {
+        if(sortMode === 'По дате'){
+            dispatch(sortTodos({mode: 'По дате'}))
+        }
+        else if(sortMode === 'По названию'){
+            dispatch(sortTodos({mode: 'По названию'}))
+
+        }
+    }, [sortMode])
+
 
     return {
         setQuantityOfRestrictedTasks,
@@ -333,7 +349,10 @@ export const useTodoForm = () => {
         contextCountHolder,
         isInputDataInStorage,
         resetTranscript,
-        browserSupportsSpeechRecognition
+        browserSupportsSpeechRecognition,
+        handleModeChange,
+        sortMode,
+        sortParams
 
     }
 

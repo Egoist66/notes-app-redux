@@ -385,6 +385,16 @@ export const useAppGuide = () => {
                 },
 
                 {
+                    element: '#sort',
+                    popover: {
+                        title: 'Элемент сортировки заметок',
+                        description: 'Данная функция позволит вам сортировать по критериям текущие заметки для удобного использования',
+                        side: "left",
+                        align: 'start'
+                    }
+                },
+
+                {
                     element: '.goog-te-gadget > div',
                     popover: {
                         title: 'Элемент выбора языка приложения',

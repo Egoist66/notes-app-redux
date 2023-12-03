@@ -99,7 +99,8 @@ const Frames: FC = () => {
 
             <Col style={{
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                paddingTop: 30
             }}>
 
                 <Text>Количество фреймов - {frames.length}</Text>

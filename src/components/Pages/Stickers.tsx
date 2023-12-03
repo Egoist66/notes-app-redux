@@ -227,7 +227,15 @@ const Stickers: FC = memo(() => {
 
             <div id="stickers">
 
-                <ul ref={listRef}>
+                <ul ref={listRef}
+                style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 20,
+                    justifyContent: 'center'
+                }}
+                
+                >
                     {stickers.length ? stickers.map((s, i: number) => (
 
                         <StickerItem

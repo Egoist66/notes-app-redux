@@ -177,111 +177,131 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
     return (
         <>
-            <Flex align={'center'} gap={15} wrap={'wrap'}>
+            <Col style={{
+                background: 'white',
+                padding: 10,
+                boxShadow: '1px 1px 3px 1px silver',
+                borderRadius: 5,
+                height: isOpened ? 'auto' : '10%',
+                flexBasis: 530
+            }}>
 
-                <MenuOutlined
-                    className={isOpened ? 'active sticker-burger' : 'sticker-burger'}
-                    onClick={toggleStickerItem(id)}
-                    style={{ cursor: 'pointer' }}
-                />
+                
 
-                {bool ? <Input
-                    className={'editable'}
-                    autoFocus
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            saveNewTitle()
-                        }
-                    }
-                    }
-                    onBlur={saveNewTitle}
-                    value={state.newTitle}
-                    onChange={(e) => setState({ ...state, newTitle: e.currentTarget.value })} />
-                    : <h3>
-                        <span style={{ color: '#4096FF' }}>{title}</span>
+                <Col style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 20
+                }}>
 
-                        <EditOutlined onClick={setTrue} style={{ paddingLeft: 5, cursor: "pointer" }} />
-                        <span style={{
-                            display: 'inline-block',
-                            paddingLeft: 10,
-                            textDecoration: 'underline'
-                        }}>{date}</span>
-                    </h3>}
-                <span
-                    id={'delete-icon'}
-                    onClick={onDeleteSticker(id)}
-                    style={{ fontSize: 22, color: '#FF7E7B', cursor: "pointer" }}
-                >&times;
-                </span>
-            </Flex>
-
-            {isOpened ? <li>
-                <Flex gap={25} wrap={'wrap'}>
-
-
-                    <div ref={areaRef} className="text-area" style={{
-                        width: '100%',
-                        padding: 5,
-                        background: 'white',
-                        outlineColor: "#4489ea",
-                        lineHeight:1.5,
-                        minHeight: 180,
-                        position: 'relative',
-                        borderRadius: 5,
-                        border: '1px solid #D9D9D9'
-                    }}
-                        contentEditable
-                        dangerouslySetInnerHTML={{ __html: content }}
-                        onDoubleClick={() => {
-                            setState((prevState) => ({
-                                ...prevState,
-                                showRawHTML: !prevState.showRawHTML
-                            }))
-                        }}
-                        onBlur={() => {
-
-                            setState((prevState) => ({
-                                ...prevState,
-                                showRawHTML: false,
-                                emptyCount: prevState.emptyCount + 1
-                            }))
-                        }}
-                        onInput={(e) => setState({ ...state, content: e.currentTarget.textContent })}
-
+                    <MenuOutlined
+                        className={isOpened ? 'active sticker-burger' : 'sticker-burger'}
+                        onClick={toggleStickerItem(id)}
+                        style={{ cursor: 'pointer' }}
                     />
 
+                    {bool ? <Input
+                        className={'editable'}
+                        autoFocus
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                saveNewTitle()
+                            }
+                        }
+                        }
+                        onBlur={saveNewTitle}
+                        value={state.newTitle}
+                        onChange={(e) => setState({ ...state, newTitle: e.currentTarget.value })} />
+                        : <h3>
+                            <span style={{ color: '#4096FF' }}>{title}</span>
+
+                            <EditOutlined onClick={setTrue} style={{ paddingLeft: 5, cursor: "pointer" }} />
+                            <span style={{
+                                display: 'inline-block',
+                                paddingLeft: 10,
+                                textDecoration: 'underline'
+                            }}>{date}</span>
+                        </h3>}
+                    <span
+                        id={'delete-icon'}
+                        onClick={onDeleteSticker(id)}
+                        style={{ fontSize: 22, color: '#FF7E7B', cursor: "pointer" }}
+                    >&times;
+                    </span>
+
+                </Col>
+
+                {isOpened ? <li>
+                    <Flex gap={25} wrap={'wrap'}>
 
 
-                    <Flex gap={20} wrap={'wrap'}>
-                        <Button onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
-                        <Button type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
+                        <div ref={areaRef} className="text-area" style={{
+                            width: '100%',
+                            padding: 5,
+                            background: 'white',
+                            outlineColor: "#4489ea",
+                            lineHeight: 1.5,
+                            minHeight: 180,
+                            position: 'relative',
+                            borderRadius: 5,
+                            height: 500,
+                            overflow: 'auto',
+                            border: '1px solid #D9D9D9'
+                        }}
+                            contentEditable
+                            dangerouslySetInnerHTML={{ __html: content }}
+                            onDoubleClick={() => {
+                                setState((prevState) => ({
+                                    ...prevState,
+                                    showRawHTML: !prevState.showRawHTML
+                                }))
+                            }}
+                            onBlur={() => {
 
-                        <Button id="html-btn" title="При наличии html сущностей в стикере можно отредактировать исходный код и сохранить измненения" type={'dashed'} onClick={() => {
-                            setState((prevState) => ({
-                                ...prevState,
-                                showRawHTML: !prevState.showRawHTML
-                            }))
-                        }}>{state.showRawHTML ? 'Спрятать' : 'Показать'} HTML</Button>
+                                setState((prevState) => ({
+                                    ...prevState,
+                                    showRawHTML: false,
+                                    emptyCount: prevState.emptyCount + 1
+                                }))
+                            }}
+                            onInput={(e) => setState({ ...state, content: e.currentTarget.textContent })}
 
-
-                        <Button title={'формат - .txt - макс размер 1мб'}
-                            onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
-                        <Button onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
-                        <input
-                            ref={uploadRef}
-                            onChange={handleUploadSticker}
-                            accept={'text/plain,.txt'}
-                            type="file"
-                            hidden
                         />
+
+
+
+                        <Flex gap={20} wrap={'wrap'}>
+                            <Button onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
+                            <Button type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
+
+                            <Button id="html-btn" title="При наличии html сущностей в стикере можно отредактировать исходный код и сохранить измненения" type={'dashed'} onClick={() => {
+                                setState((prevState) => ({
+                                    ...prevState,
+                                    showRawHTML: !prevState.showRawHTML
+                                }))
+                            }}>{state.showRawHTML ? 'Спрятать' : 'Показать'} HTML</Button>
+
+
+                            <Button title={'формат - .txt - макс размер 1мб'}
+                                onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
+                            <Button onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
+                            <input
+                                ref={uploadRef}
+                                onChange={handleUploadSticker}
+                                accept={'text/plain,.txt'}
+                                type="file"                                hidden
+                            />
+                        </Flex>
                     </Flex>
-                </Flex>
-            </li> : null}
+                </li> : null}
 
 
-            <Col style={{ textAlign: 'end' }}>
-                {state.content?.length} / {state.maxContentValue}
+                <Col style={{ textAlign: 'end' }}>
+                    {state.content?.length} / {state.maxContentValue}
+                </Col>
             </Col>
+
+
 
 
         </>

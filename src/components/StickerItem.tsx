@@ -244,7 +244,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                             minHeight: 180,
                             position: 'relative',
                             borderRadius: 5,
-                            height: 500,
+                            maxHeight: 500,
                             overflow: 'auto',
                             border: '1px solid #D9D9D9'
                         }}

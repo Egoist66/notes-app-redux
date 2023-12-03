@@ -67,7 +67,7 @@ export const FrameForm: FC<FrameFormProps> = memo(({ paginateFrames, isAllShown,
 
 
                         <Button disabled={currentPage + itemsPerPage === 3 || isAllShown} onClick={paginateBackFrames} type="primary">Назад</Button>
-                        <Button disabled={currentPage + itemsPerPage >= frames.length || isAllShown} onClick={paginateFrames} type="primary">Подгрузить еще</Button>
+                        <Button disabled={currentPage + itemsPerPage >= frames.length || isAllShown} onClick={paginateFrames} type="primary">Вперед</Button>
                         <Button title="Данная опция может влиять на производительность" onClick={showAllFrames} type="dashed">
                             {isAllShown ? 'Cкрыть' : 'Показать все'}
                         </Button>

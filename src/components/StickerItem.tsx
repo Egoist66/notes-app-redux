@@ -102,7 +102,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
     const saveStickerContent = (id: string) => {
         if (id) {
-            dispatch(createStickerContent({content: state.content ? state.content : '2', id}))
+            dispatch(createStickerContent({content: state.content ? state.content : '', id}))
 
             message.open({
                 type: 'success',
@@ -118,6 +118,23 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
     }
 
+    const deleteStickerContent = (id: string) => {
+        return () => {
+            if(content === ''){
+                message.open({
+                    type: 'warning',
+                    content: 'Пусто!'
+                })
+
+                return
+            }
+            dispatch(createStickerContent({content: '', id}))
+            message.open({
+                type: 'success',
+                content: 'Очищено!'
+            })
+        }
+    }
 
     useEffect(() => {
         if (state.showRawHTML) {
@@ -283,6 +300,9 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                             <Button title={'формат - .txt - макс размер 1мб'}
                                     onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
                             <Button onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
+                            <Button danger onClick={deleteStickerContent(id)}>Очистить</Button>
+
+
                             <input
                                 ref={uploadRef}
                                 onChange={handleUploadSticker}

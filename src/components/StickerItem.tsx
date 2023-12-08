@@ -1,10 +1,10 @@
-import { FC, memo, useEffect, useRef, useState } from "react";
-import { Button, Col, Flex, Input, message } from "antd";
-import { useAppDispatch } from "../hooks/hooks";
-import { createStickerContent, deleteSticker, editStickerTitle, toggleSticker } from "../redux/todo-stickers-slice";
-import { EditOutlined, MenuOutlined } from "@ant-design/icons";
-import { useToggle } from "@react-hooks-library/core";
-import { useStickerUpload } from "../hooks/useStickerUpload";
+import {FC, memo, useEffect, useRef, useState} from "react";
+import {Button, Col, Flex, Input, message} from "antd";
+import {useAppDispatch} from "../hooks/hooks";
+import {createStickerContent, deleteSticker, editStickerTitle, toggleSticker} from "../redux/todo-stickers-slice";
+import {EditOutlined, MenuOutlined} from "@ant-design/icons";
+import {useToggle} from "@react-hooks-library/core";
+import {useStickerUpload} from "../hooks/useStickerUpload";
 
 type StickersStateType = {
     fieldStatus: 'error' | 'warning' | ''
@@ -26,16 +26,16 @@ type StickerItemProps = {
 }
 
 export const StickerItem: FC<StickerItemProps> = memo(({
-    id,
-    isOpened,
-    date,
-    content,
-    title
-}) => {
-    const { handleUploadSticker, handleDownloadSticker, loading } = useStickerUpload(id)
+                                                           id,
+                                                           isOpened,
+                                                           date,
+                                                           content,
+                                                           title
+                                                       }) => {
+    const {handleUploadSticker, handleDownloadSticker, loading} = useStickerUpload(id)
     const dispatch = useAppDispatch()
 
-    const { setTrue, setFalse, bool } = useToggle(false)
+    const {setTrue, setFalse, bool} = useToggle(false)
     const uploadRef = useRef<HTMLInputElement>(null)
     const areaRef = useRef<HTMLDivElement>(null)
     const [state, setState] = useState<StickersStateType>({
@@ -55,7 +55,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
     const onDeleteSticker = (stickerId: string) => {
         return () => {
-            dispatch(deleteSticker({ id: stickerId }))
+            dispatch(deleteSticker({id: stickerId}))
             message.open({
                 type: 'warning',
                 content: 'Стикер удален!'
@@ -65,7 +65,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
     const toggleStickerItem = (stickerId: string) => {
         return () => {
-            dispatch(toggleSticker({ id: stickerId }))
+            dispatch(toggleSticker({id: stickerId}))
         }
     }
 
@@ -86,7 +86,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
             return;
         }
 
-        dispatch(editStickerTitle({ id, newtitle: state.newTitle }))
+        dispatch(editStickerTitle({id, newtitle: state.newTitle}))
         message.open({
             type: 'success',
             content: 'Изменено!'
@@ -102,7 +102,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
     const saveStickerContent = (id: string) => {
         if (id) {
-            dispatch(createStickerContent({ content: state.content ? state.content : '', id }))
+            dispatch(createStickerContent({content: state.content ? state.content : '2', id}))
 
             message.open({
                 type: 'success',
@@ -124,8 +124,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
             console.log(state.showRawHTML);
 
             showRawHTML('textContent')
-        }
-        else {
+        } else {
             console.log(state.showRawHTML);
 
             showRawHTML('innerHTML')
@@ -151,7 +150,6 @@ export const StickerItem: FC<StickerItemProps> = memo(({
             content: content
         })
     }, [content])
-
 
 
     useEffect(() => {
@@ -186,7 +184,6 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                 flexBasis: 530
             }}>
 
-                
 
                 <Col style={{
                     display: 'flex',
@@ -197,25 +194,25 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                     <MenuOutlined
                         className={isOpened ? 'active sticker-burger' : 'sticker-burger'}
                         onClick={toggleStickerItem(id)}
-                        style={{ cursor: 'pointer' }}
+                        style={{cursor: 'pointer'}}
                     />
 
                     {bool ? <Input
-                        className={'editable'}
-                        autoFocus
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                                saveNewTitle()
+                            className={'editable'}
+                            autoFocus
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    saveNewTitle()
+                                }
                             }
-                        }
-                        }
-                        onBlur={saveNewTitle}
-                        value={state.newTitle}
-                        onChange={(e) => setState({ ...state, newTitle: e.currentTarget.value })} />
+                            }
+                            onBlur={saveNewTitle}
+                            value={state.newTitle}
+                            onChange={(e) => setState({...state, newTitle: e.currentTarget.value})}/>
                         : <h3>
-                            <span style={{ color: '#4096FF' }}>{title}</span>
+                            <span style={{color: '#4096FF'}}>{title}</span>
 
-                            <EditOutlined onClick={setTrue} style={{ paddingLeft: 5, cursor: "pointer" }} />
+                            <EditOutlined onClick={setTrue} style={{paddingLeft: 5, cursor: "pointer"}}/>
                             <span style={{
                                 display: 'inline-block',
                                 paddingLeft: 10,
@@ -225,7 +222,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                     <span
                         id={'delete-icon'}
                         onClick={onDeleteSticker(id)}
-                        style={{ fontSize: 22, color: '#FF7E7B', cursor: "pointer" }}
+                        style={{fontSize: 22, color: '#FF7E7B', cursor: "pointer"}}
                     >&times;
                     </span>
 
@@ -248,33 +245,34 @@ export const StickerItem: FC<StickerItemProps> = memo(({
                             overflow: 'auto',
                             border: '1px solid #D9D9D9'
                         }}
-                            contentEditable
-                            dangerouslySetInnerHTML={{ __html: content }}
-                            onDoubleClick={() => {
-                                setState((prevState) => ({
-                                    ...prevState,
-                                    showRawHTML: !prevState.showRawHTML
-                                }))
-                            }}
-                            onBlur={() => {
+                             contentEditable
+                             dangerouslySetInnerHTML={{__html: content}}
+                             onDoubleClick={() => {
+                                 setState((prevState) => ({
+                                     ...prevState,
+                                     showRawHTML: !prevState.showRawHTML
+                                 }))
+                             }}
+                             onBlur={() => {
 
-                                setState((prevState) => ({
-                                    ...prevState,
-                                    showRawHTML: false,
-                                    emptyCount: prevState.emptyCount + 1
-                                }))
-                            }}
-                            onInput={(e) => setState({ ...state, content: e.currentTarget.textContent })}
+                                 setState((prevState) => ({
+                                     ...prevState,
+                                     showRawHTML: false,
+                                     emptyCount: prevState.emptyCount + 1
+                                 }))
+                             }}
+                             onInput={(e) => setState({...state, content: e.currentTarget.innerHTML})}
 
                         />
-
 
 
                         <Flex gap={20} wrap={'wrap'}>
                             <Button onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
                             <Button type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
 
-                            <Button id="html-btn" title="При наличии html сущностей в стикере можно отредактировать исходный код и сохранить измненения" type={'dashed'} onClick={() => {
+                            <Button id="html-btn"
+                                    title="При наличии html сущностей в стикере можно отредактировать исходный код и сохранить измненения"
+                                    type={'dashed'} onClick={() => {
                                 setState((prevState) => ({
                                     ...prevState,
                                     showRawHTML: !prevState.showRawHTML
@@ -283,25 +281,23 @@ export const StickerItem: FC<StickerItemProps> = memo(({
 
 
                             <Button title={'формат - .txt - макс размер 1мб'}
-                                onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
+                                    onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
                             <Button onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
                             <input
                                 ref={uploadRef}
                                 onChange={handleUploadSticker}
                                 accept={'text/plain,.txt'}
-                                type="file"                                hidden
+                                type="file" hidden
                             />
                         </Flex>
                     </Flex>
                 </li> : null}
 
 
-                <Col style={{ textAlign: 'end' }}>
+                <Col style={{textAlign: 'end'}}>
                     {state.content?.length} / {state.maxContentValue}
                 </Col>
             </Col>
-
-
 
 
         </>

@@ -19,6 +19,7 @@ const store = configureStore({
 })
 
 
+
 export const StateProvider = ({children}: ChildrenProps) => {
     return (
         <Provider store={store}>

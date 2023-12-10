@@ -1,8 +1,11 @@
 import {ChangeEvent, useState} from "react";
 import {message as _message} from "antd";
+import {useAppDispatch} from "./hooks";
+import {delay} from "../utils/utils";
 
 export const useBackUp = () => {
 
+    const dispatch = useAppDispatch()
     const [state, setState] = useState<{ message: boolean, loading: boolean, error: boolean }>({
         loading: false,
         error: false,
@@ -59,7 +62,7 @@ export const useBackUp = () => {
 
                 if (data2) {
                     if (typeof data2 === "string") {
-                        const timer = setTimeout(() => {
+                        delay(1200).then(() => {
                             let parsedData: any
                             try {
                                 parsedData = JSON.parse(data2)
@@ -95,8 +98,8 @@ export const useBackUp = () => {
                                     })
                                 }
                             }
-                            clearTimeout(timer)
-                        }, 1200)
+
+                        })
                     }
 
                 }

@@ -129,3 +129,15 @@ export const cancelTour = () => {
     return true
 
 }
+
+export const delay = (ms: number) => {
+    return new Promise((res, rej) => {
+        const timer = setTimeout(() => {
+             res({exec: 1})
+            clearTimeout(timer)
+        }, ms)
+    })
+}
+
+// @ts-ignore
+window.delay = delay

@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { LS } from "../hooks/hooks";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {LS} from "../hooks/hooks";
 
 const { save, ls, get, remove, exist } = LS()
 

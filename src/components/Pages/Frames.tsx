@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { FC, memo, useCallback, useEffect, useMemo, useState } from "react";
-import { FrameForm } from "../FrameForm";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { FramesView } from "../FramesView";
-import { getFramesFromLS } from "../../redux/todo-frames-slice";
-import { Col, Typography } from "antd";
+import {FC, memo, useEffect} from "react";
+import {FrameForm} from "../FrameForm";
+import {useAppDispatch} from "../../hooks/hooks";
+import {getFramesFromLS} from "../../redux/todo-frames-slice";
+import {Col, Typography} from "antd";
+import {useFrames} from "../../hooks/useFrames";
 
 
 const StyledFrames = styled.div`
@@ -23,44 +23,20 @@ const StyledFrames = styled.div`
 
 const Frames: FC = () => {
 
-    const [isAllShown, setShowAll] = useState<boolean>(false)
+    const {
+        paginateFrames,
+        paginateBackFrames,
+        frames,
+        allFrameElements,
+        isAllShown,
+        itemsPerPage,
+        currentPage,
+        showAllFrames,
+        frameElements
+    } = useFrames()
 
-    const { frames } = useAppSelector(state => state.todoFrames)
     const dispatch = useAppDispatch()
     const { Text } = Typography
-
-    const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 3;
-    const visibleItems = frames.slice(currentPage, currentPage + itemsPerPage);
-
-
-    const frameElements = useMemo(() => {
-        return visibleItems.map(frame => (
-            <FramesView id={frame.id} key={frame.id} url={frame.url} />
-        ))
-    }, [visibleItems])
-
-
-    const allFrameElements = useMemo(() => {
-        return frames.map(frame => (
-            <FramesView id={frame.id} key={frame.id} url={frame.url} />
-        ))
-    }, [frames])
-
-    const paginateFrames = useCallback(() => {
-        const newIndex = currentPage + itemsPerPage
-        setCurrentPage(newIndex)
-    }, [currentPage])
-
-    const paginateBackFrames = useCallback(() => {
-        const newIndex = currentPage - itemsPerPage
-        setCurrentPage(newIndex)
-    }, [currentPage])
-
-    const showAllFrames = useCallback(() => {
-        setShowAll(isAllShown => !isAllShown)
-    }, [isAllShown])
-
 
 
     useEffect(() => {

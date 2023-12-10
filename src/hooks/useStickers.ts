@@ -1,8 +1,9 @@
 import {useAppDispatch} from "./hooks";
 import {useToggle} from "@react-hooks-library/core";
-import {ChangeEvent, RefObject, useEffect, useRef, useState} from "react";
+import {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from "react";
 import {createStickerContent, deleteSticker, editStickerTitle, toggleSticker} from "../redux/todo-stickers-slice";
 import {message} from "antd";
+import {makeSelection} from "../utils/utils";
 
 type StickersStateType = {
     fieldStatus: 'error' | 'warning' | ''
@@ -15,7 +16,7 @@ type StickersStateType = {
 
 }
 
-export const useStickers = (id: string, content: string, title: string) => {
+export const useStickers = (id: string, content: string | null, title: string) => {
     const dispatch = useAppDispatch()
 
     const {setTrue, setFalse, bool} = useToggle(false)
@@ -35,6 +36,7 @@ export const useStickers = (id: string, content: string, title: string) => {
             uploadRef.current.click()
         }
     }
+
 
     const onNewTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setState({...state, newTitle: e.currentTarget.value})
@@ -82,13 +84,20 @@ export const useStickers = (id: string, content: string, title: string) => {
 
     const onSwitchHtmlByClickMode = () => {
         setState((prevState) => ({
-            ...prevState,
+            ...state,
             showRawHTML: !prevState.showRawHTML
         }))
     }
 
-    const onInputContent = (e: ChangeEvent<HTMLInputElement>) => {
-        setState({...state, contentData: e.currentTarget.textContent})
+    const onInputContent = (e: any) => {
+        if(state.showRawHTML){
+            setState({...state, contentData: e.currentTarget.textContent})
+        }
+        else {
+            setState({...state, contentData: e.currentTarget.innerHTML})
+        }
+
+
     }
 
     const onSwitchHtmlByBlurMode = () => {
@@ -100,13 +109,14 @@ export const useStickers = (id: string, content: string, title: string) => {
     }
     const showRawHTML = (mode: 'textContent' | 'innerHTML') => {
         if (areaRef.current) {
-            areaRef.current[mode] = content
+            areaRef.current[mode] = content!
         }
     }
 
     const saveStickerContent = (id: string) => {
         if (id) {
-            dispatch(createStickerContent({content: state.contentData ? state.contentData : '', id}))
+
+            dispatch(createStickerContent({content: state.contentData, id}))
 
             message.open({
                 type: 'success',
@@ -165,6 +175,40 @@ export const useStickers = (id: string, content: string, title: string) => {
 
     }, [state.contentData?.length])
 
+
+    const makeTextDecoration = (e: KeyboardEvent<HTMLDivElement>) => {
+
+        if (e.ctrlKey && e.key === 'b') {
+            makeSelection('b', areaRef, dispatch, id)
+            return
+        }
+
+        if (e.ctrlKey && e.key === 'i') {
+            makeSelection('i', areaRef, dispatch, id)
+            return
+        }
+
+        if (e.ctrlKey && e.key === 'm') {
+            makeSelection('mark', areaRef, dispatch, id)
+            return
+        }
+        if (e.ctrlKey && e.key === 'l') {
+            makeSelection('a', areaRef, dispatch, id)
+            return
+        }
+
+    }
+
+    const highLightLink = (flag: boolean) => {
+        return () => {
+            if (areaRef.current) {
+                areaRef.current.contentEditable = String(flag)
+            }
+        }
+    }
+
+
+
     useEffect(() => {
         setState({
             ...state,
@@ -172,14 +216,13 @@ export const useStickers = (id: string, content: string, title: string) => {
         })
     }, [content])
 
-
     useEffect(() => {
 
         if (state.contentData === content) {
             return
         }
 
-        if (state.emptyCount === 1 && state.contentData === '') {
+        if (state.emptyCount >= 1 && state.contentData === '') {
             saveStickerContent(id)
             return
 
@@ -193,6 +236,32 @@ export const useStickers = (id: string, content: string, title: string) => {
 
 
     }, [state.emptyCount])
+
+
+    useEffect(() => {
+        if (areaRef.current) {
+            const link = areaRef.current.querySelector('a')
+            if (link) {
+                link.addEventListener('mouseover', highLightLink(false))
+                link.addEventListener('mouseout', highLightLink(true))
+
+
+            }
+        }
+
+        return () => {
+            if (areaRef.current) {
+                const link = areaRef.current.querySelector('a')
+                if (link) {
+                    link.removeEventListener('mouseover', highLightLink(true))
+                    link.removeEventListener('mouseout', highLightLink(true))
+
+                }
+
+            }
+        }
+    }, [content])
+
 
     return {
         uploadRef,
@@ -212,6 +281,7 @@ export const useStickers = (id: string, content: string, title: string) => {
         toggleStickerItem,
         onNewTitle,
         setState,
+        makeTextDecoration,
         state,
         ...state,
 

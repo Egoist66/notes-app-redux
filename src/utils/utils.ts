@@ -1,4 +1,7 @@
 import Swal from "sweetalert2";
+import {RefObject} from "react";
+import {Dispatch} from "@reduxjs/toolkit";
+import {createStickerContent} from "../redux/todo-stickers-slice";
 
 export function getRussianDate(): string {
     const months = [
@@ -116,15 +119,15 @@ export const cancelTour = () => {
 
 
     }).then(result => {
-        if(result.isConfirmed){
+        if (result.isConfirmed) {
             return true
         }
 
     })
-    .catch((e) => {
-        console.log(e)
-        return false
-    })
+        .catch((e) => {
+            console.log(e)
+            return false
+        })
 
     return true
 
@@ -133,11 +136,45 @@ export const cancelTour = () => {
 export const delay = (ms: number) => {
     return new Promise((res, rej) => {
         const timer = setTimeout(() => {
-             res({exec: 1})
+            res({exec: 1})
             clearTimeout(timer)
         }, ms)
     })
 }
 
-// @ts-ignore
-window.delay = delay
+export const makeSelection = (tag: 'a' | 'b' | 's' | 'mark' | 'i', ref: RefObject<HTMLDivElement>, dispatch: Dispatch, id: string) => {
+    const selection = window.getSelection();
+    if (selection ? selection.rangeCount > 0 : 0) {
+        const range = selection?.getRangeAt(0);
+
+        const selectedText = range?.toString();
+        if (selectedText !== '') {
+            if (tag === 'a') {
+
+                const response = prompt('Введите URL')
+                const newNode = document.createElement(tag) as HTMLAnchorElement
+                if (newNode) {
+                    newNode.href = response ? response : ''
+                    range?.surroundContents(newNode);
+                    selection?.removeAllRanges();
+                    selection?.addRange(range!);
+                    dispatch(createStickerContent({content: ref.current ? ref.current.innerHTML : '', id}))
+                    return
+                }
+            }
+
+            const newNode = document.createElement(tag) as HTMLElement
+            if(newNode){
+                range?.surroundContents(newNode);
+                selection?.removeAllRanges();
+                selection?.addRange(range!);
+
+                dispatch(createStickerContent({content: ref.current ? ref.current.innerHTML : '', id}))
+            }
+
+        }
+
+    }
+
+
+}

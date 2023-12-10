@@ -1,13 +1,13 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {LS} from "../hooks/hooks";
 
-const { save, ls, get, remove, exist } = LS()
+const {save, get, exist} = LS()
 
 type StickersElems = {
     id: string,
     date: string,
     title: string,
-    content: string
+    content: string | null
     timeStamp: number
     isOpened: boolean
 
@@ -43,7 +43,7 @@ type editStickerTitleAction = {
 
 type addStickerContent = {
     payload: {
-        content: string
+        content: string | null
         id: string
 
     }
@@ -91,7 +91,7 @@ const todoStickersSlice = createSlice({
 
         },
 
-        deleteAllStickers(state: initialStateType){
+        deleteAllStickers(state: initialStateType) {
             state.stickers = []
             save('stickers', state.stickers)
 

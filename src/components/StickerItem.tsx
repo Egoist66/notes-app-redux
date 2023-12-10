@@ -1,40 +1,25 @@
 import {FC, memo} from "react";
-import {Button, Col, Flex, Input} from "antd";
+import {Col, Input} from "antd";
 import {EditOutlined, MenuOutlined} from "@ant-design/icons";
-import {useStickerUpload} from "../hooks/useStickerUpload";
 import {useStickers} from "../hooks/useStickers";
+import {StickerContentArea} from "./StickerContent";
 
 
 type StickerItemProps = {
     id: string
     title: string
-    content: string
+    content: string | null
     date: string
     isOpened: boolean
 }
 
 export const StickerItem: FC<StickerItemProps> = memo(({id, isOpened, date, content, title}) => {
-    const {handleUploadSticker, handleDownloadSticker, loading} = useStickerUpload(id)
     const {
-        onDeleteSticker,
-        onSwitchHtmlByClickMode,
-        onSwitchHtmlByBlurMode,
-        showRawHTML,
-        newTitle,
-        contentData,
-        onInputContent,
-        areaRef,
-        uploadSticker,
-        uploadRef,
-        deleteStickerContent,
-        saveStickerContent,
-        maxContentDataValue,
-        toggleStickerItem,
+        newTitle, contentData, maxContentDataValue, toggleStickerItem,
         setTrue,
         saveNewTitle,
         onNewTitle,
         bool,
-
 
     } = useStickers(id, content, title)
 
@@ -88,60 +73,12 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, isOpened, date, cont
 
                 </Col>
 
-                {isOpened ? <li>
-                    <Flex gap={25} wrap={'wrap'}>
-
-
-                        <div ref={areaRef} className="text-area" style={{
-                            width: '100%',
-                            padding: 5,
-                            background: 'white',
-                            outlineColor: "#4489ea",
-                            lineHeight: 1.5,
-                            minHeight: 180,
-                            position: 'relative',
-                            borderRadius: 5,
-                            maxHeight: 500,
-                            overflow: 'auto',
-                            border: '1px solid #D9D9D9'
-                        }}
-                             contentEditable
-                             dangerouslySetInnerHTML={{__html: content}}
-                             onDoubleClick={onSwitchHtmlByClickMode}
-                             onBlur={onSwitchHtmlByBlurMode}
-                             onInput={onInputContent}
-
-
-                        />
-
-
-                        <Flex gap={20} wrap={'wrap'}>
-                            <Button onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
-                            <Button type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
-
-                            <Button id="html-btn"
-                                    title="При наличии html сущностей в стикере можно отредактировать исходный код и сохранить измненения"
-                                    type={'dashed'}
-                                    onClick={onSwitchHtmlByClickMode}>
-                                {showRawHTML ? 'Спрятать' : 'Показать'} HTML
-                            </Button>
-
-
-                            <Button title={'формат - .txt - макс размер 1мб'}
-                                    onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
-                            <Button onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
-                            <Button danger onClick={deleteStickerContent(id)}>Очистить</Button>
-
-
-                            <input
-                                ref={uploadRef}
-                                onChange={handleUploadSticker}
-                                accept={'text/plain,.txt'}
-                                type="file" hidden
-                            />
-                        </Flex>
-                    </Flex>
-                </li> : null}
+                <StickerContentArea
+                    id={id}
+                    content={content}
+                    title={title}
+                    isOpened={isOpened}
+                />
 
 
                 <Col style={{textAlign: 'end'}}>

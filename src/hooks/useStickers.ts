@@ -59,7 +59,7 @@ export const useStickers = (id: string, content: string | null, title: string) =
     }
 
     const setStickerFullScreen = () => {
-        if(areaRef.current){
+        if (areaRef.current) {
             areaRef.current.requestFullscreen({navigationUI: 'show'})
         }
     }
@@ -96,13 +96,8 @@ export const useStickers = (id: string, content: string | null, title: string) =
         }))
     }
 
-    const onInputContent = (e: any) => {
-        if(state.showRawHTML){
-            setState({...state, contentData: e.currentTarget.textContent})
-        }
-        else {
-            setState({...state, contentData: e.currentTarget.innerHTML})
-        }
+    const onInputContent = (e: ChangeEvent<HTMLDivElement>) => {
+        setState({...state, contentData: state.showRawHTML ? e.currentTarget.textContent : e.currentTarget.innerHTML})
 
 
     }
@@ -158,15 +153,8 @@ export const useStickers = (id: string, content: string | null, title: string) =
     }
 
     useEffect(() => {
-        if (state.showRawHTML) {
-            console.log(state.showRawHTML);
+        showRawHTML(state.showRawHTML ? 'textContent' : 'innerHTML')
 
-            showRawHTML('textContent')
-        } else {
-            console.log(state.showRawHTML);
-
-            showRawHTML('innerHTML')
-        }
     }, [state.showRawHTML])
 
     useEffect(() => {
@@ -203,7 +191,7 @@ export const useStickers = (id: string, content: string | null, title: string) =
             makeSelection('a', areaRef, dispatch, id)
             return
         }
-        if(e.ctrlKey && e.key === 'f'){
+        if (e.ctrlKey && e.key === 'f') {
             setStickerFullScreen()
         }
 
@@ -216,7 +204,6 @@ export const useStickers = (id: string, content: string | null, title: string) =
             }
         }
     }
-
 
 
     useEffect(() => {

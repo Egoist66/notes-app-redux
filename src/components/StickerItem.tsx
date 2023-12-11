@@ -83,7 +83,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, isOpened, date, cont
 
 
                 <Col style={{textAlign: 'end'}}>
-                    {contentData?.length} / {maxContentDataValue}
+                    {content?.length} / {maxContentDataValue}
                 </Col>
             </Col>
 

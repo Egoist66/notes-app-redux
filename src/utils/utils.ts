@@ -67,6 +67,38 @@ export const MatchLinkinText = (regex: RegExp, text: string) => {
     };
 };
 
+type ModalConfig = {
+    title: string
+    icons: 'info' | 'success' | 'warning' | 'error' | 'question'
+    type: any
+    onSuccess: (value: string) => void
+    onReject: () => void
+}
+const initModal = ({type, onSuccess, onReject, icons, title}: ModalConfig) => {
+    // @ts-ignore
+
+    Swal.fire({
+        title: title,
+        icon: icons,
+        input: type,
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonColor: '#1677FF',
+        confirmButtonColor: '#1677FF',
+        cancelButtonText: 'Отмена',
+        confirmButtonText: 'Установить',
+
+
+    }).then(result => {
+        if (result.isConfirmed) {
+            onSuccess(result.value)
+        } else {
+            onReject()
+        }
+
+    })
+}
+
 export const RemoveLinkfromText = (regex: RegExp, text: string) => {
     const Linkregex = /<a[^>]*>([^<]+)<\/a>/g;
     const replacedText = text.replace(regex, "$1");
@@ -152,25 +184,33 @@ export const makeSelection = (tag: 'a' | 'b' | 's' | 'mark' | 'i', ref: RefObjec
             if (tag === 'a') {
 
                 const response = prompt('Введите URL')
-                const newNode = document.createElement(tag) as HTMLAnchorElement
+                if (response !== null) {
+                    const newNode = document.createElement(tag) as HTMLAnchorElement
+                    if (newNode) {
+                        newNode.href = response ? response : ''
+                        newNode.target = '_blank'
+                        range?.surroundContents(newNode);
+                        selection?.removeAllRanges();
+                        selection?.addRange(range!);
+                        dispatch(createStickerContent({content: ref.current ? ref.current.innerHTML : '', id}))
+                        return
+                    }
+
+                }
+
+
+            } else {
+                const newNode = document.createElement(tag) as HTMLElement
                 if (newNode) {
-                    newNode.href = response ? response : ''
                     range?.surroundContents(newNode);
                     selection?.removeAllRanges();
                     selection?.addRange(range!);
+
                     dispatch(createStickerContent({content: ref.current ? ref.current.innerHTML : '', id}))
-                    return
                 }
+
             }
 
-            const newNode = document.createElement(tag) as HTMLElement
-            if(newNode){
-                range?.surroundContents(newNode);
-                selection?.removeAllRanges();
-                selection?.addRange(range!);
-
-                dispatch(createStickerContent({content: ref.current ? ref.current.innerHTML : '', id}))
-            }
 
         }
 

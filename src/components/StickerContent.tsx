@@ -52,6 +52,7 @@ export const StickerContentArea: FC<StickerContentAreaProps> = memo(({id, conten
                          contentEditable
                          dangerouslySetInnerHTML={{__html: content!}}
                          onDoubleClick={onSwitchHtmlByClickMode}
+                         onContextMenu={() => alert}
                          onKeyDown={makeTextDecoration}
                          onBlur={() => delay(500).then(onSwitchHtmlByBlurMode)}
                          onInput={onInputContent}

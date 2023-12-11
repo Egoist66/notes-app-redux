@@ -1,6 +1,6 @@
 import {FC, memo} from "react";
 import {Col, Input} from "antd";
-import {EditOutlined, MenuOutlined} from "@ant-design/icons";
+import {EditOutlined, FullscreenExitOutlined, MenuOutlined} from "@ant-design/icons";
 import {useStickers} from "../hooks/useStickers";
 import {StickerContentArea} from "./StickerContent";
 
@@ -45,7 +45,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, isOpened, date, cont
                     <MenuOutlined
                         className={isOpened ? 'active sticker-burger' : 'sticker-burger'}
                         onClick={toggleStickerItem(id)}
-                        style={{cursor: 'pointer'}}
+                        style={{cursor: 'pointer', fontSize: 17}}
                     />
 
                     {bool ? <Input
@@ -70,6 +70,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, isOpened, date, cont
                                 textDecoration: 'underline'
                             }}>{date}</span>
                         </h3>}
+
 
                 </Col>
 

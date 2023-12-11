@@ -46,7 +46,7 @@ const Info: FC = () => {
             />
 
 
-            <Text style={{paddingBottom: 50, paddingTop:50, display: 'block'}} underline type={'secondary'}>
+            <Text style={{paddingBottom: 50, paddingTop: 50, display: 'block'}} underline type={'secondary'}>
                 Просканируйте QR код приложения чтобы иметь возможность быстро открывать на других устройствах
             </Text>
 

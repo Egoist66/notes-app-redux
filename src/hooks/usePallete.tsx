@@ -3,12 +3,14 @@ import { ChangeEvent, FocusEvent, useState } from "react";
 import { removeAppBackground, saveImgUrl } from "../redux/todo-pallete-options-slice";
 import {validateImageUrl} from "../utils/utils";
 import {PalleteMenuState} from "../components/PalleteMenu";
+import {Alert} from "antd";
 
 export const usePallete = () => {
 
     const [state, setState] = useState<PalleteMenuState>({
         imageData: '',
         imageUrl: '',
+        urlError: false,
         statusMessage: '',
         urlStatusMessage: ''
     })
@@ -32,7 +34,7 @@ export const usePallete = () => {
         if (!validateImageUrl(state.imageUrl)) {
             setState({
                 ...state,
-                urlStatusMessage: 'Введена невалидная строка!'
+                urlStatusMessage: <Alert banner type={'error'} closable  message={'Введена невалидная строка!'} />
             })
         } else {
             setState({
@@ -48,18 +50,24 @@ export const usePallete = () => {
     const onBlurChangeImgUrl = (e: FocusEvent<HTMLInputElement>) => {
 
         if (!validateImageUrl(state.imageUrl)) {
+            setState({
+                ...state,
+                urlError: true
+            })
             return;
         }
 
         if (!state.imageUrl.trim()) {
             setState({
                 ...state,
+                urlError: true,
                 statusMessage: 'Пустое значение запрещено'
             })
             return
         }
         setState({
             ...state,
+            urlError: false,
             statusMessage: ''
         })
         dispatch(saveImgUrl(state.imageUrl))

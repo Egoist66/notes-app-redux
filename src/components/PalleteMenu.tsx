@@ -1,5 +1,5 @@
-import React, {FC, useEffect} from "react";
-import {Col, FloatButton, Input, Modal, Button} from "antd";
+import React, {FC, ReactNode, useEffect} from "react";
+import {Col, FloatButton, Input, Modal, Button, Alert} from "antd";
 import {usePallete} from "../hooks/usePallete";
 import {SettingOutlined} from "@ant-design/icons";
 
@@ -7,8 +7,9 @@ import {SettingOutlined} from "@ant-design/icons";
 export type PalleteMenuState = {
     imageUrl: string,
     imageData: string,
+    urlError: boolean,
     statusMessage: string
-    urlStatusMessage: string
+    urlStatusMessage: ReactNode
 }
 export const PalleteMenu: FC = () => {
 
@@ -67,7 +68,9 @@ export const PalleteMenu: FC = () => {
 
                         <Input
                             onBlur={onBlurChangeImgUrl}
+                            status={state.urlError ? 'error' : ''}
                             onChange={onChangeImgUrl}
+                            allowClear
                             value={state.imageUrl}
                             id='imgUrl'
                             placeholder={state.statusMessage ? state.statusMessage : 'Добавьте ссылку на изображение'}

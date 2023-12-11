@@ -5,19 +5,18 @@ import {formatDate, MatchLinkinText} from "../utils/utils";
 import Swal from "sweetalert2";
 import {addTodo, sortTodos} from "../redux/todo-slice";
 import {TodoFormStateType} from "../components/TodoForm";
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { useSort } from "./useSort";
+import SpeechRecognition, {useSpeechRecognition} from 'react-speech-recognition';
+import {useSort} from "./useSort";
 
 
 export type NotificationType = 'success' | 'info' | 'warning' | 'error';
-
 
 
 export const useTodoForm = () => {
     const {save, get, exist, remove} = LS()
     const defaultValue = 30
 
-    const { handleModeChange, sortMode, sortParams } = useSort()
+    const {handleModeChange, sortMode, sortParams} = useSort()
 
 
     const {
@@ -57,30 +56,28 @@ export const useTodoForm = () => {
 
     const initSpeechListening = () => {
         try {
-            if(isMicrophoneAvailable){
+            if (isMicrophoneAvailable) {
                 SpeechRecognition.startListening()
             }
 
-        }
-        catch (e){
+        } catch (e) {
             console.log(e)
         }
     }
 
     useEffect(() => {
 
-           setState({
-               ...state,
-               text: finalTranscript,
-               speechTranscript: finalTranscript,
-           })
+        setState({
+            ...state,
+            text: finalTranscript,
+            speechTranscript: finalTranscript,
+        })
 
 
         return () => {
 
         }
     }, [listening])
-
 
 
     const openNotificationTaskQuantityWarn = (type: NotificationType) => {
@@ -219,7 +216,6 @@ export const useTodoForm = () => {
     }
 
 
-
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
 
         setState({
@@ -322,10 +318,9 @@ export const useTodoForm = () => {
     }, [state.isRestrictedTasks])
 
     useEffect(() => {
-        if(sortMode === 'По дате'){
+        if (sortMode === 'По дате') {
             dispatch(sortTodos({mode: 'По дате'}))
-        }
-        else if(sortMode === 'По названию'){
+        } else if (sortMode === 'По названию') {
             dispatch(sortTodos({mode: 'По названию'}))
 
         }

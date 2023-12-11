@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Col, Flex, Input, Select, Switch, Typography } from "antd";
-import { useTodoForm } from "../hooks/useTodoForm";
+import {Button, Col, Flex, Input, Select, Switch, Typography} from "antd";
+import {useTodoForm} from "../hooks/useTodoForm";
 
 
 export type TodoFormStateType = {
@@ -13,7 +13,7 @@ export type TodoFormStateType = {
 }
 export const TodoForm: React.FC = () => {
 
-    const { Text } = Typography
+    const {Text} = Typography
 
     const {
         addTaskInTodo,
@@ -27,7 +27,6 @@ export const TodoForm: React.FC = () => {
         contextCountHolder,
         defferedValue,
         isInputDataInStorage,
-        resetTranscript,
         listening,
         initSpeechListening,
         browserSupportsSpeechRecognition,
@@ -37,7 +36,6 @@ export const TodoForm: React.FC = () => {
     } = useTodoForm()
 
 
-  
     return (
 
         <>
@@ -46,7 +44,7 @@ export const TodoForm: React.FC = () => {
             <form onSubmit={addTaskInTodo}>
                 {contextCountHolder}
 
-                <Flex style={{ paddingBottom: 30 }} className='input-field'>
+                <Flex style={{paddingBottom: 30}} className='input-field'>
                     <Input
                         allowClear
                         status={state.warning ? 'error' : ''}
@@ -65,9 +63,9 @@ export const TodoForm: React.FC = () => {
             </form>
 
 
-            <Flex justify="space-between">
+            <Flex wrap={'wrap'} gap={20} justify="space-between">
 
-                <Col style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
+                <Col style={{display: 'flex', gap: 20, flexWrap: 'wrap'}}>
                     <Button
                         id={'restore'}
                         type="primary"
@@ -80,11 +78,11 @@ export const TodoForm: React.FC = () => {
 
 
                     {browserSupportsSpeechRecognition ? <Button
-                        id={'voice'}
-                        size={'large'}
-                        disabled={listening}
-                        onClick={initSpeechListening}
-                    >{listening ? 'Идет запись...' : 'Голосовой ввод'}</Button> :
+                            id={'voice'}
+                            size={'large'}
+                            disabled={listening}
+                            onClick={initSpeechListening}
+                        >{listening ? 'Идет запись...' : 'Голосовой ввод'}</Button> :
                         <p>Браузер не поддерживает голосовой ввод!</p>}
 
                     <Button
@@ -107,18 +105,18 @@ export const TodoForm: React.FC = () => {
                         onBlur={() => handleModeChange('Сортировать по')}
                         onChange={handleModeChange}
                         size="large"
-                        style={{ width: 240 }}
-                        options={sortParams.map((data) => ({ label: data, value: data }))}
+                        style={{width: 240}}
+                        options={sortParams.map((data) => ({label: data, value: data}))}
                     />
 
                 </Col>
 
             </Flex>
 
-            <div id={'task-watcher'} style={{ marginBottom: '1rem' }}>
+            <div id={'task-watcher'} style={{marginBottom: '1rem'}}>
 
 
-                <Flex style={{ paddingTop: 30 }} gap={10}>
+                <Flex style={{paddingTop: 30}} gap={10}>
                     <Switch
                         title={`Кол-во по умолчанию ${defaultValue}`}
                         checked={state.isRestrictedTasks}

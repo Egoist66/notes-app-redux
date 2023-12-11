@@ -31,6 +31,7 @@ export const useStickers = (id: string, content: string | null, title: string) =
         showRawHTML: false
     })
 
+
     const uploadSticker = () => {
         if (uploadRef.current) {
             uploadRef.current.click()
@@ -54,6 +55,12 @@ export const useStickers = (id: string, content: string | null, title: string) =
     const toggleStickerItem = (stickerId: string) => {
         return () => {
             dispatch(toggleSticker({id: stickerId}))
+        }
+    }
+
+    const setStickerFullScreen = () => {
+        if(areaRef.current){
+            areaRef.current.requestFullscreen({navigationUI: 'show'})
         }
     }
 
@@ -195,6 +202,9 @@ export const useStickers = (id: string, content: string | null, title: string) =
         if (e.ctrlKey && e.key === 'l') {
             makeSelection('a', areaRef, dispatch, id)
             return
+        }
+        if(e.ctrlKey && e.key === 'f'){
+            setStickerFullScreen()
         }
 
     }

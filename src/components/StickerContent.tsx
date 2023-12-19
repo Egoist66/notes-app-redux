@@ -62,7 +62,7 @@ export const StickerContentArea: FC<StickerContentAreaProps> = memo(({id, conten
 
 
                     <Flex gap={20} wrap={'wrap'}>
-                        <Button onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
+                        <Button className="controls-btn" onClick={onDeleteSticker(id)} danger>Удалить стикер</Button>
                         <Button type={'primary'} onClick={() => saveStickerContent(id)}>Сохранить</Button>
 
                         <Button id="html-btn"
@@ -73,10 +73,10 @@ export const StickerContentArea: FC<StickerContentAreaProps> = memo(({id, conten
                         </Button>
 
 
-                        <Button title={'формат - .txt - макс размер 1мб'}
+                        <Button className="controls-btn" title={'формат - .txt - макс размер 1мб'}
                                 onClick={uploadSticker}>{loading ? 'Загрузка файла...' : 'Загрузить файл'}</Button>
-                        <Button onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
-                        <Button danger onClick={deleteStickerContent(id)}>Очистить</Button>
+                        <Button className="controls-btn" onClick={() => handleDownloadSticker(title, content)}>Скачать файл</Button>
+                        <Button className="controls-btn" danger onClick={deleteStickerContent(id)}>Очистить</Button>
 
 
                         <input

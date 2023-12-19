@@ -26,7 +26,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, isOpened, date, cont
 
     return (
         <>
-            <Col style={{
+            <Col className="stickers" style={{
                 background: 'white',
                 padding: 10,
                 boxShadow: '1px 1px 3px 1px silver',
@@ -64,7 +64,7 @@ export const StickerItem: FC<StickerItemProps> = memo(({id, isOpened, date, cont
                             <span style={{color: '#4096FF'}}>{title}</span>
 
                             <EditOutlined onClick={setTrue} style={{paddingLeft: 5, cursor: "pointer"}}/>
-                            <span style={{
+                            <span className="sticker-data" style={{
                                 display: 'inline-block',
                                 paddingLeft: 10,
                                 textDecoration: 'underline'

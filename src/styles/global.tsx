@@ -276,6 +276,26 @@ export const GlobalStyle = createGlobalStyle`
   
   @media(prefers-color-scheme: dark){
 
+    button.show-off-frames {
+      background-color: transparent !important;
+    }
+
+    span.hints {
+      color: black !important
+    }
+
+    .stickers  div span.anticon {
+      color: black !important;
+    }
+
+    .stickers  div .sticker-data {
+      color: black !important;
+    }
+
+    .controls-btn span {
+      color: black !important
+    }
+
     .qr {
       background-color: white !important;
     }

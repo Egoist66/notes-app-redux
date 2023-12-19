@@ -219,10 +219,10 @@ const Stickers: FC = memo(() => {
                     </div>
 
                     <div style={{paddingTop: 30}}>
-                        <Text>
+                        <Text className="hints">
                             Подсказка:
 
-                            <Text underline type={'secondary'} style={{paddingLeft: 5}}>
+                            <Text className="hints"  underline type={'secondary'} style={{paddingLeft: 5}}>
                                 Для того чтобы текст сделать жирным, курсивным или выделить маркером,
                                 используйте следующие клавиши <code><b>Ctrl + b</b></code><br/><code><b>Ctrl +
                                 i</b></code>

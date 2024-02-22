@@ -1,6 +1,6 @@
 import {FC, memo} from "react";
 import {Col, Input} from "antd";
-import {EditOutlined, FullscreenExitOutlined, MenuOutlined} from "@ant-design/icons";
+import { EditOutlined, MenuOutlined } from "@ant-design/icons";
 import {useStickers} from "../hooks/useStickers";
 import {StickerContentArea} from "./StickerContent";
 

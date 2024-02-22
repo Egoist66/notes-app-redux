@@ -33,7 +33,7 @@ const todoSlice = createSlice({
                 case 'По дате': {
                     state.matchedTodos.sort((a, b) => a.timeStamp - b.timeStamp)
                     state.todos.sort((a, b) => a.timeStamp - b.timeStamp)
-                    return state
+                    break;
                 }
                 case 'По названию': {
                     state.matchedTodos.sort((a, b) => a.title.localeCompare(b.title, undefined, {
@@ -42,7 +42,7 @@ const todoSlice = createSlice({
                     state.todos.sort((a, b) => a.title.localeCompare(b.title, undefined, {
                         sensitivity: 'base'
                     }))
-                    return state
+                    break;
                 }
             }
         },

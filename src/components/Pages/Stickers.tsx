@@ -112,7 +112,7 @@ const Stickers: FC = memo(() => {
 
     useEffect(() => {
         if (sortMode === 'По дате') {
-            console.log(2);
+    
 
             dispatch(sortStickers({mode: 'По дате'}))
         } else if (sortMode === 'По названию') {

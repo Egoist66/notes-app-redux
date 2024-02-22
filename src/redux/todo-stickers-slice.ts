@@ -143,14 +143,14 @@ const todoStickersSlice = createSlice({
             switch (action.payload.mode) {
                 case 'По дате': {
                     state.stickers = state.stickers.sort((a, b) => a.timeStamp - b.timeStamp)
-                    return state
+                    break;
                 }
                 case 'По названию': {
 
                     state.stickers = state.stickers.sort((a, b) => a.title.localeCompare(b.title, undefined, {
                         sensitivity: 'base'
                     }))
-                    return state
+                    break;
                 }
             }
         },

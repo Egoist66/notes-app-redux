@@ -1,11 +1,10 @@
 import {ChangeEvent, useState} from "react";
 import {message as _message} from "antd";
-import {useAppDispatch} from "./hooks";
 import {delay} from "../utils/utils";
 
 export const useBackUp = () => {
 
-    const dispatch = useAppDispatch()
+
     const [state, setState] = useState<{ message: boolean, loading: boolean, error: boolean }>({
         loading: false,
         error: false,
@@ -24,6 +23,7 @@ export const useBackUp = () => {
             _message.open({
                 type: 'success',
                 content: 'Копия создана!',
+
 
             })
 
@@ -48,7 +48,7 @@ export const useBackUp = () => {
 
         if (e.currentTarget.files) {
             const file = e.currentTarget?.files[0]
-            console.log(file)
+            // console.log(file)
 
             const reader = new FileReader()
             reader.readAsText(file)

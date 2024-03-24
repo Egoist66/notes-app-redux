@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
 import { LS, useMeasureApp } from "../../hooks/hooks";
-import { useAppSelector } from "../../store/store";
+//import { useAppSelector } from "../../store/store";
 import { Badge, Flex, Tooltip } from "antd";
 
 export const Storage: FC = () => {
   const { currentSize, isStorageFull} = useMeasureApp();
   const {get} = LS()
-  const { todos } = useAppSelector((state) => state.todos);
+  //const { todos } = useAppSelector((state) => state.todos);
 
   return (
     <>

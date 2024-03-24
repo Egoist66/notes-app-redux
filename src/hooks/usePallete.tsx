@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../store/store";
 
 export const usePallete = () => {
 
+    
     const [state, setState] = useState<PalleteMenuState>({
         imageData: '',
         imageUrl: '',

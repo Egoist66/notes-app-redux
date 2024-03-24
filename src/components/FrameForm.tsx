@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { useFramesFormValidation } from "../hooks/useFrameFormValidation";
 import { Button, Col, Flex, Input, Switch, Typography } from "antd";
-import { useAppSelector } from "../hooks/hooks";
+import { useAppSelector } from "../store/store";
 
 
 export type FrameFormStateType = {

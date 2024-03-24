@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {LS} from "../hooks/hooks";
 
-const {save, ls, get, remove, exist} = LS()
+const {save, get, exist} = LS()
 
 type SingleFramesType = {
     url: string

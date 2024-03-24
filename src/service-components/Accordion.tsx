@@ -1,60 +1,58 @@
-import {FC, ReactElement, ReactNode, useState} from "react";
+import { FC, ReactElement, ReactNode, useState } from "react";
 
 type AccordionPropsType = {
-    title?: string,
-    body?: ReactNode | ReactElement
-    isOpen?: boolean
-    onClickHandler?: () => void
-    trigger?: (toggleAccordion?: () => void, title?: string) => ReactNode | ReactElement
-}
+  title?: string;
+  body?: ReactNode | ReactElement;
+  isOpen?: boolean;
+  onClickHandler?: () => void;
+  trigger?: (
+    toggleAccordion?: () => void,
+    title?: string
+  ) => ReactNode | ReactElement;
+};
 
+export const Accordion: FC<AccordionPropsType> = ({
+  title,
+  isOpen,
+  body,
+  trigger,
+}) => {
+  const [open, setOpen] = useState<boolean>(false || isOpen ? isOpen : false);
 
-export const Accordion: FC<AccordionPropsType> = ({title, isOpen, body, trigger}) => {
+  const toggleAccordion = () => {
+    setOpen((open) => !open);
+  };
 
-    const [open, setOpen] = useState<boolean>(false || isOpen ? isOpen : false)
+  return (
+    <div>
+      <AccordionTitle
+        trigger={trigger}
+        title={title ?? "Default Title"}
+        onClickHandler={toggleAccordion}
+      />
 
-    const toggleAccordion = () => {
-        setOpen(open => !open)
-    }
-
-    return (
+      {open && (
         <div>
-
-            <AccordionTitle
-                trigger={trigger}
-                title={title ?? 'Default Title'}
-                onClickHandler={toggleAccordion}
-            />
-
-            {open && <div><AccordionBody body={body}/></div>}
-
-
+          <AccordionBody body={body} />
         </div>
-    )
-
-}
-
-
+      )}
+    </div>
+  );
+};
 
 //@ts-ignore
-const AccordionTitle: FC<AccordionPropsType> = ({title, trigger, onClickHandler}) : ReactNode | ReactElement => {
-    if(trigger){
-        return trigger(onClickHandler, title)
-    }
-    else {
-        return <h2 onClick={onClickHandler}>{title}</h2>
-    }
+const AccordionTitle: FC<AccordionPropsType> = ({
+  title,
+  trigger,
+  onClickHandler,
+}): ReactNode | ReactElement => {
+  if (trigger) {
+    return trigger(onClickHandler, title);
+  } else {
+    return <h2 onClick={onClickHandler}>{title}</h2>;
+  }
+};
 
-}
-
-const AccordionBody: FC<AccordionPropsType> = ({body}) => {
-
-    return (
-        <>
-
-            {body ? body : <p>Empty body</p>}
-
-
-        </>
-    )
-}
+const AccordionBody: FC<AccordionPropsType> = ({ body }) => {
+  return <>{body ? body : <p>Empty body</p>}</>;
+};

@@ -1,11 +1,10 @@
 import { message as _message } from "antd";
-import {LS, useAppDispatch} from "./hooks";
 import {ChangeEvent, useState} from "react";
-import { loadStickersFromFile } from "../redux/todo-stickers-slice";
+import { loadStickersFromFile } from "../store/todo-stickers-slice";
+import { useAppDispatch } from "../store/store";
 
 
 export const useStickerUpload = (stickerID: string) => {
-    const {save, get} = LS()
     const dispatch = useAppDispatch()
     const [state, setState] = useState<{ loading: boolean, error: boolean }>({
         loading: false,

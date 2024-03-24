@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import {RefObject} from "react";
 import {Dispatch} from "@reduxjs/toolkit";
-import {createStickerContent} from "../redux/todo-stickers-slice";
+import {createStickerContent} from "../store/todo-stickers-slice";
 
 export function getRussianDate(): string {
     const months = [
@@ -74,6 +74,8 @@ type ModalConfig = {
     onSuccess: (value: string) => void
     onReject: () => void
 }
+
+// @ts-ignore
 const initModal = ({type, onSuccess, onReject, icons, title}: ModalConfig) => {
     // @ts-ignore
 
@@ -166,7 +168,7 @@ export const cancelTour = () => {
 }
 
 export const delay = (ms: number) => {
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
         const timer = setTimeout(() => {
             res({exec: 1})
             clearTimeout(timer)

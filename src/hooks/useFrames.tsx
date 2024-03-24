@@ -1,6 +1,6 @@
-import React, {useCallback, useMemo, useState} from "react";
+import { useCallback, useMemo, useState } from "react";
 import {FramesView} from "../components/FramesView";
-import {useAppSelector} from "./hooks";
+import { useAppSelector } from "../store/store";
 
 export const useFrames = () => {
     const [isAllShown, setShowAll] = useState<boolean>(false)

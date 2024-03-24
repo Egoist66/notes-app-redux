@@ -53,7 +53,7 @@ const LS = () => {
 };
 
 export const useExternalGlobalStore = ({state}: useExternalGlobalStateType) => {
-    const {save, get, ls, remove, exist} = LS()
+    const {save, ls, remove, exist} = LS()
 
     const store: StoreType = {
 

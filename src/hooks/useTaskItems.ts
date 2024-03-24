@@ -1,9 +1,9 @@
 import { MouseEvent, useState } from "react";
-import {useAppDispatch} from "./hooks";
-import {deleteItems, editTask, toggleComplete} from "../redux/todo-slice";
+import {deleteItems, editTask, toggleComplete} from "../store/todo-slice";
 import {message} from "antd";
 import Swal from "sweetalert2";
 import {TaskItemState} from "../components/TaskItem";
+import { useAppDispatch } from "../store/store";
 
 export const useTaskItems = () => {
 

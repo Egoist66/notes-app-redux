@@ -1,9 +1,10 @@
-import { LS, useAppDispatch, useAppSelector, useToggle } from "./hooks";
-import { ChangeEvent, FocusEvent, useState } from "react";
-import { removeAppBackground, saveImgUrl } from "../redux/todo-pallete-options-slice";
+import { ChangeEvent, useState } from "react";
+import { removeAppBackground, saveImgUrl } from "../store/todo-pallete-options-slice";
 import {validateImageUrl} from "../utils/utils";
 import {PalleteMenuState} from "../components/PalleteMenu";
 import {Alert} from "antd";
+import { LS, useToggle } from "./hooks";
+import { useAppDispatch, useAppSelector } from "../store/store";
 
 export const usePallete = () => {
 
@@ -47,7 +48,7 @@ export const usePallete = () => {
 
     }
 
-    const onBlurChangeImgUrl = (e: FocusEvent<HTMLInputElement>) => {
+    const onBlurChangeImgUrl = () => {
 
         if (!validateImageUrl(state.imageUrl)) {
             setState({

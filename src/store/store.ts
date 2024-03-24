@@ -1,14 +1,12 @@
-import React from "react";
-import {Provider} from "react-redux";
-import {ChildrenProps} from "../types/types";
 import {configureStore} from "@reduxjs/toolkit";
 import TodosReducer from './todo-slice'
 import TodosPalleteReducer from './todo-pallete-options-slice'
 import TodosFrameReducer from './todo-frames-slice'
 import TodosStickerReducer from './todo-stickers-slice'
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
-const store = configureStore({
+export const store = configureStore({
     reducer: {
         todos: TodosReducer,
         todoPalleteOptions: TodosPalleteReducer,
@@ -20,16 +18,8 @@ const store = configureStore({
 
 
 
-export const StateProvider = ({children}: ChildrenProps) => {
-    return (
-        <Provider store={store}>
-            {children}
-        </Provider>
-
-    )
-}
-
-
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

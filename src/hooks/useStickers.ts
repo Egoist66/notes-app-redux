@@ -1,9 +1,9 @@
-import {useAppDispatch} from "./hooks";
 import {useToggle} from "@react-hooks-library/core";
 import {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from "react";
-import {createStickerContent, deleteSticker, editStickerTitle, toggleSticker} from "../redux/todo-stickers-slice";
+import {createStickerContent, deleteSticker, editStickerTitle, toggleSticker} from "../store/todo-stickers-slice";
 import {message} from "antd";
 import {makeSelection} from "../utils/utils";
+import { useAppDispatch } from "../store/store";
 
 type StickersStateType = {
     fieldStatus: 'error' | 'warning' | ''

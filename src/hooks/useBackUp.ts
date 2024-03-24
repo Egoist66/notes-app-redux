@@ -1,146 +1,126 @@
-import {ChangeEvent, useState} from "react";
-import {message as _message} from "antd";
-import {delay} from "../utils/utils";
+import { ChangeEvent, useState } from "react";
+import { message as _message } from "antd";
+import { delay } from "../utils/utils";
 
 export const useBackUp = () => {
+  const [state, setState] = useState<{
+    message: boolean;
+    loading: boolean;
+    error: boolean;
+  }>({
+    loading: false,
+    error: false,
+    message: false,
+  });
+  const backup = () => {
+    const link = document.createElement("a");
 
+    try {
+      link.download = `backup_${Date.now()}.json`;
+      const data = JSON.stringify(localStorage);
+      const blob = new Blob([data], { type: "application/json" });
+      const dataUrl = URL.createObjectURL(blob);
+      link.href = dataUrl;
 
-    const [state, setState] = useState<{ message: boolean, loading: boolean, error: boolean }>({
-        loading: false,
-        error: false,
-        message: false
-    })
-    const backup = () => {
-        const link = document.createElement('a');
+      _message.open({
+        type: "success",
+        content: "Копия создана!",
+      });
 
-        try {
-            link.download = `backup_${Date.now()}.json`
-            const data = JSON.stringify(localStorage)
-            const blob = new Blob([data], {type: 'application/json'})
-            const dataUrl = URL.createObjectURL(blob)
-            link.href = dataUrl
-
-            _message.open({
-                type: 'success',
-                content: 'Копия создана!',
-
-
-            })
-
-
-            link.click();
-        } catch (e) {
-            _message.open({
-                type: 'error',
-                content: 'Ошибка создания копии!',
-
-            })
-        }
-
-
-        URL.revokeObjectURL(link.href);
-
-
+      link.click();
+    } catch (e) {
+      _message.open({
+        type: "error",
+        content: "Ошибка создания копии!",
+      });
     }
 
+    URL.revokeObjectURL(link.href);
+  };
 
-    const restore = (e: ChangeEvent<HTMLInputElement>) => {
+  const restore = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files) {
+      const file = e.currentTarget?.files[0];
+      // console.log(file)
 
-        if (e.currentTarget.files) {
-            const file = e.currentTarget?.files[0]
-            // console.log(file)
+      const reader = new FileReader();
+      reader.readAsText(file);
 
-            const reader = new FileReader()
-            reader.readAsText(file)
+      reader.onload = () => {
+        setState({
+          ...state,
+          loading: true,
+        });
+        const data2 = reader?.result;
 
-            reader.onload = () => {
+        if (data2) {
+          if (typeof data2 === "string") {
+            delay(1200).then(() => {
+              let parsedData: any;
+              try {
+                parsedData = JSON.parse(data2);
+                console.log(parsedData);
+                _message.open({
+                  type: "success",
+                  content: "Восстановление успешно!",
+                });
+              } catch (e) {
+                console.log(e);
                 setState({
-                    ...state,
-                    loading: true
-                })
-                const data2 = reader?.result
+                  ...state,
+                  loading: false,
+                  error: true,
+                  message: true,
+                });
 
-                if (data2) {
-                    if (typeof data2 === "string") {
-                        delay(1200).then(() => {
-                            let parsedData: any
-                            try {
-                                parsedData = JSON.parse(data2)
-                                console.log(parsedData)
-                                _message.open({
-                                    type: 'success',
-                                    content: 'Восстановление успешно!'
-                                })
-                            } catch (e) {
-                                console.log(e)
-                                setState({
-                                    ...state,
-                                    loading: false,
-                                    error: true,
-                                    message: true
-                                })
+                _message.open({
+                  type: "error",
+                  content: "Ошибка восстановления!",
+                });
+              }
 
-                                _message.open({
-                                    type: 'error',
-                                    content: 'Ошибка восстановления!'
-                                })
-                            }
-
-
-                            for (let [key, value] of Object.entries(parsedData ?? {})) {
-                                if (typeof value === "string") {
-                                    localStorage.setItem(key, value)
-                                    setState({
-                                        ...state,
-                                        loading: false,
-                                        error: false,
-                                        message: true
-                                    })
-                                }
-                            }
-
-                        })
-                    }
-
-                }
-
-            }
-            reader.onerror = () => {
-                console.log(reader.error);
-                setState({
+              for (let [key, value] of Object.entries(parsedData ?? {})) {
+                if (typeof value === "string") {
+                  localStorage.setItem(key, value);
+                  setState({
                     ...state,
                     loading: false,
-                    error: true,
-                    message: true
-                })
-            };
-
+                    error: false,
+                    message: true,
+                  });
+                }
+              }
+            });
+          }
         }
-
-
+      };
+      reader.onerror = () => {
+        console.log(reader.error);
+        setState({
+          ...state,
+          loading: false,
+          error: true,
+          message: true,
+        });
+      };
     }
+  };
 
+  const eraseAll = (callbacks: Array<() => any>) => {
+    localStorage.clear();
 
-    const eraseAll = (callbacks: Array<() => any>) => {
-        localStorage.clear()
+    callbacks.forEach((c) => {
+      c();
+    });
+  };
+  const { loading, error, message } = state;
 
-        callbacks.forEach(c => {
-            c()
-        })
-
-    }
-    const {loading, error, message} = state
-
-    return {
-        backup,
-        restore,
-        eraseAll,
-        message,
-        error,
-        loading
-
-
-    }
-
-
-}
+  return {
+    backup,
+    restore,
+    eraseAll,
+    message,
+    error,
+    loading,
+  };
+};

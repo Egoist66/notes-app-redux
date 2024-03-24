@@ -15,7 +15,7 @@ type StickerItemProps = {
 
 export const StickerItem: FC<StickerItemProps> = memo(({id, isOpened, date, content, title}) => {
     const {
-        newTitle, contentData, maxContentDataValue, toggleStickerItem,
+        newTitle, maxContentDataValue, toggleStickerItem,
         setTrue,
         saveNewTitle,
         onNewTitle,

@@ -1,12 +1,13 @@
-import {LS, useAppDispatch, useAppSelector} from "./hooks";
 import {ChangeEvent, FormEvent, useDeferredValue, useEffect, useState} from "react";
 import {message, notification} from "antd";
 import {formatDate, MatchLinkinText} from "../utils/utils";
 import Swal from "sweetalert2";
-import {addTodo, sortTodos} from "../redux/todo-slice";
+import {addTodo, sortTodos} from "../store/todo-slice";
 import {TodoFormStateType} from "../components/TodoForm";
 import SpeechRecognition, {useSpeechRecognition} from 'react-speech-recognition';
 import {useSort} from "./useSort";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { LS } from "./hooks";
 
 
 export type NotificationType = 'success' | 'info' | 'warning' | 'error';
@@ -20,7 +21,6 @@ export const useTodoForm = () => {
 
 
     const {
-        transcript,
         listening,
         resetTranscript,
         browserSupportsSpeechRecognition,
@@ -258,8 +258,8 @@ export const useTodoForm = () => {
     }
 
 
-    const injectUnCommitedText = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log('blur')
+    const injectUnCommitedText = () => {
+        
         if (!defferedValue) {
             return
         } else {
@@ -272,7 +272,7 @@ export const useTodoForm = () => {
     }
 
     useEffect(() => {
-        console.log('effect')
+      
         if (exist('input-data')) {
             setCheckInputDataInStorage(true)
         } else {

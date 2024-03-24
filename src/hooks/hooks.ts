@@ -1,16 +1,12 @@
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../redux/store";
+
 import {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {TaskItemState} from "../components/TaskItem";
-import {SpeechRecognitionStateType} from "../types/types";
 import sizeof from "object-sizeof";
 import {driver} from "driver.js";
-import {cancelTour} from "../utils/utils";
 import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
 import {message} from "antd";
 
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
 
 export const LS = () => {
     const ls = localStorage;
@@ -321,7 +317,7 @@ export const useAppGuide = () => {
     const {save, get, exist} = LS()
     const guideState = exist('guideCompleted') ? get('guideCompleted') : false
 
-    const [isGuideCompleted, setGuide] = useState<boolean>(guideState)
+    const [isGuideCompleted] = useState<boolean>(guideState)
 
     const initAppGuide = (repeat?: boolean) => {
         const guideDriver = driver({

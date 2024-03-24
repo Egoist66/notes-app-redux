@@ -1,9 +1,9 @@
 import {ChangeEvent, FormEvent, useCallback, useState} from "react";
 import {FrameFormStateType} from "../components/FrameForm";
 import {MatchLinkinText, validateImageUrl} from "../utils/utils";
-import {createFrame} from "../redux/todo-frames-slice";
-import {useAppDispatch} from "./hooks";
+import {createFrame} from "../store/todo-frames-slice";
 import {message} from "antd";
+import { useAppDispatch } from "../store/store";
 
 export const useFramesFormValidation = () => {
 

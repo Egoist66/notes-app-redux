@@ -106,12 +106,13 @@ export const useStickerUpload = (stickerID: string) => {
 
     }
 
-    const handleDownloadSticker = (title: string, content: string | null) => {
+    const handleDownloadSticker = (title: string, content: string | null, format: string = 'plain/text') => {
         const link = document.createElement('a');
 
         try {
-            link.download = `sticker-${title}.txt`
-            const blob = new Blob([content!], {type: 'text/plain'})
+            
+            link.download = `sticker-${title}.${format.split('/')[1]}`
+            const blob = new Blob([content!], {type: format})
             const dataUrl = URL.createObjectURL(blob)
             link.href = dataUrl
 

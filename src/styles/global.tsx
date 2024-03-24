@@ -20,6 +20,10 @@ export const GlobalStyle = createGlobalStyle`
     overflow-y: auto;
   }
 
+  :where(.css-dev-only-do-not-override-djtmh8).ant-modal .ant-modal-footer >.ant-btn+.ant-btn {
+    display: none !important;
+  }
+
   #swal2-textarea {
     resize: vertical;
     height: 220px;

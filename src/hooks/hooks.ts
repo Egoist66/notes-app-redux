@@ -13,6 +13,8 @@ type useMeasureAppState = {
     isStorageFull: boolean
 }
 
+
+
 export const LS = () => {
     const ls = localStorage;
 

@@ -22,6 +22,8 @@ export const useSticker = (id: string, content: string | null, title: string) =>
     const {setTrue, setFalse, bool} = useToggle(false)
     const uploadRef = useRef<HTMLInputElement>(null)
     const areaRef = useRef<HTMLDivElement>(null)
+    const clickRef = useRef<HTMLDivElement>(null)
+
     const [state, setState] = useState<StickersStateType>({
         fieldStatus: '',
         newTitle: title,
@@ -278,6 +280,7 @@ export const useSticker = (id: string, content: string | null, title: string) =>
         toggleStickerItem,
         onNewTitle,
         setState,
+        clickRef,
         makeTextDecoration,
         state,
         ...state,

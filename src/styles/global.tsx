@@ -20,6 +20,12 @@ export const GlobalStyle = createGlobalStyle`
     overflow-y: auto;
   }
 
+  #swal2-textarea {
+    resize: vertical;
+    height: 220px;
+    color: #001529;
+  }
+
 /*   
   #stickers > ul {
     max-height: 610px;

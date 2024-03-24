@@ -67,7 +67,10 @@ export const useTaskItems = () => {
         if (editMode) {
             Swal.fire({
                 title: "Введите новое значение",
-                input: 'text',
+                input: 'textarea',
+                animation: true,
+                allowEnterKey: true,
+                inputAutoFocus: true,
                 inputValue: title,
                 showCancelButton: true,
                 confirmButtonText: 'Сохранить',

@@ -1,29 +1,40 @@
 import { FC } from "react";
 import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
-import { useMeasureApp } from "../../hooks/hooks";
+import { LS, useMeasureApp } from "../../hooks/hooks";
 import { useAppSelector } from "../../store/store";
+import { Badge, Flex, Tooltip } from "antd";
 
 export const Storage: FC = () => {
-  const { currentSize, isStorageFull } = useMeasureApp();
+  const { currentSize, isStorageFull} = useMeasureApp();
+  const {get} = LS()
   const { todos } = useAppSelector((state) => state.todos);
 
   return (
     <>
       <div id={"storage"}>
-        <p>
-          <DeleteOutlined title={"Кол-во занимаемой памяти хранилища"} />
+        <Flex wrap="wrap" style={{marginBottom: 10}} justify="flex-end" gap={2} align="end">
+          
+          <Tooltip color="#001529" placement="top" title="Кол-во занимаемой памяти хранилища">
+            <DeleteOutlined />
+          </Tooltip>
           <span
             className={"storage"}
             style={{ color: isStorageFull ? "red" : "" }}
           >
-            Память - {Math.ceil(currentSize * 1024)}кб
+            <Badge color={isStorageFull ? "red" : "#1677FF" } count={`${Math.ceil(currentSize * 1024)}кб`} />
+          
           </span>
-        </p>
+        
+        </Flex>
 
-        <div id={"tasks"}>
-          <FormOutlined title={"Кол-во текущих задач"} />
-          <span className={"storage"}> Задач - {todos.length}</span>
-        </div>
+        <Flex wrap="wrap" justify="flex-end" gap={10} id={"tasks"}>
+          <Tooltip color="#001529" placement="top" title="Кол-во текущих задач">
+            <FormOutlined />
+          </Tooltip>
+        
+          <Badge  count={get('todos').length} />
+          
+        </Flex>
       </div>
     </>
   );

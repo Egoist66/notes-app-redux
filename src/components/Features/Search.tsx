@@ -25,7 +25,7 @@ export const Search: FC = () => {
   const { toggle, setToggle } = useToggle();
   //const {listening, finalTranscript} = useSpeechRecognition()
 
-  const { handleChangeValue, searchItem } = useSearch("");
+  const { handleChangeValue, searchItem, searchValue} = useSearch("");
 
   const initSearch = () => {
     setToggle(true);
@@ -43,12 +43,12 @@ export const Search: FC = () => {
   };
 
   const findValues = () => {
-    dispatch(findTasksBySearch(searchItem));
+    dispatch(findTasksBySearch(searchValue));
   };
 
   useEffect(() => {
     findValues();
-  }, [searchItem]);
+  }, [searchValue]);
 
   return (
     <div

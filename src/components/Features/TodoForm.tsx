@@ -97,7 +97,6 @@ export const TodoForm: React.FC = () => {
             onBlur={() => handleModeChange("Сортировать по")}
             onChange={handleModeChange}
             size="large"
-            style={{ width: 240 }}
             options={sortParams.map((data) => ({ label: data, value: data }))}
           />
         </Col>

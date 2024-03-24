@@ -5,8 +5,13 @@ import sizeof from "object-sizeof";
 import {driver} from "driver.js";
 import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
 import {message} from "antd";
+import { useDebounce } from "@react-hooks-library/core";
 
-
+type useMeasureAppState = {
+    currentSize: number
+    maxAppSize: number,
+    isStorageFull: boolean
+}
 
 export const LS = () => {
     const ls = localStorage;
@@ -214,7 +219,7 @@ export const useToggle = (initialValue?: boolean) => {
 export const useSearch = (initialState: string) => {
     const [searchItem, setSearchItem] = useState(initialState);
     const {isMicrophoneAvailable} = useSpeechRecognition()
-
+    const searchValue = useDebounce(searchItem, 1000);
 
     const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchItem(e.currentTarget.value);
@@ -229,6 +234,7 @@ export const useSearch = (initialState: string) => {
 
     return {
         searchItem,
+        searchValue,
         setSearchItem,
         setSearchByVoice,
         handleChangeValue,
@@ -262,14 +268,7 @@ export const useDomSelector = (selectorString: string) => {
 }
 
 export const useMeasureApp = () => {
-    const {storageApp} = LS()
-
-
-    type useMeasureAppState = {
-        currentSize: number
-        maxAppSize: number,
-        isStorageFull: boolean
-    }
+    const {storageApp, ls} = LS()
 
     const [state, setSize] = useState<useMeasureAppState>({
         currentSize: 0,
@@ -300,7 +299,7 @@ export const useMeasureApp = () => {
         validateSize()
 
 
-    }, [storageApp()])
+    }, [ls.length])
 
     const {currentSize, isStorageFull} = state
 
@@ -336,7 +335,7 @@ export const useAppGuide = () => {
                     element: '#app',
                     popover: {
                         title: 'Добро пожаловать в Заметки',
-                        description: 'Сейчас я проведу тебя немного по особенностям приложения и введу в курс дела. <br> Чтобы активировать гайд еще раз нажми <b>Shift + A</b>',
+                        description: 'Сейчас я проведу тебя немного по особенностям приложения и введу в курс дела. <br> Чтобы активировать гайд еще раз нажми <b>Shift + Space</b>',
                         side: "left",
                         align: 'start'
                     }
@@ -528,7 +527,7 @@ export const useAppGuide = () => {
 
         if (repeat) {
             document.addEventListener('keydown', (e) => {
-                if (e.shiftKey && e.code === 'KeyA') {
+                if (e.shiftKey && e.code === 'Space') {
                     guideDriver.drive()
                 }
             })

@@ -1,11 +1,11 @@
 import { TodosOptions } from "../../types/types";
-import { TaskItem } from "../TaskItem";
-import { TodoForm } from "../TodoForm";
-import { FilterControls, FilterTypes } from "../FilterControls";
+import { TaskItem } from "../Features/TaskItem";
+import { TodoForm } from "../Features/TodoForm";
+import { FilterControls, FilterTypes } from "../Features/FilterControls";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { FC, memo, useEffect, useState } from "react";
 import { clearTasks, setTodoFromLS } from "../../store/todo-slice";
-import { FilterMemoryControls } from "../FilterMemory";
+import { FilterMemoryControls } from "../Features/FilterMemory";
 import Swal from "sweetalert2";
 import { Button, Empty } from "antd";
 import { LS } from "../../hooks/hooks";

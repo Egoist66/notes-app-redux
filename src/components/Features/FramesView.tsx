@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { FC, memo, useEffect, useState } from "react";
-import { removeFrame } from "../store/todo-frames-slice";
-import { requestFullFramescreen } from "../utils/utils";
+import { removeFrame } from "../../store/todo-frames-slice";
+import { requestFullFramescreen } from "../../utils/utils";
 import { Button, message } from "antd";
-import { useDomSelector } from "../hooks/hooks";
-import { useAppDispatch } from "../store/store";
+import { useDomSelector } from "../../hooks/hooks";
+import { useAppDispatch } from "../../store/store";
 
 const StyledFramesView = styled.div`
   box-shadow: 1px 1px 7px 1px #a89f9f;

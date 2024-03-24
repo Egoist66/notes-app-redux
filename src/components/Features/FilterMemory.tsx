@@ -1,5 +1,5 @@
 import { FC, memo, useEffect } from "react";
-import { LS, useToggle } from "../hooks/hooks";
+import { LS, useToggle } from "../../hooks/hooks";
 import { FilterMemory } from "./FilterControls";
 import { Checkbox, message } from "antd";
 

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
-import { useMeasureApp } from "../hooks/hooks";
-import { useAppSelector } from "../store/store";
+import { useMeasureApp } from "../../hooks/hooks";
+import { useAppSelector } from "../../store/store";
 
 export const Storage: FC = () => {
   const { currentSize, isStorageFull } = useMeasureApp();

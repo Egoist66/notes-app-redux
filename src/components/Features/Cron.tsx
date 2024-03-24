@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
-import { watchTaskUnixTime, watchEditTaskTime } from "../store/todo-slice";
-import { formatDate } from "../utils/utils";
+import { watchTaskUnixTime, watchEditTaskTime } from "../../store/todo-slice";
+import { formatDate } from "../../utils/utils";
 import { DatePicker, DatePickerProps, Flex } from "antd";
-import { useAppDispatch } from "../store/store";
+import { useAppDispatch } from "../../store/store";
 
 type CronTypeProps = {
   id: number;

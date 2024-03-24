@@ -1,5 +1,5 @@
 import {ChangeEvent, FormEvent, useCallback, useState} from "react";
-import {FrameFormStateType} from "../components/FrameForm";
+import {FrameFormStateType} from "../components/Features/FrameForm";
 import {MatchLinkinText, validateImageUrl} from "../utils/utils";
 import {createFrame} from "../store/todo-frames-slice";
 import {message} from "antd";

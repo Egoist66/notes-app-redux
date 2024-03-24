@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect } from "react";
 import { Col, FloatButton, Input, Modal, Button } from "antd";
-import { usePallete } from "../hooks/usePallete";
+import { usePallete } from "../../hooks/usePallete";
 import { SettingOutlined } from "@ant-design/icons";
 
 export type PalleteMenuState = {

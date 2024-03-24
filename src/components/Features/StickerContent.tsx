@@ -1,8 +1,8 @@
 import {FC, memo} from "react";
 import {Button, Flex} from "antd";
-import {useStickers} from "../hooks/useStickers";
-import {useStickerUpload} from "../hooks/useStickerUpload";
-import {delay} from "../utils/utils";
+import {useStickerUpload} from "../../hooks/useStickerUpload";
+import {delay} from "../../utils/utils";
+import { useSticker } from "../../hooks/useSticker";
 
 type StickerContentAreaProps = {
     id: string
@@ -25,7 +25,7 @@ export const StickerContentArea: FC<StickerContentAreaProps> = memo(({id, conten
         uploadSticker,
 
 
-    } = useStickers(id, content, title)
+    } = useSticker(id, content, title)
     const {handleUploadSticker, handleDownloadSticker, loading} = useStickerUpload(id)
 
 

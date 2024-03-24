@@ -7,7 +7,7 @@ import {
   SnippetsOutlined,
 } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import { Search } from "../components/Search";
+import { Search } from "../components/Features/Search";
 
 export const RoutesData = [
   {

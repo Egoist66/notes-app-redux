@@ -1,141 +1,32 @@
-import {
-  ChangeEvent,
-  FC,
-  memo,
-  useDeferredValue,
-  useEffect,
-  useState,
-} from "react";
-import {
-  Button,
-  Col,
-  Flex,
-  Input,
-  message,
-  Modal,
-  Popover,
-  Select,
-  Switch,
-  Typography,
-} from "antd";
-import { useToggle } from "@react-hooks-library/core";
-import {
-  createSticker,
-  deleteAllStickers,
-  loadStikersFromLS,
-  sortStickers,
-} from "../../store/todo-stickers-slice";
-import { StickerItem } from "../StickerItem";
-import { formatDate } from "../../utils/utils";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { useSort } from "../../hooks/useSort";
-import { LS } from "../../hooks/hooks";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { FC, memo } from "react";
+import { Button, Col, Flex, Input, Modal, Popover, Select, Switch, Typography } from "antd";
 import {Helmet} from "react-helmet";
+import { StickerItem } from "../Features/StickerItem";
+import { useStickers } from "../../hooks/useStickers";
 
-type StickersStateType = {
-  fieldStatus: "error" | "warning" | "";
-  title: string;
-  isOpened: boolean;
-};
 
 const Stickers: FC = memo(() => {
   const { Text } = Typography;
 
-  const { handleModeChange, sortMode, sortParams } = useSort();
-  const { toggle, setFalse, bool } = useToggle(false);
-  const { get, exist } = LS();
-  const [state, setState] = useState<StickersStateType>({
-    fieldStatus: "",
-    title: "",
-    isOpened: false,
-  });
-
-  const [open, setOpen] = useState(false);
-
-  const hidePopover = () => {
-    setOpen(false);
-  };
-
-  const handleOpenPopover = (newOpen: boolean) => {
-    setOpen(newOpen);
-  };
-
-  const defferedValue = useDeferredValue(state.title);
-  const [listRef] = useAutoAnimate<HTMLUListElement>();
-
-  const dispatch = useAppDispatch();
-  const { stickers } = useAppSelector((state) => state.todoStickers);
-
-  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setState({
-      ...state,
-      fieldStatus: "",
-      title: e.currentTarget.value,
-    });
-  };
-
-  const createTodoSticker = () => {
-    if (!state.title.length) {
-      setState({
-        ...state,
-        fieldStatus: "error",
-      });
-      message.open({
-        type: "error",
-        content: "Пустое значение!",
-      });
-      return;
-    } else {
-      dispatch(
-        createSticker({
-          isOpened: state.isOpened,
-          title: state.title.trim(),
-          timestamp: Date.now(),
-          date: formatDate(Date.now()),
-        })
-      );
-
-      setFalse();
-      setState({
-        ...state,
-        fieldStatus: "",
-        title: "",
-      });
-
-      message.open({
-        type: "success",
-        content: "Стикер успешно создан!",
-      });
-    }
-  };
-
-  const removeAllStickers = () => {
-    dispatch(deleteAllStickers());
-    message.open({
-      type: "warning",
-      content: "Стикеры удалены!",
-    });
-  };
-
-  const setStickerOpened = () => {
-    setState({
-      ...state,
-      isOpened: !state.isOpened,
-    });
-  };
-
-  useEffect(() => {
-    dispatch(loadStikersFromLS());
-  }, [exist("stickers") ? get("stickers").length : []]);
-
-  useEffect(() => {
-    if (sortMode === "По дате") {
-      dispatch(sortStickers({ mode: "По дате" }));
-    } else if (sortMode === "По названию") {
-      dispatch(sortStickers({ mode: "По названию" }));
-    }
-  }, [sortMode]);
+  const {
+    toggle,
+    hidePopover,
+    open,
+    handleOpenPopover,
+    defferedValue,
+    listRef,
+    onChangeTitle,
+    createTodoSticker,
+    removeAllStickers,
+    setStickerOpened,
+    state,
+    sortParams,
+    sortMode,
+    handleModeChange,
+    stickers,
+    setFalse,
+    bool
+  } = useStickers()
 
   return (
     <>

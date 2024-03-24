@@ -1,10 +1,10 @@
 import { FC, useEffect } from "react";
 import styled from "styled-components";
-import { useSearch, useToggle } from "../hooks/hooks";
+import { useSearch, useToggle } from "../../hooks/hooks";
 
-import searchIcon from "../assets/search.png";
+//import searchIcon from "../assets/search.png";
 import { useDispatch } from "react-redux";
-import { findTasksBySearch } from "../store/todo-slice";
+import { findTasksBySearch } from "../../store/todo-slice";
 import { useEventListener } from "@react-hooks-library/core";
 import { Input, Modal } from "antd";
 
@@ -65,7 +65,7 @@ export const Search: FC = () => {
         id={"search-img"}
         draggable={false}
         onClick={initSearch}
-        src={searchIcon}
+        src={''}
       />
 
       <Modal

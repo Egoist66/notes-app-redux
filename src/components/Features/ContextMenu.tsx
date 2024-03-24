@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
-import { editTask } from "../store/todo-slice";
-import { removeTagsExceptLinks } from "../utils/utils";
+import { editTask } from "../../store/todo-slice";
+import { removeTagsExceptLinks } from "../../utils/utils";
 import { TaskItemState } from "./TaskItem";
-import { WatchOutClick } from "../hooks/hooks";
-import { useAppDispatch } from "../store/store";
+import { WatchOutClick } from "../../hooks/hooks";
+import { useAppDispatch } from "../../store/store";
 
 const StyledContextOverlay = styled.div`
   position: fixed;

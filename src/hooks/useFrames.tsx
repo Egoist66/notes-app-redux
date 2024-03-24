@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import {FramesView} from "../components/FramesView";
+import {FramesView} from "../components/Features/FramesView";
 import { useAppSelector } from "../store/store";
 
 export const useFrames = () => {

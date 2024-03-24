@@ -1,6 +1,6 @@
 
 import {ChangeEvent, useCallback, useEffect, useState} from "react";
-import {TaskItemState} from "../components/TaskItem";
+import {TaskItemState} from "../components/Features/TaskItem";
 import sizeof from "object-sizeof";
 import {driver} from "driver.js";
 import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";

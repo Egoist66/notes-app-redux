@@ -1,12 +1,12 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Storage } from "../Storage";
+import { Storage } from "../Features/Storage";
 import { Layout, Menu, Skeleton } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import { NavBar } from "./NavBar";
 import { useToggle } from "@react-hooks-library/core";
-import { Pallete } from "../Pallete";
+import { Pallete } from "../Features/Pallete";
 import { setAppUrlImageFromLS } from "../../store/todo-pallete-options-slice";
 import { RoutesData } from "../../routes/Routes";
 import { useAppGuide, preventDocumentContextMenu } from "../../hooks/hooks";

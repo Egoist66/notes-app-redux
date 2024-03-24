@@ -1,9 +1,9 @@
 import { FC, memo, useEffect } from "react";
-import { Portal } from "../service-components/Portal";
+import { Portal } from "../../service-components/Portal";
 import { CronPopup } from "./CronPopup";
 import { ContextMenu } from "./ContextMenu";
 import { Checkbox } from "antd";
-import { useTaskItems } from "../hooks/useTaskItems";
+import { useTaskItems } from "../../hooks/useTaskItems";
 
 type TaskItemProps = {
   data: {

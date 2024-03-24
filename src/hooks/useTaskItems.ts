@@ -2,7 +2,7 @@ import { MouseEvent, useState } from "react";
 import {deleteItems, editTask, toggleComplete} from "../store/todo-slice";
 import {message} from "antd";
 import Swal from "sweetalert2";
-import {TaskItemState} from "../components/TaskItem";
+import {TaskItemState} from "../components/Features/TaskItem";
 import { useAppDispatch } from "../store/store";
 
 export const useTaskItems = () => {

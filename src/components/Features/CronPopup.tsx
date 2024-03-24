@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { Cron } from "./Cron";
-import { WatchOutClick } from "../hooks/hooks";
+import { WatchOutClick } from "../../hooks/hooks";
 import { TaskItemState } from "./TaskItem";
 
 const StyledPopup = styled.div`

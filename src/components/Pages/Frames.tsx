@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FC, memo, useEffect } from "react";
-import { FrameForm } from "../FrameForm";
+import { FrameForm } from "../Features/FrameForm";
 import { getFramesFromLS } from "../../store/todo-frames-slice";
 import { Col, Typography } from "antd";
 import { useFrames } from "../../hooks/useFrames";

@@ -3,7 +3,7 @@ import {message, notification} from "antd";
 import {formatDate, MatchLinkinText} from "../utils/utils";
 import Swal from "sweetalert2";
 import {addTodo, sortTodos} from "../store/todo-slice";
-import {TodoFormStateType} from "../components/TodoForm";
+import {TodoFormStateType} from "../components/Features/TodoForm";
 import SpeechRecognition, {useSpeechRecognition} from 'react-speech-recognition';
 import {useSort} from "./useSort";
 import { useAppDispatch, useAppSelector } from "../store/store";

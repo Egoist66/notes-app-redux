@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { removeAppBackground, saveImgUrl } from "../store/todo-pallete-options-slice";
 import {validateImageUrl} from "../utils/utils";
-import {PalleteMenuState} from "../components/PalleteMenu";
+import {PalleteMenuState} from "../components/Features/PalleteMenu";
 import {Alert} from "antd";
 import { LS, useToggle } from "./hooks";
 import { useAppDispatch, useAppSelector } from "../store/store";

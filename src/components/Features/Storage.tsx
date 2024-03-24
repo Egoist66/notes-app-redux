@@ -32,7 +32,7 @@ export const Storage: FC = () => {
             <FormOutlined />
           </Tooltip>
         
-          <Badge  count={get('todos').length} />
+          <Badge  count={get('todos')?.length} />
           
         </Flex>
       </div>

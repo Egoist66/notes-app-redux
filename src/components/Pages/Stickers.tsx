@@ -69,7 +69,7 @@ const Stickers: FC = memo(() => {
               </Col>
             }
             title="Уверены очистить все?"
-            placement="rightBottom"
+            placement="top"
             trigger="click"
             open={open}
             onOpenChange={handleOpenPopover}

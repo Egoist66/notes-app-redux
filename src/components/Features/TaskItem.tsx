@@ -56,6 +56,7 @@ export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
           <span
             onContextMenu={toggleContextMenu}
             onMouseDown={() => onLongPress(true)}
+            onTouchStart={() => onLongPress(true)}
             className={completed ? "done-task" : ""}
             dangerouslySetInnerHTML={{ __html: title }}
           ></span>

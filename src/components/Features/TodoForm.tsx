@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Flex, Input, Select, Switch, Typography } from "antd";
+import { Button, Col, Flex, Input, Select, Switch, Tooltip, Typography } from "antd";
 import { useTodoForm } from "../../hooks/useTodoForm";
 
 export type TodoFormStateType = {
@@ -104,11 +104,12 @@ export const TodoForm: React.FC = () => {
 
       <div id={"task-watcher"} style={{ marginBottom: "1rem" }}>
         <Flex style={{ paddingTop: 30 }} gap={10}>
-          <Switch
-            title={`Кол-во по умолчанию ${defaultValue}`}
-            checked={state.isRestrictedTasks}
-            onChange={setRestrictedTasks}
-          />
+          <Tooltip title={`Кол-во по умолчанию ${defaultValue}`}>
+            <Switch
+              checked={state.isRestrictedTasks}
+              onChange={setRestrictedTasks}
+            />
+          </Tooltip>
           <Text>Установить ограничение кол-ва заметок</Text>
         </Flex>
       </div>

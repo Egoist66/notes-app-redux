@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { findTasksBySearch } from "../../store/todo-slice";
 import { useEventListener } from "@react-hooks-library/core";
 import { Input, Modal } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const StyledSearchIcon = styled.img`
   position: absolute;
@@ -23,9 +24,10 @@ const StyledSearchIcon = styled.img`
 export const Search: FC = () => {
   const dispatch = useDispatch();
   const { toggle, setToggle } = useToggle();
+  const navigate = useNavigate()
   //const {listening, finalTranscript} = useSpeechRecognition()
 
-  const { handleChangeValue, searchItem, searchValue} = useSearch("");
+  const { handleChangeValue, searchItem, setSearchItem, searchValue} = useSearch("");
 
   const initSearch = () => {
     setToggle(true);
@@ -77,11 +79,14 @@ export const Search: FC = () => {
         open={toggle}
       >
         <Input
-          autoFocus={true}
+          onFocus={() => navigate('/')}
           allowClear
           onChange={handleChangeValue}
           value={searchItem}
-          onBlur={offSearch}
+          onBlur={() => {
+            offSearch()
+            setSearchItem('')
+          }}
           placeholder={"Введите название задачи"}
           type={"search"}
         />

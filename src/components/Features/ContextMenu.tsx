@@ -44,6 +44,7 @@ type ContextMenuProps = {
   id: number;
   setState: (arg: TaskItemState) => void;
   title: string;
+  setLongPress: (arg: boolean) => void;
   state: TaskItemState;
 };
 
@@ -51,11 +52,12 @@ export const ContextMenu: FC<ContextMenuProps> = ({
   id,
   title,
   setState,
+  setLongPress,
   state,
 }) => {
   const dispatch = useAppDispatch();
   const [fontCounter, setFontCounter] = useState<number>(20);
-  WatchOutClick(setState, "context-overlay", state);
+  WatchOutClick([setState, setLongPress] , "context-overlay", state);
 
   const strippedText = removeTagsExceptLinks(title);
 

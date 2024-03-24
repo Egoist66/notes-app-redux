@@ -57,6 +57,16 @@ export const useTaskItems = () => {
 
     };
 
+    const toggleContextMenuOnPress = () => {
+
+
+        setState({
+            ...state,
+            isContextMenuEnabled: true
+        })
+
+    };
+
 
     const toggleTask = (id: number) => {
         dispatch(toggleComplete(id));
@@ -109,6 +119,7 @@ export const useTaskItems = () => {
         enableEditMode,
         togglePopup,
         toggleContextMenu,
+        toggleContextMenuOnPress,
         isContextMenuEnabled,
         isPopupEnabled,
         state,

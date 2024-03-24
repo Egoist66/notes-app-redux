@@ -1,7 +1,7 @@
 import { FC, memo, useRef } from "react";
 import { useBackUp } from "../../hooks/useBackUp";
 import Swal from "sweetalert2";
-import { Button, Col, Flex } from "antd";
+import { Button, Col, Flex, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
@@ -41,13 +41,14 @@ const Settings: FC = memo(() => {
           <Button onClick={uploadFile}>
             {loading ? "Восстановление..." : "Восстановить из копии"}
           </Button>
-          <Button
-            danger
-            title={"Перед очисткой рекомендуем сделать копию"}
-            onClick={() => eraseAll([warnClear, () => navigate("/")])}
-          >
-            Стереть все
-          </Button>
+          <Tooltip title={"Перед очисткой рекомендуем сделать копию"}>
+            <Button
+              danger
+              onClick={() => eraseAll([warnClear, () => navigate("/")])}
+            >
+              Стереть все
+            </Button>
+          </Tooltip>
 
           <input
             onChange={restore}

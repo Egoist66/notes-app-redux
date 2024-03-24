@@ -105,24 +105,29 @@ export const EscapeWatchClick = (callback: (arg: boolean) => void, action: boole
         };
     }, []);
 }
-export const WatchOutClick = (callback: (arg: TaskItemState) => void, id: string, state: TaskItemState) => {
+export const WatchOutClick = (callbacks: Array<(arg: any) => void>, id: string, state: TaskItemState) => {
     const initKeyboardEvent = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
-            callback({
+            callbacks[0]({
                 ...state,
                 isPopupEnabled: false,
                 isContextMenuEnabled: false
-            });
+            })
+
+            callbacks[1](false)
         }
     };
 
     const initClickEvent = (e: any) => {
         if (e.target.id === id) {
-            callback({
+            callbacks[0]({
                 ...state,
                 isPopupEnabled: false,
                 isContextMenuEnabled: false
-            });
+            })
+
+            
+            callbacks[1](false)
         }
     };
 

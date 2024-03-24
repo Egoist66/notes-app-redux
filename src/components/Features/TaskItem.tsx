@@ -2,8 +2,9 @@ import { FC, memo, useEffect } from "react";
 import { Portal } from "../../service-components/Portal";
 import { CronPopup } from "./CronPopup";
 import { ContextMenu } from "./ContextMenu";
-import { Checkbox } from "antd";
+import { Checkbox, Tooltip } from "antd";
 import { useTaskItems } from "../../hooks/useTaskItems";
+import { useLongPress } from "../../hooks/useLongPress";
 
 type TaskItemProps = {
   data: {
@@ -33,10 +34,12 @@ export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
     initEditMode,
     deleteTask,
     toggleContextMenu,
+    toggleContextMenuOnPress,
     togglePopup,
   } = useTaskItems();
 
   const { completed, id, time, title } = data;
+  const { onLongPress } = useLongPress(toggleContextMenuOnPress, 1000);
 
   useEffect(() => {
     initEditMode(title, id);
@@ -52,6 +55,7 @@ export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
         {!completed ? (
           <span
             onContextMenu={toggleContextMenu}
+            onMouseDown={() => onLongPress(true)}
             className={completed ? "done-task" : ""}
             dangerouslySetInnerHTML={{ __html: title }}
           ></span>
@@ -63,17 +67,24 @@ export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
         <span onClick={() => deleteTask(id)} className={"delete"}>
           &times;
         </span>
-        <span
-          id={"edit"}
-          style={{
-            color: editMode ? "red" : "",
-            cursor: "pointer",
-            userSelect: "none",
-          }}
-          onClick={enableEditMode}
+        <Tooltip
+          arrow
+          title={
+            "Поле для редактирования - используйте так же контекстное меню для изменения форматирования текста (правая кнопка мыши или зажать левую кнопку мыши над самой заметкой)"
+          }
         >
-          &#9998;
-        </span>
+          <span
+            id={"edit"}
+            style={{
+              color: editMode ? "red" : "",
+              cursor: "pointer",
+              userSelect: "none",
+            }}
+            onClick={enableEditMode}
+          >
+            &#9998;
+          </span>
+        </Tooltip>
         <span onClick={togglePopup} id={"calendar"}>
           &#128197;
         </span>
@@ -95,6 +106,7 @@ export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
               id={id}
               title={title}
               state={state}
+              setLongPress={onLongPress}
               setState={setState}
             />
           )}

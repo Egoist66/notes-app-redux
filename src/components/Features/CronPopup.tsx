@@ -24,7 +24,7 @@ type CronPopupProps = {
 };
 
 export const CronPopup: FC<CronPopupProps> = ({ setState, id, state }) => {
-  WatchOutClick(setState, "calendar-popup", state);
+  WatchOutClick([setState], "calendar-popup", state);
 
   return (
     <StyledPopup id="calendar-popup">

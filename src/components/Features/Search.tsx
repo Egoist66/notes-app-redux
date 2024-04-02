@@ -27,7 +27,7 @@ export const Search: FC = () => {
   const navigate = useNavigate()
   //const {listening, finalTranscript} = useSpeechRecognition()
 
-  const { handleChangeValue, searchItem, setSearchItem, searchValue} = useSearch("");
+  const { handleChangeValue, searchItem, searchValue} = useSearch("");
 
   const initSearch = () => {
     setToggle(true);
@@ -85,7 +85,7 @@ export const Search: FC = () => {
           value={searchItem}
           onBlur={() => {
             offSearch()
-            setSearchItem('')
+            //setSearchItem('')
           }}
           placeholder={"Введите название задачи"}
           type={"search"}

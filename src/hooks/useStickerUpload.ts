@@ -1,7 +1,8 @@
-import { message as _message } from "antd";
+import {message as _message} from "antd";
 import {ChangeEvent, useState} from "react";
-import { loadStickersFromFile } from "../store/todo-stickers-slice";
-import { useAppDispatch } from "../store/store";
+import {loadStickersFromFile} from "../store/todo-stickers-slice";
+import {useAppDispatch} from "../store/store";
+import {delay} from "../utils/utils.ts";
 
 
 export const useStickerUpload = (stickerID: string) => {
@@ -71,7 +72,7 @@ export const useStickerUpload = (stickerID: string) => {
                             })
                         }, 1000)
                     } catch (e) {
-                        console.log(e)
+                        console.error(e)
                         setState({
                             ...state,
                             error: true,
@@ -87,7 +88,7 @@ export const useStickerUpload = (stickerID: string) => {
                 }
 
                 reader.onerror = () => {
-                    console.log(reader.error)
+                    console.error(reader.error)
                     setState({
                         ...state,
                         error: true,
@@ -111,19 +112,25 @@ export const useStickerUpload = (stickerID: string) => {
 
         try {
             
-            link.download = `sticker-${title}.${format.split('/')[1]}`
+            link.download = `file-${title}.${format.split('/')[1]}`
             const blob = new Blob([content!], {type: format})
-            const dataUrl = URL.createObjectURL(blob)
-            link.href = dataUrl
+            link.href = URL.createObjectURL(blob)
 
             _message.open({
                 type: 'success',
-                content: 'Файл сформирован!',
+                content: 'Создание файла...',
+
+            }).then(() => {
+                link.click();
+                delay(10000).then(() => {
+                    URL.revokeObjectURL(link.href);
+
+                })
 
             })
 
 
-            link.click();
+
         } catch (e) {
             _message.open({
                 type: 'error',
@@ -133,7 +140,6 @@ export const useStickerUpload = (stickerID: string) => {
         }
 
 
-        URL.revokeObjectURL(link.href);
     }
     return {
         ...state,

@@ -385,6 +385,15 @@ export const useAppGuide = () => {
                         align: 'start'
                     }
                 },
+                {
+                    element: '#download-note',
+                    popover: {
+                        title: 'Элемент скачивания  <br> заметок',
+                        description: 'Данная функция позволит вам скачать ваши заметки в формате HTML таблиц',
+                        side: "left",
+                        align: 'start'
+                    }
+                },
 
                 {
                     element: '#sort',

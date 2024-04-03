@@ -1,6 +1,8 @@
 import React from "react";
-import { Button, Col, Flex, Input, Select, Switch, Tooltip, Typography } from "antd";
-import { useTodoForm } from "../../hooks/useTodoForm";
+import {Button, Col, Flex, Input, Select, Switch, Tooltip, Typography} from "antd";
+import {useTodoForm} from "../../hooks/useTodoForm";
+import {useStickerUpload} from "../../hooks/useStickerUpload.ts";
+import {useTransformJsonToHtml} from "../../hooks/useTransformJsonToHtml.ts";
 
 export type TodoFormStateType = {
   text: string;
@@ -32,6 +34,9 @@ export const TodoForm: React.FC = () => {
     sortMode,
     sortParams,
   } = useTodoForm();
+
+  const {handleDownloadSticker: handleDownloadNote} = useStickerUpload('')
+  const {handleTransformJsonToHtml} = useTransformJsonToHtml()
 
   return (
     <>
@@ -86,6 +91,15 @@ export const TodoForm: React.FC = () => {
             onClick={() => window.print()}
           >
             Распечатать
+          </Button>
+          <Button
+
+            id={"download-note"}
+            type="dashed"
+            size={"large"}
+            onClick={() => handleDownloadNote('notes', handleTransformJsonToHtml(), 'text/html')}
+          >
+            Скачать заметки
           </Button>
         </Col>
 

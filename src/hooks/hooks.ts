@@ -509,6 +509,17 @@ export const useAppGuide = () => {
                 },
 
                 {
+                    element: '#additional',
+                    popover: {
+                        title: 'Дополнительно',
+                        side: "left",
+                        align: 'start',
+                        description: 'В данном разделе вы можете создать или использовать существующие шорткоды для более быстрого создания или автоматизации процесса создания заметок',
+
+                    }
+                },
+
+                {
                     element: '#storage',
                     popover: {
                         title: 'Счетчик занимаемой <br> памяти',

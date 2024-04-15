@@ -3,6 +3,8 @@ import {Button, Col, Flex, Input, Select, Switch, Tooltip, Typography} from "ant
 import {useTodoForm} from "../../hooks/useTodoForm";
 import {useStickerUpload} from "../../hooks/useStickerUpload.ts";
 import {useTransformJsonToHtml} from "../../hooks/useTransformJsonToHtml.ts";
+import { useShortCode } from "../../hooks/useShortCodes.ts";
+import { checkShortCodePattern } from "../../utils/utils.ts";
 
 export type TodoFormStateType = {
   text: string;
@@ -31,10 +33,17 @@ export const TodoForm: React.FC = () => {
     initSpeechListening,
     browserSupportsSpeechRecognition,
     handleModeChange,
+    setState,
     sortMode,
     sortParams,
   } = useTodoForm();
 
+  const {validateShortCode} = useShortCode((meaning) => {
+    setState({
+      ...state,
+      text: meaning
+    })
+  })
   const {handleDownloadSticker: handleDownloadNote} = useStickerUpload('')
   const {handleTransformJsonToHtml} = useTransformJsonToHtml()
 
@@ -49,11 +58,26 @@ export const TodoForm: React.FC = () => {
           <Input
             allowClear
             status={state.warning ? "error" : ""}
-            onBlur={injectUnCommitedText}
+            onBlur={() => {
+              injectUnCommitedText();
+
+              if(checkShortCodePattern(defferedValue)){
+                validateShortCode(defferedValue)
+                
+
+               
+              }
+            }}
             disabled={state.isInputBlocked}
             placeholder={"Введите название"}
-            value={defferedValue}
-            onChange={listening ? () => {} : handleInput}
+            value={state.text}
+            onChange={(e) => {
+              
+              if(listening){
+                return () => {}
+              }
+              handleInput(e);
+            }}
             type="text"
           />
         </Flex>

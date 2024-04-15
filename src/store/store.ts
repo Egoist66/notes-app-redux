@@ -4,7 +4,7 @@ import TodosPalleteReducer from './todo-pallete-options-slice'
 import TodosFrameReducer from './todo-frames-slice'
 import TodosStickerReducer from './todo-stickers-slice'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-
+import TodoShortCodesReducer from './todo-shortcodes'
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +12,7 @@ export const store = configureStore({
         todoPalleteOptions: TodosPalleteReducer,
         todoFrames: TodosFrameReducer,
         todoStickers: TodosStickerReducer,
+        todoShortcodes: TodoShortCodesReducer
     },
 
 })

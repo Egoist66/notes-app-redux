@@ -330,6 +330,7 @@ export const useTodoForm = () => {
     return {
         setQuantityOfRestrictedTasks,
         setRestrictedTasks,
+        setState,
         addTaskInTodo,
         importUnCommitedText,
         injectUnCommitedText,

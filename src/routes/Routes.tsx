@@ -3,6 +3,7 @@ import {
   ExpandOutlined,
   FormOutlined,
   InfoCircleOutlined,
+  ScissorOutlined,
   SearchOutlined,
   SnippetsOutlined,
 } from "@ant-design/icons";
@@ -59,6 +60,16 @@ export const RoutesData = [
 
   {
     key: "6",
+    icon: <ScissorOutlined />,
+    label: (
+      <NavLink id={"additional"} className={"nav-link"} to={"/additional"}>
+        Дополнительно
+      </NavLink>
+    ),
+  },
+
+  {
+    key: "7",
     icon: <SearchOutlined />,
     label: <Search />,
   },

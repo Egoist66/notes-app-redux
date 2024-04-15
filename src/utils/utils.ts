@@ -220,3 +220,11 @@ export const makeSelection = (tag: 'a' | 'b' | 's' | 'mark' | 'i', ref: RefObjec
 
 
 }
+
+export function checkShortCodePattern(str: string): boolean {
+    // Паттерн для проверки
+    const pattern = /^\[.+\]$/;
+    
+    // Проверка совпадения паттерна
+    return pattern.test(str);
+}

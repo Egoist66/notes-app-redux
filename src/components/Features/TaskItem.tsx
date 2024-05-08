@@ -39,7 +39,7 @@ export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
   } = useTaskItems();
 
   const { completed, id, time, title } = data;
-  const { onLongPress } = useLongPress(toggleContextMenuOnPress, 1000);
+  const { onMouseDown, onMouseUp, onTouchStart, onTouchEnd } = useLongPress(toggleContextMenuOnPress, 1000);
 
   useEffect(() => {
     initEditMode(title, id);
@@ -55,8 +55,10 @@ export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
         {!completed ? (
           <span
             onContextMenu={toggleContextMenu}
-            onMouseDown={() => onLongPress(true)}
-            onTouchStart={() => onLongPress(true)}
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
             className={completed ? "done-task" : ""}
             dangerouslySetInnerHTML={{ __html: title }}
           ></span>
@@ -107,7 +109,7 @@ export const TaskItem: FC<TaskItemProps> = memo(({ data }) => {
               id={id}
               title={title}
               state={state}
-              setLongPress={onLongPress}
+              setLongPress={onTouchEnd}
               setState={setState}
             />
           )}

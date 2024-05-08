@@ -425,5 +425,11 @@ export const GlobalStyle = createGlobalStyle`
       background-color: #001529 !important;
     }
   }
+  .react-player__preview {
+    border-radius: 10px !important;
+  }
+  #frames iframe {
+    border-radius: 10px !important;
+  }
 `
 

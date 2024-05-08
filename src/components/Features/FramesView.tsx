@@ -66,7 +66,7 @@ export const FramesView: FC<FramesViewProps> = memo(({url, id}) => {
                 id={`frame-${id}`}
                 className={"frames-view"}
             >
-                {/*<FramesItems*/}
+                {/*<iframe*/}
                 {/*  data-fullscreen={isFullScreened}*/}
                 {/*  id={`frame-${id}`}*/}
                 {/*  allowFullScreen*/}

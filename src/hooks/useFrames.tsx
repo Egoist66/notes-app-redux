@@ -13,6 +13,7 @@ export const useFrames = () => {
 
     const frameElements = useMemo(() => {
         return visibleItems.map(frame => (
+            
             <FramesView id={frame.id} key={frame.id} url={frame.url}/>
         ))
     }, [visibleItems])

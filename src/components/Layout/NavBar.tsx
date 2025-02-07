@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Header } from "antd/es/layout/layout";
 import { Button } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { usePreferredColorScheme } from "@react-hooks-library/core";
+// import { usePreferredColorScheme } from "@react-hooks-library/core";
 
 type NavBarProps = {
   changeTheme?: () => void;
@@ -15,7 +15,6 @@ export const NavBar: FC<NavBarProps> = ({
   collapsed,
   setCollapsed,
 }) => {
-  const colorScheme = usePreferredColorScheme();
   return (
     <>
       <Header
@@ -38,7 +37,7 @@ export const NavBar: FC<NavBarProps> = ({
           }}
         />
 
-        <div style={{ paddingRight: 20 }}>
+        {/* <div style={{ paddingRight: 20 }}>
           <p id={"color-scheme"} style={{ color: "white" }}>
             Системная тема:{" "}
             <span
@@ -52,7 +51,7 @@ export const NavBar: FC<NavBarProps> = ({
               {colorScheme}
             </span>
           </p>
-        </div>
+        </div> */}
       </Header>
     </>
   );

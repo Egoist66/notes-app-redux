@@ -166,7 +166,7 @@ export const GlobalStyle = createGlobalStyle`
   #google_translate_element {
     position: absolute;
     top: 19px;
-    right: 15%;
+    right: 5%;
     z-index: 2;
   }
   
@@ -284,7 +284,9 @@ export const GlobalStyle = createGlobalStyle`
     
   }
   
-  @media(prefers-color-scheme: dark){
+  /* @media(prefers-color-scheme: dark){
+
+
 
     button.show-off-frames {
       background-color: transparent !important;
@@ -424,8 +426,9 @@ export const GlobalStyle = createGlobalStyle`
     .ant-layout-has-sider .ant-layout {
       background-color: #001529 !important;
     }
-  }
-  .react-player__preview {
+  } */
+  
+    .react-player__preview {
     border-radius: 10px !important;
   }
   #frames iframe {

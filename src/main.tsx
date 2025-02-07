@@ -5,15 +5,18 @@ import App from "./components/Layout/App";
 import { GlobalStyle } from "./styles/global";
 import { BrowserRouter } from "react-router-dom";
 
-import "driver.js/dist/driver.css";
 import { Providers } from "./store/Providers";
+import { GoogleTranslate } from "./service-components/GoogleTranslate";
+
+import "driver.js/dist/driver.css";
+
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <>
-    <div id="google_translate_element"></div>
+    <GoogleTranslate />
 
     <BrowserRouter>
       <GlobalStyle />

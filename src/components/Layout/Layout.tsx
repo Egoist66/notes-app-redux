@@ -5,7 +5,7 @@ import { Layout, Menu, Skeleton } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import { NavBar } from "./NavBar";
-import { useToggle } from "@react-hooks-library/core";
+import {useToggle } from "@react-hooks-library/core";
 import { Pallete } from "../Features/Pallete";
 import { setAppUrlImageFromLS } from "../../store/todo-pallete-options-slice";
 import { RoutesData } from "../../routes/Routes";
@@ -21,12 +21,11 @@ const LazyAdditional = lazy(() => import("../Pages/Additional"));
 const Lazy404 = lazy(() => import("../Pages/404"));
 
 const contentStyles = (appBackgroundImage: string) => {
+
   return {
     margin: "24px 16px",
     padding: 24,
     minHeight: 300,
-    backgroundColor: "#f8f8ffb3",
-    borderRadius: 5,
     backgroundImage: `url(${appBackgroundImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -36,6 +35,8 @@ const contentStyles = (appBackgroundImage: string) => {
 };
 
 export const AppLayout: React.FC = () => {
+
+
   const { initAppGuide } = useAppGuide();
   const dispatch = useAppDispatch();
   const { toggle, bool } = useToggle();

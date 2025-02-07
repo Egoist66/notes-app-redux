@@ -67,7 +67,7 @@ export const Search: FC = () => {
         id={"search-img"}
         draggable={false}
         onClick={initSearch}
-        src={''}
+       
       />
 
       <Modal

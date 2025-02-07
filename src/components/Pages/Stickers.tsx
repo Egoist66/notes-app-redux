@@ -161,6 +161,8 @@ const Stickers: FC = memo(() => {
           ref={listRef}
           style={{
             display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
             flexWrap: "wrap",
             gap: 20,
           }}

@@ -176,7 +176,7 @@ export const delay = (ms: number) => {
     })
 }
 
-export const makeSelection = (tag: 'a' | 'b' | 's' | 'mark' | 'i', ref: RefObject<HTMLDivElement>, dispatch: Dispatch, id: string) => {
+export const makeSelection = (tag: 'a' | 'b' | 's' | 'mark' | 'i', ref: RefObject<HTMLDivElement | null>, dispatch: Dispatch, id: string) => {
     const selection = window.getSelection();
     if (selection ? selection.rangeCount > 0 : 0) {
         const range = selection?.getRangeAt(0);
